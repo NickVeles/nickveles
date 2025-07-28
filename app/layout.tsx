@@ -22,7 +22,8 @@ export const metadata: Metadata = {
     default: "Nick Veles – Freelance Web Developer & Machine Learning Expert",
     template: "%s | Nick Veles",
   },
-  description: "Freelance software engineer specializing in full-stack web development and machine learning. Offering scalable, data-driven solutions tailored to your business needs.",
+  description:
+    "Freelance software engineer specializing in full-stack web development and machine learning. Offering scalable, data-driven solutions tailored to your business needs.",
   openGraph: {
     title: "Nick Veles – Freelance Web Developer & Machine Learning Expert",
     description:
