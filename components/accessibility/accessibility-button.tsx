@@ -64,12 +64,12 @@ export function AccessibilityButton() {
         {/* Theme Section */}
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
         <DropdownMenuItem onClick={() => handleThemeChange("light")}>
-          <IconSun className="mr-2 h-4 w-4" />
+          <IconSun className="mr-1 h-4 w-4" />
           <span>Toggle Light Theme</span>
           {resolvedTheme === "light" && <IconCheck className="ml-auto h-4 w-4" />}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
-          <IconMoon className="mr-2 h-4 w-4" />
+          <IconMoon className="mr-1 h-4 w-4" />
           <span>Toggle Dark Theme</span>
           {resolvedTheme === "dark" && <IconCheck className="ml-auto h-4 w-4" />}
         </DropdownMenuItem>
@@ -85,7 +85,7 @@ export function AccessibilityButton() {
               alt="Open Dyslexic Crossed"
               width={16}
               height={16}
-              className="mr-2 h-4 w-4 dark:invert"
+              className="mr-1 h-4 w-4 dark:invert"
             />
           ) : (
             <Image
@@ -93,7 +93,7 @@ export function AccessibilityButton() {
               alt="Open Dyslexic"
               width={16}
               height={16}
-              className="mr-2 h-4 w-4 dark:invert"
+              className="mr-1 h-4 w-4 dark:invert"
             />
           )}
           <span>Toggle Dyslexic Font</span>
@@ -105,7 +105,7 @@ export function AccessibilityButton() {
             alt="Increase font size"
             width={16}
             height={16}
-            className="mr-2 h-4 w-4 dark:invert"
+            className="mr-1 h-4 w-4 dark:invert"
           />
           <span>Increase Font Size</span>
           <span className="ml-auto text-xs text-muted-foreground">
@@ -118,7 +118,7 @@ export function AccessibilityButton() {
             alt="Decrease font size"
             width={16}
             height={16}
-            className="mr-2 h-4 w-4 dark:invert"
+            className="mr-1 h-4 w-4 dark:invert"
           />
           <span>Decrease Font Size</span>
           <span className="ml-auto text-xs text-muted-foreground">
