@@ -56,7 +56,6 @@ export function AccessibilityButton() {
           variant="outline"
           size="icon"
           aria-label="Accessibility settings"
-          onClick={() => console.log(resolvedTheme)}
         >
           <IconAccessible className="size-6" />
         </Button>
