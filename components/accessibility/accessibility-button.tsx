@@ -27,7 +27,7 @@ import IconFontSizeIncrease from "@/assets/icons/font-size-increase.svg";
 import IconFontSizeDecrease from "@/assets/icons/font-size-decrease.svg";
 
 export function AccessibilityButton() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const {
     isDyslexicFont,
@@ -38,7 +38,7 @@ export function AccessibilityButton() {
   } = useAccessibility();
 
   const handleThemeChange = (newTheme: string) => {
-    if (theme !== newTheme) {
+    if (resolvedTheme !== newTheme) {
       setTheme(newTheme);
     }
   };
@@ -56,6 +56,7 @@ export function AccessibilityButton() {
           variant="outline"
           size="icon"
           aria-label="Accessibility settings"
+          onClick={() => console.log(resolvedTheme)}
         >
           <IconAccessible className="size-6" />
         </Button>
@@ -66,12 +67,12 @@ export function AccessibilityButton() {
         <DropdownMenuItem onClick={() => handleThemeChange("light")}>
           <IconSun className="mr-2 h-4 w-4" />
           <span>Toggle Light Theme</span>
-          {theme === "light" && <IconCheck className="ml-auto h-4 w-4" />}
+          {resolvedTheme === "light" && <IconCheck className="ml-auto h-4 w-4" />}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
           <IconMoon className="mr-2 h-4 w-4" />
           <span>Toggle Dark Theme</span>
-          {theme === "dark" && <IconCheck className="ml-auto h-4 w-4" />}
+          {resolvedTheme === "dark" && <IconCheck className="ml-auto h-4 w-4" />}
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
