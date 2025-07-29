@@ -23,7 +23,7 @@ export default function TextLink({
       translate="no"
     >
       {children}
-      {isIcon && <IconExternalLink className="inline align-text-top size-4" />}
+      {isIcon && <IconExternalLink size={16} className="inline align-text-top" />}
     </Link>
   );
 }
