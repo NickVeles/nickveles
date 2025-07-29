@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
 import { ThemeProvider } from "next-themes";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -79,7 +80,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AccessibilityProvider>{children}</AccessibilityProvider>
+          <AccessibilityProvider>
+            {children}
+            <Footer />
+          </AccessibilityProvider>
         </ThemeProvider>
       </body>
     </html>
