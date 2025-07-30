@@ -28,7 +28,7 @@ export default function TextLink({
       translate="no"
     >
       {children}
-      {isIcon && <ExternalLinkIcon size={16} className="inline align-text-top" />}
+      {isIcon && <ExternalLinkIcon size={16} className="inline align-baseline" />}
     </Link>
   );
 }
