@@ -4,6 +4,7 @@ import "./globals.css";
 import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
 import { ThemeProvider } from "next-themes";
 import Footer from "@/components/footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -80,10 +81,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AccessibilityProvider>
-            {children}
-            <Footer />
-          </AccessibilityProvider>
+          <TooltipProvider>
+            <AccessibilityProvider>
+              {children}
+              <Footer />
+            </AccessibilityProvider>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
