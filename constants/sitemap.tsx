@@ -1,15 +1,18 @@
-import { IconBrandLinkedin, IconBrandGithub, IconBrandUpwork } from "@tabler/icons-react"
+import { SiGithub, SiUpwork, IconType } from "@icons-pack/react-simple-icons";
 import { ReactElement } from "react";
 import Image from "next/image";
 
 // custom icons
-import IconDatingSimplified from "@/assets/icons/datingsimplified.svg";
+import DatingSimplifiedIcon from "@/assets/icons/datingsimplified.svg";
+import LinkedInIcon from "@/assets/icons/linkedin.svg";
+
+const ICON_SIZE = 32;
 
 type SitemapLink = {
   url: string;
   name: string;
-  icon?: ReactElement;
-}
+  icon?: ReactElement | IconType;
+};
 
 type Sitemap = {
   navigation: SitemapLink[];
@@ -36,24 +39,39 @@ export const sitemap: Sitemap = {
     {
       url: "https://datingsimplified.vercel.app/",
       name: "Dating Simplified",
-      icon: <Image src={IconDatingSimplified} alt="Dating Simplified Logo" width={32} height={32} />,
+      icon: (
+        <Image
+          src={DatingSimplifiedIcon}
+          alt="Dating Simplified Logo"
+          width={32}
+          height={32}
+        />
+      ),
     },
   ],
   socials: [
     {
       url: "https://www.linkedin.com/in/nickveles/",
       name: "LinkedIn",
-      icon: <IconBrandLinkedin className="size-8"/>,
+      icon: (
+        <Image
+          src={LinkedInIcon}
+          alt="LinkedIn Logo"
+          width={ICON_SIZE}
+          height={ICON_SIZE}
+          className="dark:invert"
+        />
+      ),
     },
     {
       url: "https://github.com/NickVeles",
       name: "GitHub",
-      icon: <IconBrandGithub className="size-8"/>,
+      icon: <SiGithub size={ICON_SIZE} />,
     },
     {
       url: "https://www.upwork.com/", //TODO: put your Upwork profile link here
       name: "Upwork",
-      icon: <IconBrandUpwork className="size-8"/>,
+      icon: <SiUpwork size={ICON_SIZE} />,
     },
   ],
-}
+};
