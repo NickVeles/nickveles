@@ -1,10 +1,11 @@
-import { SiGithub, SiUpwork } from "@icons-pack/react-simple-icons";
 import { ReactNode } from "react";
 import Image from "next/image";
 
 // custom icons
 import DatingSimplifiedIcon from "@/assets/icons/datingsimplified.svg";
 import LinkedInIcon from "@/assets/icons/linkedin.svg";
+import GitHubIcon from "@/assets/icons/github.svg";
+import UpworkIcon from "@/assets/icons/upwork.svg";
 
 const ICON_SIZE = 32;
 
@@ -66,12 +67,28 @@ export const sitemap: Sitemap = {
     {
       url: "https://github.com/NickVeles",
       name: "GitHub",
-      icon: <SiGithub size={ICON_SIZE} />,
+      icon: (
+        <Image
+          src={GitHubIcon}
+          alt="GitHub Logo"
+          width={ICON_SIZE}
+          height={ICON_SIZE}
+          className="dark:invert"
+        />
+      ),
     },
     {
       url: "https://www.upwork.com/", //TODO: put your Upwork profile link here
       name: "Upwork",
-      icon: <SiUpwork size={ICON_SIZE} />,
+      icon: (
+        <Image
+          src={UpworkIcon}
+          alt="Upwork Logo"
+          width={ICON_SIZE}
+          height={ICON_SIZE}
+          className="dark:invert"
+        />
+      ),
     },
   ],
 };
