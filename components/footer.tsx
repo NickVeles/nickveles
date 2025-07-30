@@ -4,7 +4,7 @@ import TextLink from "./utils/text-link";
 export default function Footer() {
   return (
     <footer className="w-full flex-col justify-center items-center border-t border-border font-sans p-4">
-      <nav className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-8 sm:gap-16 text-center sm:text-start mb-8">
+      <nav className="flex flex-col sm:flex-row flex-wrap justify-center items-center sm:items-start gap-8 sm:gap-16 text-center sm:text-start mb-8">
         {/* Navigation */}
         <div className="flex flex-col gap-1">
           <h4 className="text-sm text-muted-foreground sm:text-start">Navigation</h4>
