@@ -35,7 +35,6 @@ import IconFontSizeIncrease from "@/assets/icons/font-size-increase.svg";
 import IconFontSizeDecrease from "@/assets/icons/font-size-decrease.svg";
 
 const MENUICON_SIZE = 16;
-const BTTNICON_SIZE = 32;
 
 export function AccessibilityButton() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -68,7 +67,7 @@ export function AccessibilityButton() {
           size="icon"
           aria-label="Accessibility settings"
         >
-          <PersonStandingIcon size={BTTNICON_SIZE} />
+          <PersonStandingIcon className="size-6" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64" align="end">
