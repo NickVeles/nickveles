@@ -55,7 +55,7 @@ export default function PCMenu({ className }: PCMenuProps) {
 
           {/* Affiliates */}
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Affiliates</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="px-2">Affiliates</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="min-w-[250px] gap-1">
                 {sitemap.affiliates.map(({ name, url, image }) => (
