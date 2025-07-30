@@ -1,6 +1,5 @@
 import GoHomeButton from "@/components/utils/go-home-button";
 import TextLink from "@/components/utils/text-link";
-import Link from "next/link";
 
 export default function NotFound() {
   return (
