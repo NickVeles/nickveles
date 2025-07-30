@@ -24,6 +24,7 @@ import Image from "next/image";
 
 // Custom data
 import LogoSVG from "@/assets/icons/logo.svg";
+import SocialNavigation from "./social-navigation";
 
 type MobileMenuProps = {
   className?: string;
@@ -117,23 +118,7 @@ export default function MobileMenu({ className }: MobileMenuProps) {
 
         {/* Sidebar footer */}
         <SheetFooter className="flex items-start">
-          <NavigationMenu viewport={false}>
-            <NavigationMenuList className="w-full flex">
-              {sitemap.socials.map(({ name, url, icon }) => (
-                <NavigationMenuItem key={name}>
-                  <NavigationMenuLink
-                    href={url}
-                    onClick={() => setIsOpen(false)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex flex-row items-center text-lg text-foreground"
-                  >
-                    {icon}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+          <SocialNavigation onClick={() => setIsOpen(false)} />
         </SheetFooter>
       </SheetContent>
     </Sheet>
