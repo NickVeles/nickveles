@@ -14,7 +14,7 @@ const AccessibilityContext = createContext<
   AccessibilityContextType | undefined
 >(undefined);
 
-const FONT_SIZES = [1, 1.25, 1.5, 1.75, 2];
+const FONT_SIZES = [1, 1.1, 1.2, 1.3, 1.4, 1.5];
 
 export function AccessibilityProvider({
   children,

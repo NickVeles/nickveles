@@ -66,12 +66,16 @@ export function AccessibilityButton() {
         <DropdownMenuItem onClick={() => handleThemeChange("light")}>
           <IconSun className="mr-1 h-4 w-4" />
           <span>Toggle Light Theme</span>
-          {resolvedTheme === "light" && <IconCheck className="ml-auto h-4 w-4" />}
+          {resolvedTheme === "light" && (
+            <IconCheck className="ml-auto h-4 w-4" />
+          )}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
           <IconMoon className="mr-1 h-4 w-4" />
           <span>Toggle Dark Theme</span>
-          {resolvedTheme === "dark" && <IconCheck className="ml-auto h-4 w-4" />}
+          {resolvedTheme === "dark" && (
+            <IconCheck className="ml-auto h-4 w-4" />
+          )}
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
@@ -99,7 +103,11 @@ export function AccessibilityButton() {
           <span>Toggle Dyslexic Font</span>
           {isDyslexicFont && <IconCheck className="ml-auto h-4 w-4" />}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={increaseFontSize} disabled={fontSize >= 2}>
+        <DropdownMenuItem
+          onClick={increaseFontSize}
+          onSelect={(e) => e.preventDefault()}
+          disabled={fontSize >= 1.5}
+        >
           <Image
             src={IconFontSizeIncrease}
             alt="Increase font size"
@@ -112,7 +120,11 @@ export function AccessibilityButton() {
             {fontSize}x
           </span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={decreaseFontSize} disabled={fontSize <= 1}>
+        <DropdownMenuItem
+          onClick={decreaseFontSize}
+          onSelect={(e) => e.preventDefault()}
+          disabled={fontSize <= 1}
+        >
           <Image
             src={IconFontSizeDecrease}
             alt="Decrease font size"
