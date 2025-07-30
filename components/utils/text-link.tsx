@@ -21,7 +21,7 @@ export default function TextLink({
 }: TextLinkProps) {
   return (
     <Link
-      className={cn("hover:underline", isUncolored ? "" : "text-link visited:text-accent", className)}
+      className={cn("hover:underline", isUncolored ? "" : "text-accent-foreground visited:text-primary", className)}
       href={href}
       target={target}
       rel={target === "_blank" ? "noopener noreferrer" : undefined}
