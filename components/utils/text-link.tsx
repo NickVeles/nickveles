@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 type TextLinkProps = {
   href: string;
   isIcon?: boolean;
+  isUncolored?: boolean;
   target?: string;
   className?: string;
   children: React.ReactNode;
@@ -13,13 +14,14 @@ type TextLinkProps = {
 export default function TextLink({
   href,
   isIcon,
+  isUncolored,
   target,
   className,
   children,
 }: TextLinkProps) {
   return (
     <Link
-      className={cn("text-link visited:text-accent hover:underline", className)}
+      className={cn("hover:underline", isUncolored ? "" : "text-link visited:text-accent", className)}
       href={href}
       target={target}
       rel={target === "_blank" ? "noopener noreferrer" : undefined}

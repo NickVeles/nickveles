@@ -7,16 +7,13 @@ export default function Footer() {
       <nav className="flex flex-col sm:flex-row flex-wrap justify-center items-center sm:items-start gap-8 sm:gap-16 text-center sm:text-start mb-8">
         {/* Navigation */}
         <div className="flex flex-col gap-1">
-          <h4 className="text-sm text-muted-foreground sm:text-start">Navigation</h4>
+          <h4 className="text-sm text-muted-foreground sm:text-start">
+            Navigation
+          </h4>
           <ul className="flex flex-col gap-1">
             {sitemap.navigation.map(({ name, url }) => (
               <li key={name}>
-                <TextLink
-                  href={url}
-                  className="text-foreground visited:text-foreground"
-                >
-                  {name}
-                </TextLink>
+                <TextLink href={url} isUncolored>{name}</TextLink>
               </li>
             ))}
           </ul>
@@ -28,12 +25,7 @@ export default function Footer() {
           <ul className="flex flex-col gap-1">
             {sitemap.affiliates.map(({ name, url }) => (
               <li key={name}>
-                <TextLink
-                  href={url}
-                  target="_blank"
-                  isIcon
-                  className="text-foreground visited:text-foreground"
-                >
+                <TextLink href={url} target="_blank" isIcon isUncolored>
                   {name}
                 </TextLink>
               </li>
@@ -47,11 +39,7 @@ export default function Footer() {
           <ul className="flex gap-2">
             {sitemap.socials.map(({ name, icon, url }) => (
               <li key={name}>
-                <TextLink
-                  href={url}
-                  target="_blank"
-                  className="text-foreground visited:text-foreground"
-                >
+                <TextLink href={url} target="_blank" isUncolored>
                   {icon}
                 </TextLink>
               </li>
