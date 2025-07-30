@@ -20,19 +20,12 @@ import {
   AArrowUpIcon,
   AArrowDownIcon,
 } from "lucide-react";
-// import {
-//   IconAccessible,
-//   IconSun,
-//   IconMoon,
-//   IconCheck,
-// } from "@tabler/icons-react";
 import Image from "next/image";
 
 // Custom icons
 import IconOpendyslexic from "@/assets/icons/opendyslexic.svg";
 import IconOpendyslexicCrossed from "@/assets/icons/opendyslexic-crossed.svg";
-import IconFontSizeIncrease from "@/assets/icons/font-size-increase.svg";
-import IconFontSizeDecrease from "@/assets/icons/font-size-decrease.svg";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const MENUICON_SIZE = 16;
 
@@ -111,14 +104,16 @@ export function AccessibilityButton() {
             />
           )}
           <span>Toggle Dyslexic Font</span>
-          {isDyslexicFont && <CheckIcon size={MENUICON_SIZE} className="ml-auto" />}
+          {isDyslexicFont && (
+            <CheckIcon size={MENUICON_SIZE} className="ml-auto" />
+          )}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={increaseFontSize}
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize >= 1.5}
         >
-          <AArrowUpIcon size={MENUICON_SIZE} className="mr-1"/>
+          <AArrowUpIcon size={MENUICON_SIZE} className="mr-1" />
           <span>Increase Font Size</span>
           <span className="ml-auto text-xs text-muted-foreground">
             {fontSize}x
@@ -129,7 +124,7 @@ export function AccessibilityButton() {
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize <= 1}
         >
-          <AArrowDownIcon size={MENUICON_SIZE} className="mr-1"/>
+          <AArrowDownIcon size={MENUICON_SIZE} className="mr-1" />
           <span>Decrease Font Size</span>
           <span className="ml-auto text-xs text-muted-foreground">
             {fontSize}x
