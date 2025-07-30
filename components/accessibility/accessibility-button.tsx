@@ -13,11 +13,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAccessibility } from "@/components/accessibility/accessibility-provider";
 import {
-  IconAccessible,
-  IconSun,
-  IconMoon,
-  IconCheck,
-} from "@tabler/icons-react";
+  PersonStandingIcon,
+  SunIcon,
+  MoonIcon,
+  CheckIcon,
+  AArrowUpIcon,
+  AArrowDownIcon,
+} from "lucide-react";
+// import {
+//   IconAccessible,
+//   IconSun,
+//   IconMoon,
+//   IconCheck,
+// } from "@tabler/icons-react";
 import Image from "next/image";
 
 // Custom icons
@@ -25,6 +33,9 @@ import IconOpendyslexic from "@/assets/icons/opendyslexic.svg";
 import IconOpendyslexicCrossed from "@/assets/icons/opendyslexic-crossed.svg";
 import IconFontSizeIncrease from "@/assets/icons/font-size-increase.svg";
 import IconFontSizeDecrease from "@/assets/icons/font-size-decrease.svg";
+
+const MENUICON_SIZE = 16;
+const BTTNICON_SIZE = 32;
 
 export function AccessibilityButton() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -57,24 +68,24 @@ export function AccessibilityButton() {
           size="icon"
           aria-label="Accessibility settings"
         >
-          <IconAccessible className="size-6" />
+          <PersonStandingIcon size={BTTNICON_SIZE} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64" align="end">
         {/* Theme Section */}
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
         <DropdownMenuItem onClick={() => handleThemeChange("light")}>
-          <IconSun className="mr-1 h-4 w-4" />
+          <SunIcon size={MENUICON_SIZE} className="mr-1" />
           <span>Toggle Light Theme</span>
           {resolvedTheme === "light" && (
-            <IconCheck className="ml-auto h-4 w-4" />
+            <CheckIcon size={MENUICON_SIZE} className="ml-auto" />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
-          <IconMoon className="mr-1 h-4 w-4" />
+          <MoonIcon size={MENUICON_SIZE} className="mr-1" />
           <span>Toggle Dark Theme</span>
           {resolvedTheme === "dark" && (
-            <IconCheck className="ml-auto h-4 w-4" />
+            <CheckIcon size={MENUICON_SIZE} className="ml-auto" />
           )}
         </DropdownMenuItem>
 
@@ -87,34 +98,28 @@ export function AccessibilityButton() {
             <Image
               src={IconOpendyslexicCrossed}
               alt="Open Dyslexic Crossed"
-              width={16}
-              height={16}
-              className="mr-1 h-4 w-4 dark:invert"
+              width={MENUICON_SIZE}
+              height={MENUICON_SIZE}
+              className="mr-1 dark:invert"
             />
           ) : (
             <Image
               src={IconOpendyslexic}
               alt="Open Dyslexic"
-              width={16}
-              height={16}
-              className="mr-1 h-4 w-4 dark:invert"
+              width={MENUICON_SIZE}
+              height={MENUICON_SIZE}
+              className="mr-1 dark:invert"
             />
           )}
           <span>Toggle Dyslexic Font</span>
-          {isDyslexicFont && <IconCheck className="ml-auto h-4 w-4" />}
+          {isDyslexicFont && <CheckIcon size={MENUICON_SIZE} className="ml-auto" />}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={increaseFontSize}
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize >= 1.5}
         >
-          <Image
-            src={IconFontSizeIncrease}
-            alt="Increase font size"
-            width={16}
-            height={16}
-            className="mr-1 h-4 w-4 dark:invert"
-          />
+          <AArrowUpIcon size={MENUICON_SIZE} className="mr-1"/>
           <span>Increase Font Size</span>
           <span className="ml-auto text-xs text-muted-foreground">
             {fontSize}x
@@ -125,13 +130,7 @@ export function AccessibilityButton() {
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize <= 1}
         >
-          <Image
-            src={IconFontSizeDecrease}
-            alt="Decrease font size"
-            width={16}
-            height={16}
-            className="mr-1 h-4 w-4 dark:invert"
-          />
+          <AArrowDownIcon size={MENUICON_SIZE} className="mr-1"/>
           <span>Decrease Font Size</span>
           <span className="ml-auto text-xs text-muted-foreground">
             {fontSize}x
