@@ -44,8 +44,9 @@ export const sitemap: Sitemap = {
         <Image
           src={DatingSimplifiedIcon}
           alt="Dating Simplified Logo"
-          width={32}
-          height={32}
+          width={24}
+          height={24}
+          className="dark:invert"
         />
       ),
     },
