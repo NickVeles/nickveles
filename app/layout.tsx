@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: "Nick Veles – Freelance Web Developer & Machine Learning Expert",
     description:
       "Freelance software engineer specializing in full-stack web development and machine learning. Offering scalable, data-driven solutions tailored to your business needs.",
-    images: ["/openGraph.jpg"],
+    images: ["/og-image.jpg"],
     locale: "en_US",
     type: "website",
   },
