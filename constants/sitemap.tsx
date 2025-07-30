@@ -7,7 +7,7 @@ import LinkedInIcon from "@/assets/icons/linkedin.svg";
 import GitHubIcon from "@/assets/icons/github.svg";
 import UpworkIcon from "@/assets/icons/upwork.svg";
 
-const ICON_SIZE = 32;
+const ICON_SIZE = 24;
 
 type SitemapLink = {
   url: string;
@@ -44,8 +44,8 @@ export const sitemap: Sitemap = {
         <Image
           src={DatingSimplifiedIcon}
           alt="Dating Simplified Logo"
-          width={24}
-          height={24}
+          width={ICON_SIZE}
+          height={ICON_SIZE}
           className="dark:invert"
         />
       ),
