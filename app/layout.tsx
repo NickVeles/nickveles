@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import "./globals.css";
-import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
 import { ThemeProvider } from "next-themes";
-import Footer from "@/components/footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,6 +84,7 @@ export default function RootLayout({
         >
           <TooltipProvider>
             <AccessibilityProvider>
+              <Header />
               {children}
               <Footer />
             </AccessibilityProvider>
