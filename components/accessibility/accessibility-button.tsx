@@ -21,15 +21,19 @@ import {
   AArrowDownIcon,
 } from "lucide-react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 // Custom icons
 import IconOpendyslexic from "@/assets/icons/opendyslexic.svg";
 import IconOpendyslexicCrossed from "@/assets/icons/opendyslexic-crossed.svg";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const MENUICON_SIZE = 16;
 
-export function AccessibilityButton() {
+type AccessibilityButtonProps = {
+  className?: string;
+};
+
+export function AccessibilityButton({ className }: AccessibilityButtonProps) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const {
@@ -59,6 +63,7 @@ export function AccessibilityButton() {
           variant="outline"
           size="icon"
           aria-label="Accessibility settings"
+          className={className}
         >
           <PersonStandingIcon className="size-6" />
         </Button>
