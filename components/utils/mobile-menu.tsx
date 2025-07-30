@@ -75,7 +75,7 @@ export default function MobileMenu({ className }: MobileMenuProps) {
           viewport={false}
           className="flex flex-col w-full h-full justify-start"
         >
-          <NavigationMenuList className="flex flex-col gap-16 px-2 items-start">
+          <NavigationMenuList className="flex flex-col gap-12 px-2 items-start">
             {/* Menu */}
             <div className="flex flex-col">
               <h4 className="ml-2 mb-1 text-sm text-muted-foreground">Menu</h4>
