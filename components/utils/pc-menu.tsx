@@ -30,8 +30,8 @@ export default function PCMenu({ className }: PCMenuProps) {
               <Image
                 src={LogomarkSVG}
                 alt="Home"
-                width={24}
-                height={24}
+                width={26}
+                height={26}
                 className="dark:invert"
               />
             </NavigationMenuLink>
@@ -44,7 +44,7 @@ export default function PCMenu({ className }: PCMenuProps) {
                 href={url}
                 className={
                   name === "Hire/Contact"
-                    ? "text-secondary-foreground rounded-sm hover:bg-primary hover:text-primary-foreground"
+                    ? "text-primary rounded-sm hover:bg-primary hover:text-primary-foreground"
                     : ""
                 }
               >
