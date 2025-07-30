@@ -36,7 +36,7 @@ export default function Footer() {
         {/* Career */}
         <div className="flex flex-col gap-1">
           <h4 className="text-sm text-muted-foreground">Career</h4>
-          <ul className="flex gap-2">
+          <ul className="flex gap-3">
             {sitemap.socials.map(({ name, icon, url }) => (
               <li key={name}>
                 <TextLink href={url} target="_blank" isUncolored>
