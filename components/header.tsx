@@ -30,7 +30,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-sans">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-sans">
       <div className="container flex h-16 items-center px-4">
         {/* Mobile Menu - Visible on mobile, hidden on sm+ */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -50,7 +50,7 @@ export default function Header() {
             aria-description="Mobile menu"
           >
             {/* Sheet header */}
-            <SheetHeader className="flex h-16 border-b border-border justify-center">
+            <SheetHeader className="flex h-16 border-b justify-center">
               <SheetClose asChild>
                 <Button
                   variant="ghost"
