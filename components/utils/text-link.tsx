@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IconExternalLink } from "@tabler/icons-react";
+import { ExternalLinkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type TextLinkProps = {
@@ -26,7 +26,7 @@ export default function TextLink({
       translate="no"
     >
       {children}
-      {isIcon && <IconExternalLink size={16} className="inline align-text-top" />}
+      {isIcon && <ExternalLinkIcon size={16} className="inline align-text-top" />}
     </Link>
   );
 }
