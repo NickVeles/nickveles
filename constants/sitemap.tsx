@@ -1,5 +1,5 @@
-import { SiGithub, SiUpwork, IconType } from "@icons-pack/react-simple-icons";
-import { ReactElement } from "react";
+import { SiGithub, SiUpwork } from "@icons-pack/react-simple-icons";
+import { ReactNode } from "react";
 import Image from "next/image";
 
 // custom icons
@@ -11,7 +11,7 @@ const ICON_SIZE = 32;
 type SitemapLink = {
   url: string;
   name: string;
-  icon?: ReactElement | IconType;
+  icon?: ReactNode;
 };
 
 type Sitemap = {
