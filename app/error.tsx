@@ -15,7 +15,10 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="flex items-center justify-center py-32 text-center px-4 w-full">
+    <div
+      className="flex items-center justify-center text-center px-4 w-full"
+      style={{ minHeight: "calc(100vh - 68px)" }}
+    >
       <div className="flex flex-col gap-12 max-w-[1200px]">
         <h1 className="text-4xl text-wrap font-bold text-destructive">
           Something went wrong
