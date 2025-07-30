@@ -1,5 +1,6 @@
 import { sitemap } from "@/constants/sitemap";
 import TextLink from "./utils/text-link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -13,7 +14,9 @@ export default function Footer() {
           <ul className="flex flex-col gap-1">
             {sitemap.navigation.map(({ name, url }) => (
               <li key={name}>
-                <TextLink href={url} isUncolored>{name}</TextLink>
+                <TextLink href={url} isUncolored>
+                  {name}
+                </TextLink>
               </li>
             ))}
           </ul>
@@ -37,10 +40,16 @@ export default function Footer() {
         <div className="flex flex-col gap-1">
           <h4 className="text-sm text-muted-foreground">Career</h4>
           <ul className="flex gap-3">
-            {sitemap.socials.map(({ name, icon, url }) => (
+            {sitemap.socials.map(({ name, image, url }) => (
               <li key={name}>
                 <TextLink href={url} target="_blank" isUncolored>
-                  {icon}
+                  <Image
+                    src={image}
+                    alt={name}
+                    width={32}
+                    height={32}
+                    className="dark:invert"
+                  />
                 </TextLink>
               </li>
             ))}

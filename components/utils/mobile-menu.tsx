@@ -118,7 +118,7 @@ export default function MobileMenu({ className }: MobileMenuProps) {
 
         {/* Sidebar footer */}
         <SheetFooter className="flex items-start">
-          <SocialNavigation onClick={() => setIsOpen(false)} />
+          <SocialNavigation onClick={() => setIsOpen(false)} iconSize={32} />
         </SheetFooter>
       </SheetContent>
     </Sheet>
