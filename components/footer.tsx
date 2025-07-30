@@ -1,17 +1,22 @@
 import { sitemap } from "@/constants/sitemap";
-import { Link } from "lucide-react";
+import TextLink from "./utils/text-link";
 
 export default function Footer() {
   return (
-    <footer className="w-full flex-col justify-center items-center border-t border-border font-sans p-4 gap-4">
-      <nav className="flex w-full justify-center flex-wrap gap-8">
-        {/* Navvigation */}
+    <footer className="w-full flex-col justify-center items-center border-t border-border font-sans p-4">
+      <nav className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-8 sm:gap-16 text-center sm:text-start mb-8">
+        {/* Navigation */}
         <div className="flex flex-col gap-1">
-          <h4 className="text-sm text-muted-foreground">Navigation</h4>
+          <h4 className="text-sm text-muted-foreground sm:text-start">Navigation</h4>
           <ul className="flex flex-col gap-1">
             {sitemap.navigation.map(({ name, url }) => (
               <li key={name}>
-                <Link href={url}>{name}</Link>
+                <TextLink
+                  href={url}
+                  className="text-foreground visited:text-foreground"
+                >
+                  {name}
+                </TextLink>
               </li>
             ))}
           </ul>
@@ -23,7 +28,14 @@ export default function Footer() {
           <ul className="flex flex-col gap-1">
             {sitemap.affiliates.map(({ name, url }) => (
               <li key={name}>
-                <Link href={url} target="_blank">{name}</Link>
+                <TextLink
+                  href={url}
+                  target="_blank"
+                  isIcon
+                  className="text-foreground visited:text-foreground"
+                >
+                  {name}
+                </TextLink>
               </li>
             ))}
           </ul>
@@ -33,9 +45,15 @@ export default function Footer() {
         <div className="flex flex-col gap-1">
           <h4 className="text-sm text-muted-foreground">Career</h4>
           <ul className="flex gap-1">
-            {sitemap.navigation.map(({ name, icon, url }) => (
+            {sitemap.socials.map(({ name, icon, url }) => (
               <li key={name}>
-                <Link href={url} target="_blank">{icon}</Link>
+                <TextLink
+                  href={url}
+                  target="_blank"
+                  className="text-foreground visited:text-foreground"
+                >
+                  {icon}
+                </TextLink>
               </li>
             ))}
           </ul>
@@ -43,7 +61,7 @@ export default function Footer() {
       </nav>
 
       {/* Copyright notice */}
-      <span className="text-muted-foreground text-sm">
+      <span className="flex w-full justify-center text-muted-foreground text-sm">
         © {new Date().getFullYear()} Nick Veles. All rights reserved.
       </span>
     </footer>
