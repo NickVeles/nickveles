@@ -35,7 +35,7 @@ export default function PCMenu({ className }: PCMenuProps) {
                 href={url}
                 className={
                   name === "Hire/Contact"
-                    ? "text-accent-foreground rounded-sm hover:bg-primary hover:text-primary-foreground"
+                    ? "text-primary-highlighter rounded-sm hover:bg-primary hover:text-primary-foreground"
                     : ""
                 }
               >
