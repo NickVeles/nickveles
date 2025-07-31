@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Caveat, Lora, JetBrains_Mono } from "next/font/google";
+import {
+  Plus_Jakarta_Sans,
+  Caveat,
+  Lora,
+  JetBrains_Mono,
+} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Main from "@/components/main";
 
 const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -91,7 +97,7 @@ export default function RootLayout({
           <TooltipProvider>
             <AccessibilityProvider>
               <Header />
-              {children}
+              <Main>{children}</Main>
               <Footer />
             </AccessibilityProvider>
           </TooltipProvider>
