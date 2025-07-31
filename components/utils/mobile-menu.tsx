@@ -69,16 +69,16 @@ export default function MobileMenu({ className }: MobileMenuProps) {
           viewport={false}
           className="flex flex-col w-full h-full justify-start"
         >
-          <NavigationMenuList className="flex flex-col gap-12 px-2 items-start">
+          <NavigationMenuList className="flex flex-col gap-12 px-2 items-start w-[300px]">
             {/* Menu */}
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
               <h4 className="ml-2 mb-1 text-sm text-muted-foreground">Menu</h4>
               {sitemap.navigation.map(({ name, url }) => (
                 <NavigationMenuItem key={name}>
                   <NavigationMenuLink
                     href={url}
                     onClick={() => setIsOpen(false)}
-                    className="inline-flex flex-row text-lg"
+                    className="inline-flex flex-row text-lg w-full"
                   >
                     {name}
                   </NavigationMenuLink>
@@ -87,7 +87,7 @@ export default function MobileMenu({ className }: MobileMenuProps) {
             </div>
 
             {/* Affiliates */}
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
               <h4 className="ml-2 mb-1 text-sm text-muted-foreground">
                 Affiliates
               </h4>
@@ -98,10 +98,10 @@ export default function MobileMenu({ className }: MobileMenuProps) {
                     onClick={() => setIsOpen(false)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex flex-row items-center text-lg"
+                    className="inline-flex flex-row items-center text-lg w-full"
                   >
                     {name}
-                    <ExternalLinkIcon className="size-4 text-foreground" />
+                    <ExternalLinkIcon className="ml-auto size-4 text-inherit" />
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}
