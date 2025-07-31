@@ -66,9 +66,9 @@ export default function PCMenu({ className }: PCMenuProps) {
                       rel="noopener noreferrer"
                       className="inline-flex flex-row items-center w-full"
                     >
-                      {Icon && <Icon className="size-6" />}
+                      {Icon && <Icon className="size-6 text-inherit" />}
                       {name}
-                      <ExternalLinkIcon className="ml-auto size-4 text-foreground" />
+                      <ExternalLinkIcon className="ml-auto size-4 text-inherit" />
                     </NavigationMenuLink>
                   </li>
                 ))}

@@ -25,9 +25,9 @@ export default function SocialNavigation({
               onClick={onClick ? () => onClick() : undefined}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-row items-center text-lg text-foreground"
+              className="inline-flex flex-row items-center text-lg"
             >
-              {Icon && <Icon className={`size-${iconSize}`}/>}
+              {Icon && <Icon className={`size-${iconSize} text-inherit`}/>}
             </NavigationMenuLink>
           </NavigationMenuItem>
         ))}

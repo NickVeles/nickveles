@@ -72,17 +72,17 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
         {/* Theme Section */}
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
         <DropdownMenuItem onClick={() => handleThemeChange("light")}>
-          <SunIcon size={MENUICON_SIZE} className="mr-1" />
+          <SunIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
           <span>Toggle Light Theme</span>
           {resolvedTheme === "light" && (
-            <CheckIcon size={MENUICON_SIZE} className="ml-auto" />
+            <CheckIcon size={MENUICON_SIZE} className="ml-auto text-inherit" />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
-          <MoonIcon size={MENUICON_SIZE} className="mr-1" />
+          <MoonIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
           <span>Toggle Dark Theme</span>
           {resolvedTheme === "dark" && (
-            <CheckIcon size={MENUICON_SIZE} className="ml-auto" />
+            <CheckIcon size={MENUICON_SIZE} className="ml-auto text-inherit" />
           )}
         </DropdownMenuItem>
 
@@ -110,7 +110,7 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           )}
           <span>Toggle Dyslexic Font</span>
           {isDyslexicFont && (
-            <CheckIcon size={MENUICON_SIZE} className="ml-auto" />
+            <CheckIcon size={MENUICON_SIZE} className="ml-auto text-inherit" />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -118,9 +118,9 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize >= 1.5}
         >
-          <AArrowUpIcon size={MENUICON_SIZE} className="mr-1" />
+          <AArrowUpIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
           <span>Increase Font Size</span>
-          <span className="ml-auto text-xs text-muted-foreground">
+          <span className="ml-auto text-xs text-inherit">
             {fontSize}x
           </span>
         </DropdownMenuItem>
@@ -129,9 +129,9 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize <= 1}
         >
-          <AArrowDownIcon size={MENUICON_SIZE} className="mr-1" />
+          <AArrowDownIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
           <span>Decrease Font Size</span>
-          <span className="ml-auto text-xs text-muted-foreground">
+          <span className="ml-auto text-xs text-inherit">
             {fontSize}x
           </span>
         </DropdownMenuItem>
