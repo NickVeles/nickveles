@@ -28,6 +28,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nickveles.com/"),
   title: {
     default: "Nick Veles – Freelance Web Developer & Machine Learning Expert",
     template: "%s | Nick Veles",
