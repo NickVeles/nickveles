@@ -9,11 +9,11 @@ import {
   NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 import { sitemap } from "@/constants/sitemap";
+import { ExternalLinkIcon } from "lucide-react";
+import SocialNavigation from "./social-navigation";
 
 // Custom data
 import LogomarkSVG from "@/assets/icons/logomark.svg";
-import { ExternalLinkIcon } from "lucide-react";
-import SocialNavigation from "./social-navigation";
 
 type PCMenuProps = {
   className?: string;
@@ -58,7 +58,7 @@ export default function PCMenu({ className }: PCMenuProps) {
             <NavigationMenuTrigger className="px-2">Affiliates</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="min-w-[250px] gap-1">
-                {sitemap.affiliates.map(({ name, url, image }) => (
+                {sitemap.affiliates.map(({ name, url, Icon }) => (
                   <li key={name} className="w-full">
                     <NavigationMenuLink
                       href={url}
@@ -66,13 +66,7 @@ export default function PCMenu({ className }: PCMenuProps) {
                       rel="noopener noreferrer"
                       className="inline-flex flex-row items-center w-full"
                     >
-                      <Image
-                        src={image}
-                        alt={name}
-                        width={24}
-                        height={24}
-                        className="dark:invert mr-1"
-                      />
+                      {Icon && <Icon className="size-6" />}
                       {name}
                       <ExternalLinkIcon className="ml-auto size-4 text-foreground" />
                     </NavigationMenuLink>

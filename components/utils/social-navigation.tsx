@@ -5,7 +5,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "../ui/navigation-menu";
-import Image from "next/image";
 
 type SocialNavigationProps = {
   iconSize?: number;
@@ -13,13 +12,13 @@ type SocialNavigationProps = {
 };
 
 export default function SocialNavigation({
-  iconSize = 24,
+  iconSize = 6,
   onClick,
 }: SocialNavigationProps) {
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList className="w-full flex">
-        {sitemap.socials.map(({ name, url, image }) => (
+        {sitemap.socials.map(({ name, url, Icon }) => (
           <NavigationMenuItem key={name}>
             <NavigationMenuLink
               href={url}
@@ -28,13 +27,7 @@ export default function SocialNavigation({
               rel="noopener noreferrer"
               className="inline-flex flex-row items-center text-lg text-foreground"
             >
-              <Image
-                src={image}
-                alt={name}
-                width={iconSize}
-                height={iconSize}
-                className="dark:invert"
-              />
+              {Icon && <Icon className={`size-${iconSize}`}/>}
             </NavigationMenuLink>
           </NavigationMenuItem>
         ))}

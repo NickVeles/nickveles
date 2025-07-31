@@ -21,10 +21,10 @@ import {
 import { sitemap } from "@/constants/sitemap";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import SocialNavigation from "./social-navigation";
 
 // Custom data
 import LogoSVG from "@/assets/icons/logo.svg";
-import SocialNavigation from "./social-navigation";
 
 type MobileMenuProps = {
   className?: string;
@@ -118,7 +118,7 @@ export default function MobileMenu({ className }: MobileMenuProps) {
 
         {/* Sidebar footer */}
         <SheetFooter className="flex items-start">
-          <SocialNavigation onClick={() => setIsOpen(false)} iconSize={32} />
+          <SocialNavigation onClick={() => setIsOpen(false)} iconSize={8} />
         </SheetFooter>
       </SheetContent>
     </Sheet>

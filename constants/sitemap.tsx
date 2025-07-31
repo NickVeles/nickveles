@@ -1,13 +1,9 @@
-// custom icons
-import DatingSimplifiedIcon from "@/assets/icons/datingsimplified.svg";
-import LinkedInIcon from "@/assets/icons/linkedin.svg";
-import GitHubIcon from "@/assets/icons/github.svg";
-import UpworkIcon from "@/assets/icons/upwork.svg";
+import { LinkedInIcon, GitHubIcon, UpworkIcon, DatingSimplifiedIcon } from "@/components/icons";
 
 type SitemapLink = {
   url: string;
   name: string;
-  image?: any;
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
 type Sitemap = {
@@ -35,24 +31,24 @@ export const sitemap: Sitemap = {
     {
       url: "https://datingsimplified.vercel.app/",
       name: "Dating Simplified",
-      image: DatingSimplifiedIcon,
+      Icon: DatingSimplifiedIcon,
     },
   ],
   socials: [
     {
       url: "https://www.linkedin.com/in/nickveles/",
       name: "LinkedIn",
-      image: LinkedInIcon,
+      Icon: LinkedInIcon,
     },
     {
       url: "https://github.com/NickVeles",
       name: "GitHub",
-      image: GitHubIcon,
+      Icon: GitHubIcon,
     },
     {
       url: "https://www.upwork.com/", //TODO: put your Upwork profile link here
       name: "Upwork",
-      image: UpworkIcon,
+      Icon: UpworkIcon,
     },
   ],
 };
