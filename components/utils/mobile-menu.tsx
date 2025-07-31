@@ -48,7 +48,7 @@ export default function MobileMenu({ className }: MobileMenuProps) {
         aria-description="Mobile menu"
       >
         {/* Sheet header */}
-        <SheetHeader className="flex h-16 border-b justify-center">
+        <SheetHeader className="flex h-(--header-height) border-b justify-center">
           <SheetClose asChild>
             <Button
               variant="ghost"

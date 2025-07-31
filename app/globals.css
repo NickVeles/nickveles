@@ -45,6 +45,9 @@
 }
 
 @theme inline {
+  --header-height: calc(var(--spacing) * 16);
+  --main-min-height: calc(100vh - var(--header-height));
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
