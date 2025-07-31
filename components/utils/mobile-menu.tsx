@@ -20,11 +20,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { sitemap } from "@/constants/sitemap";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import SocialNavigation from "./social-navigation";
-
-// Custom data
-import LogoSVG from "@/assets/icons/logo.svg";
+import { Logo } from "../icons";
 
 type MobileMenuProps = {
   className?: string;
@@ -63,11 +60,7 @@ export default function MobileMenu({ className }: MobileMenuProps) {
             </Button>
           </SheetClose>
           <SheetTitle className="text-lg font-semibold">
-            <Image
-              src={LogoSVG}
-              alt="Nick Veles Logo"
-              className="h-14 dark:invert"
-            />
+            <Logo className="size-36 text-inherit" />
           </SheetTitle>
         </SheetHeader>
 

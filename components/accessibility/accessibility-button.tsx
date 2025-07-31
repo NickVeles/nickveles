@@ -20,18 +20,14 @@ import {
   AArrowUpIcon,
   AArrowDownIcon,
 } from "lucide-react";
-import Image from "next/image";
+import { OpenDyelxicCrossedIcon, OpenDyelxicIcon } from "../icons";
 import { cn } from "@/lib/utils";
-
-// Custom icons
-import IconOpendyslexic from "@/assets/icons/opendyslexic.svg";
-import IconOpendyslexicCrossed from "@/assets/icons/opendyslexic-crossed.svg";
-
-const MENUICON_SIZE = 16;
 
 type AccessibilityButtonProps = {
   className?: string;
 };
+
+const ICON_STYLE = "text-inherit size-4";
 
 export function AccessibilityButton({ className }: AccessibilityButtonProps) {
   const { resolvedTheme, setTheme } = useTheme();
@@ -72,17 +68,17 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
         {/* Theme Section */}
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
         <DropdownMenuItem onClick={() => handleThemeChange("light")}>
-          <SunIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
+          <SunIcon className={cn("mr-1", ICON_STYLE)} />
           <span>Toggle Light Theme</span>
           {resolvedTheme === "light" && (
-            <CheckIcon size={MENUICON_SIZE} className="ml-auto text-inherit" />
+            <CheckIcon className={cn("ml-auto", ICON_STYLE)} />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
-          <MoonIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
+          <MoonIcon className={cn("mr-1", ICON_STYLE)} />
           <span>Toggle Dark Theme</span>
           {resolvedTheme === "dark" && (
-            <CheckIcon size={MENUICON_SIZE} className="ml-auto text-inherit" />
+            <CheckIcon className={cn("ml-auto", ICON_STYLE)} />
           )}
         </DropdownMenuItem>
 
@@ -92,25 +88,13 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
         <DropdownMenuLabel>Font</DropdownMenuLabel>
         <DropdownMenuItem onClick={toggleDyslexicFont}>
           {isDyslexicFont ? (
-            <Image
-              src={IconOpendyslexicCrossed}
-              alt="Open Dyslexic Crossed"
-              width={MENUICON_SIZE}
-              height={MENUICON_SIZE}
-              className="mr-1 dark:invert"
-            />
+            <OpenDyelxicCrossedIcon className={cn("mr-1", ICON_STYLE)} />
           ) : (
-            <Image
-              src={IconOpendyslexic}
-              alt="Open Dyslexic"
-              width={MENUICON_SIZE}
-              height={MENUICON_SIZE}
-              className="mr-1 dark:invert"
-            />
+            <OpenDyelxicIcon className={cn("mr-1", ICON_STYLE)} />
           )}
           <span>Toggle Dyslexic Font</span>
           {isDyslexicFont && (
-            <CheckIcon size={MENUICON_SIZE} className="ml-auto text-inherit" />
+            <CheckIcon className={cn("ml-auto", ICON_STYLE)} />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -118,22 +102,18 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize >= 1.5}
         >
-          <AArrowUpIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
+          <AArrowUpIcon className={cn("mr-1", ICON_STYLE)} />
           <span>Increase Font Size</span>
-          <span className="ml-auto text-xs text-inherit">
-            {fontSize}x
-          </span>
+          <span className="ml-auto text-xs text-inherit">{fontSize}x</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={decreaseFontSize}
           onSelect={(e) => e.preventDefault()}
           disabled={fontSize <= 1}
         >
-          <AArrowDownIcon size={MENUICON_SIZE} className="mr-1 text-inherit" />
+          <AArrowDownIcon className={cn("mr-1", ICON_STYLE)} />
           <span>Decrease Font Size</span>
-          <span className="ml-auto text-xs text-inherit">
-            {fontSize}x
-          </span>
+          <span className="ml-auto text-xs text-inherit">{fontSize}x</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

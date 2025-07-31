@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -11,9 +10,7 @@ import {
 import { sitemap } from "@/constants/sitemap";
 import { ExternalLinkIcon } from "lucide-react";
 import SocialNavigation from "./social-navigation";
-
-// Custom data
-import LogomarkSVG from "@/assets/icons/logomark.svg";
+import { Logomark } from "../icons";
 
 type PCMenuProps = {
   className?: string;
@@ -27,13 +24,7 @@ export default function PCMenu({ className }: PCMenuProps) {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink href="/">
-              <Image
-                src={LogomarkSVG}
-                alt="Home"
-                width={26}
-                height={26}
-                className="dark:invert"
-              />
+              <Logomark className="size-6 text-inherit" />
             </NavigationMenuLink>
           </NavigationMenuItem>
 
