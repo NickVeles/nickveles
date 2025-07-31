@@ -64,19 +64,19 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           <PersonStandingIcon className="size-6" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-64" align="end">
+      <DropdownMenuContent className="w-56" align="end">
         {/* Theme Section */}
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
         <DropdownMenuItem onClick={() => handleThemeChange("light")}>
           <SunIcon className={cn("mr-1", ICON_STYLE)} />
-          <span>Toggle Light Theme</span>
+          <span>Light Theme</span>
           {resolvedTheme === "light" && (
             <CheckIcon className={cn("ml-auto", ICON_STYLE)} />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
           <MoonIcon className={cn("mr-1", ICON_STYLE)} />
-          <span>Toggle Dark Theme</span>
+          <span>Dark Theme</span>
           {resolvedTheme === "dark" && (
             <CheckIcon className={cn("ml-auto", ICON_STYLE)} />
           )}
@@ -92,7 +92,7 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           ) : (
             <OpenDyelxicIcon className={cn("mr-1", ICON_STYLE)} />
           )}
-          <span>Toggle Dyslexic Font</span>
+          <span>Dyslexic Article Font</span>
           {isDyslexicFont && (
             <CheckIcon className={cn("ml-auto", ICON_STYLE)} />
           )}
