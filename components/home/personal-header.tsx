@@ -14,11 +14,11 @@ export default function PersonalHeader() {
   return (
     <div className="flex w-full items-center justify-center">
       {/* Main content */}
-      <div className="relative flex flex-col w-full text-center py-32 gap-4">
+      <div className="relative flex flex-col w-full h-(--main-min-height) items-center justify-center text-center gap-4">
         {/* Animated Background */}
         <div className="absolute inset-0 w-full h-full z-0">
           <AnimatedBackground
-            nodeDensity={180}
+            nodeDensity={250}
             minNodes={50}
             mouseForce={0.05}
             className="opacity-20"
