@@ -59,9 +59,9 @@ export default function PersonalHeader() {
           </div>
         </div>
 
-        <Link href={"/contact"} className="relative">
-          <Button>Contact Now</Button>
-        </Link>
+        <Button className="relative" asChild>
+          <Link href={"/contact"}>Contact Now</Link>
+        </Button>
       </div>
     </div>
   );
