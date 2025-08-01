@@ -27,7 +27,7 @@ export default function PersonalHeader() {
         <div className="relative flex flex-col w-full z-10 pointer-events-none">
           {/* Profile Image */}
           <div className="flex justify-center items-center">
-            <div className="w-48 h-48 rounded-full overflow-hidden bg-background p-2 border-8 border-primary">
+            <div className="w-48 h-48 rounded-full overflow-hidden bg-background p-0.5 border-8 border-primary">
               <Image
                 src="/og-image.jpg"
                 alt="Profile image"
