@@ -19,8 +19,7 @@ export default function PersonalHeader() {
         <div className="absolute inset-0 w-full h-full z-0">
           <AnimatedBackground
             nodeIntensity={150}
-            mouseForce={0.1}
-            mouseRadius={100}
+            mouseForce={0.05}
             className="opacity-20"
           />
         </div>
