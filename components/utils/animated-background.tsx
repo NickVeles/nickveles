@@ -164,15 +164,6 @@ const AnimatedBackground = ({
         ctx.fill();
       });
 
-      // Draw mouse cursor as a circle
-      if (mouse.current) {
-        ctx.beginPath();
-        ctx.arc(mouse.current.x, mouse.current.y, 8, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(${colorRGB}, 0.7)`;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-
       requestAnimationFrame(animate);
     };
 
