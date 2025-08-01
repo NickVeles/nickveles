@@ -7,6 +7,7 @@ type MainProps = {
 export default function Main({ children }: MainProps) {
   return (
     <main
+      id="main-content"
       className="flex flex-col flex-1 min-h-(--main-min-height) justify-center items-center gap-8 font-sans"
     >
       {children}

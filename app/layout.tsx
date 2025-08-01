@@ -9,6 +9,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
+import SkipNavigation from "@/components/accessibility/skip-navigation";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Main from "@/components/main";
@@ -96,6 +97,7 @@ export default function RootLayout({
         >
           <TooltipProvider>
             <AccessibilityProvider>
+              <SkipNavigation />
               <Header />
               <Main>{children}</Main>
               <Footer />
