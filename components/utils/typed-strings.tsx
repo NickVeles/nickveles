@@ -40,7 +40,7 @@ export default function TypedStrings({ list, ...props }: TypedStringsProps) {
       {displayedText}
       <span
         className={cn(
-          "text-primary-highlighter",
+          "text-primary-highlighter text-wrap",
           !isDeleting && displayedText === list[currentStringIndex]
             ? "animate-blink"
             : ""
