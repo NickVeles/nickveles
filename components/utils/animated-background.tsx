@@ -7,6 +7,7 @@ import { useRef, useEffect, useState } from "react";
 type AnimatedBackgroundProps = {
   nodeDensity?: number;
   minNodes?: number;
+  maxNodeVelocity?: number;
   connectionDistance?: number;
   mouseRadius?: number;
   mouseForce?: number;
@@ -16,6 +17,7 @@ type AnimatedBackgroundProps = {
 const AnimatedBackground = ({
   nodeDensity = 100,
   minNodes = 10,
+  maxNodeVelocity = 1.2,
   connectionDistance = 100,
   mouseRadius = 60,
   mouseForce = 0.5,
@@ -53,6 +55,10 @@ const AnimatedBackground = ({
       this.x += this.vx;
       this.y += this.vy;
       this.age += dt;
+
+      // Clamp velocity
+      this.vx = Math.max(-maxNodeVelocity, Math.min(maxNodeVelocity, this.vx));
+      this.vy = Math.max(-maxNodeVelocity, Math.min(maxNodeVelocity, this.vy));
 
       if (this.x < 0 || this.x > width) this.vx *= -1;
       if (this.y < 0 || this.y > height) this.vy *= -1;
@@ -163,7 +169,7 @@ const AnimatedBackground = ({
         ctx.beginPath();
         ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
         // Opacity: 0 at birth/death, 1 at mid-life
-        const opacity = Math.min(1, Math.abs(node.life - node.age))
+        const opacity = Math.min(1, Math.abs(node.life - node.age));
         ctx.fillStyle = `rgba(${colorRGB}, ${opacity})`;
         ctx.fill();
       });
