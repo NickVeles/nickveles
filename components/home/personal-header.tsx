@@ -1,6 +1,8 @@
 import Image from "next/image";
 import TypedStrings from "../utils/typed-strings";
 import AnimatedBackground from "../utils/animated-background";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 const titles = [
   "Full Stack Developer",
@@ -56,6 +58,10 @@ export default function PersonalHeader() {
             </div>
           </div>
         </div>
+
+        <Link href={"/contact"} className="relative">
+          <Button>Contact Now</Button>
+        </Link>
       </div>
     </div>
   );
