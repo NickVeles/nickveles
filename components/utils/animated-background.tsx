@@ -28,7 +28,7 @@ const AnimatedBackground = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const nodes = useRef<Node[]>([]);
   const mouse = useRef<{ x: number; y: number } | null>(null);
-  const colorRGB = resolvedTheme === "dark" ? "255, 255, 255" : "0, 0, 0";
+  const colorOKLCH = resolvedTheme === "dark" ? "0.799 0.11674 297.701" : "0.5393 0.2713 286.7462";
 
   class Node {
     x!: number;
@@ -155,7 +155,7 @@ const AnimatedBackground = ({
             ctx.beginPath();
             ctx.moveTo(nodes.current[i].x, nodes.current[i].y);
             ctx.lineTo(nodes.current[j].x, nodes.current[j].y);
-            ctx.strokeStyle = `rgba(${colorRGB}, ${
+            ctx.strokeStyle = `oklch(${colorOKLCH} / ${
               1 - dist / connectionDistance
             })`;
             ctx.stroke();
@@ -170,7 +170,7 @@ const AnimatedBackground = ({
         ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
         // Opacity: 0 at birth/death, 1 at mid-life
         const opacity = Math.min(1, Math.abs(node.life - node.age));
-        ctx.fillStyle = `rgba(${colorRGB}, ${opacity})`;
+        ctx.fillStyle = `oklch(${colorOKLCH} / ${opacity})`;
         ctx.fill();
       });
 
