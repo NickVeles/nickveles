@@ -30,7 +30,7 @@ export default function PersonalHeader() {
             <div className="w-48 h-48 rounded-full overflow-hidden bg-background p-2 border-8 border-primary">
               <Image
                 src="/og-image.jpg"
-                alt="Profile"
+                alt="Profile image"
                 width={180}
                 height={180}
                 className="w-full h-full rounded-full object-cover"
@@ -45,7 +45,10 @@ export default function PersonalHeader() {
             </h1>
 
             {/* Animated Titles */}
-            <div className="h-12 flex items-center justify-center">
+            <div
+              className="h-12 flex items-center justify-center"
+              aria-live="polite"
+            >
               <TypedStrings
                 list={titles}
                 className="text-xl md:text-2xl text-accent-foreground font-light"
