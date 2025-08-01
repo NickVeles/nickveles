@@ -18,7 +18,8 @@ export default function PersonalHeader() {
         {/* Animated Background */}
         <div className="absolute inset-0 w-full h-full z-0">
           <AnimatedBackground
-            nodeIntensity={150}
+            nodeDensity={180}
+            minNodes={50}
             mouseForce={0.05}
             className="opacity-20"
           />

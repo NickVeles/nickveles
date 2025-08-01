@@ -5,7 +5,8 @@ import { useTheme } from "next-themes";
 import { useRef, useEffect, useState } from "react";
 
 type AnimatedBackgroundProps = {
-  nodeIntensity?: number;
+  nodeDensity?: number;
+  minNodes?: number;
   connectionDistance?: number;
   mouseRadius?: number;
   mouseForce?: number;
@@ -13,7 +14,8 @@ type AnimatedBackgroundProps = {
 };
 
 const AnimatedBackground = ({
-  nodeIntensity = 100,
+  nodeDensity = 100,
+  minNodes = 10,
   connectionDistance = 100,
   mouseRadius = 60,
   mouseForce = 0.5,
@@ -75,8 +77,8 @@ const AnimatedBackground = ({
     // Responsive node count based on area
     const getResponsiveNodes = () => {
       const area = width * height;
-      const density = nodeIntensity / (1920 * 1080);
-      return Math.max(10, Math.round(area * density));
+      const density = nodeDensity / (1920 * 1080);
+      return Math.max(minNodes, Math.round(area * density));
     };
 
     let nodeCount = getResponsiveNodes();
@@ -160,7 +162,9 @@ const AnimatedBackground = ({
         node.update(dt, width, height);
         ctx.beginPath();
         ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${colorRGB}, 0.8)`;
+        // Opacity: 0 at birth/death, 1 at mid-life
+        const opacity = Math.min(1, Math.abs(node.life - node.age))
+        ctx.fillStyle = `rgba(${colorRGB}, ${opacity})`;
         ctx.fill();
       });
 
