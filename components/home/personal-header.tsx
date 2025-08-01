@@ -3,16 +3,31 @@ import TypedStrings from "../utils/typed-strings";
 import AnimatedBackground from "../utils/animated-background";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { sanityClient } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanity-image";
+import Author from "@/types/author";
 
-const titles = [
-  "Full Stack Developer",
-  "UI/UX Designer",
-  "Creative Problem Solver",
-  "Tech Enthusiast",
-  "Digital Innovator",
-];
+async function getMe(): Promise<Author | null> {
+  const query = `*[_type == "author"][0]{_id, name, slug, titles, image}`;
 
-export default function PersonalHeader() {
+  try {
+    const data: Author = await sanityClient.fetch(query);
+
+    if (!data) {
+      console.warn("No data found.");
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch data from Sanity:", error);
+    return null;
+  }
+}
+
+export default async function PersonalHeader() {
+  const me = await getMe();
+
   return (
     <div className="flex w-full items-center justify-center">
       {/* Main content */}
@@ -31,10 +46,14 @@ export default function PersonalHeader() {
           <div className="flex justify-center items-center">
             <div className="w-48 h-48 rounded-full overflow-hidden bg-background p-0.5 border-8 border-primary">
               <Image
-                src="/og-image.jpg"
+                src={
+                  me
+                    ? urlFor(me.image).height(400).width(400).url()
+                    : "https://github.com/nickveles.png"
+                }
                 alt="Profile image"
-                width={180}
-                height={180}
+                width={400}
+                height={400}
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
@@ -43,7 +62,7 @@ export default function PersonalHeader() {
           <div className="flex flex-col gap-2">
             {/* Name */}
             <h1 className="text-8xl sm:text-9xl font-bold font-stylized text-foreground px-4 drop-shadow-sm">
-              Nick Veles
+              {me?.name ?? "Nick Veles"}
             </h1>
 
             {/* Animated Titles */}
@@ -52,7 +71,7 @@ export default function PersonalHeader() {
               aria-live="polite"
             >
               <TypedStrings
-                list={titles}
+                list={me?.titles ?? ["null"]}
                 className="text-xl md:text-2xl text-accent-foreground font-light"
               />
             </div>
