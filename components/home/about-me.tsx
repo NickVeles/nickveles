@@ -1,31 +1,35 @@
 import YouTubeVideo from "@/types/yt-video";
 import VideoSelector from "../utils/video-selector";
-import { sanityClient } from "@/lib/sanity";
-import TextLink from "../utils/text-link";
-
-async function GetVideos(): Promise<YouTubeVideo[] | null> {
-  const query = `*[_type == "ytVideo"]{_id, title, youtubeUrl, category->{title, "slug": slug.current}}`;
-
-  try {
-    const data: YouTubeVideo[] = await sanityClient.fetch(query);
-    console.log(data);
-
-    if (!data) {
-      console.warn("No data found.");
-      return null;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch data from Sanity:", error);
-    return null;
-  }
-}
+import { getSanityData } from "@/lib/get-sanity-data";
+import SectionText from "@/types/section-text";
+import WhoIAm from "../utils/who-i-am";
 
 export default async function AboutMe() {
-  const videos = (await GetVideos())?.filter(
+  // Get videos for about-me section
+  const videos = (await getSanityData<YouTubeVideo[]>(`*[_type == "ytVideo"]{
+    _id,
+    title,
+    youtubeUrl,
+    category->{
+      title,
+      "slug": slug.current
+    }
+  }`))?.filter(
     (x) => x.category?.slug === "about-me"
   );
+
+  // Get the text for this section
+  const sectionText = (await getSanityData<SectionText[]>(`*[_type == "sectionText"]{
+    _id,
+    title,
+    paragraphs,
+    category->{
+      title,
+      "slug": slug.current
+    }
+  }`))?.filter(
+    (x) => x.category?.slug === "about-me"
+  )[0];
 
   return (
     <section
@@ -35,35 +39,7 @@ export default async function AboutMe() {
       <h2 className="text-6xl text-center font-bold">About Me</h2>
       <div className="flex flex-col lg:flex-row w-full gap-16">
         {videos && videos.length > 0 && <VideoSelector videos={videos} />}
-        <div className="flex flex-col flex-1 gap-4 items-center justify-start">
-          <h3 className="text-center text-wrap text-3xl font-semibold">
-            Who I Am
-          </h3>
-          <div className="flex flex-col text-justify font-serif gap-4 p-4 text-xl w-full indent-4 dyslexic:font-dyslexic dyslexic:text-lg">
-            <p>
-              I'm Nick, a full stack developer with a passion for creating
-              practical, user-focused applications&mdash;from desktop automation
-              tools to interactive web apps. I specialize in .NET (C#), and
-              modern web stacks like Next.js and TypeScript, with a growing
-              foundation in machine learning.
-            </p>
-            <p>
-              My experience ranges from building OPC UA-integrated industrial
-              apps and ERP systems to crafting engaging personal projects on the
-              web. I'm hands-on, self-driven, and deeply curious&mdash;always
-              looking to improve both technically and creatively.
-            </p>
-            <p>
-              I thrive in fast-paced environments, enjoy solving complex
-              problems, and believe software should make life
-              easier&mdash;whether for businesses, users, or entire communities.
-            </p>
-            <p>
-              Undecided? Well, then{" "}
-              <TextLink href="/contact">meet me yourself</TextLink>!
-            </p>
-          </div>
-        </div>
+        {sectionText && <WhoIAm textObject={sectionText} />}
       </div>
     </section>
   );
