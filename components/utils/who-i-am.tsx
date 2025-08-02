@@ -7,7 +7,7 @@ type WhoIAmProps = {
 
 export default function WhoIAm({ textObject }: WhoIAmProps) {
   return (
-    <div className="flex flex-col flex-1 gap-4 items-center justify-start max-w-5xl">
+    <div className="flex flex-col flex-1 gap-4 items-center justify-start max-w-3xl">
       <h3 className="text-center text-wrap text-3xl font-semibold">
         {textObject.title ?? "Who I Am"}
       </h3>
