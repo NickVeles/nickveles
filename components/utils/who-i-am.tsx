@@ -16,8 +16,8 @@ export default function WhoIAm({ textObject }: WhoIAmProps) {
           <p key={index}>{paragraph}</p>
         ))}
         <p>
-          Undecided? Well, then{" "}
-          <TextLink href="/contact">meet me yourself</TextLink>!
+          Curious how I can help your team or project?{" "}
+          <TextLink href="/contact">Let's talk</TextLink>.
         </p>
       </div>
     </div>
