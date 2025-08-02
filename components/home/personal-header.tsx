@@ -29,7 +29,7 @@ export default async function PersonalHeader() {
   const me = await getMe();
 
   return (
-    <div className="flex w-full items-center justify-center">
+    <section className="flex w-full items-center justify-center">
       {/* Main content */}
       <div className="relative flex flex-col w-full h-(--main-min-height) items-center justify-center text-center gap-4">
         {/* Animated Background */}
@@ -82,6 +82,6 @@ export default async function PersonalHeader() {
           <Link href={"/contact"}>Contact Now</Link>
         </Button>
       </div>
-    </div>
+    </section>
   );
 }
