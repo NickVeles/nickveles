@@ -1,6 +1,7 @@
 import AboutMe from "@/components/home/about-me";
 import PersonalHeader from "@/components/home/personal-header";
 import Projects from "@/components/home/projects";
+import Skills from "@/components/home/skills";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <PersonalHeader />
       <AboutMe />
       <Projects />
+      <Skills />
     </>
   );
 }
