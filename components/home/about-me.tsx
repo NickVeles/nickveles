@@ -3,6 +3,7 @@ import VideoSelector from "../utils/video-selector";
 import { sanityClient } from "@/lib/sanity";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import TextLink from "../utils/text-link";
 
 async function GetVideos(): Promise<YouTubeVideo[] | null> {
   const query = `*[_type == "ytVideo"]{_id, title, youtubeUrl, category->{title}}`;
@@ -37,7 +38,7 @@ export default async function AboutMe() {
           <h3 className="text-center text-wrap text-3xl font-semibold">
             Who I Am
           </h3>
-          <div className="flex flex-col text-justify font-serif gap-4 p-4 text-xl w-full indent-4">
+          <div className="flex flex-col text-justify font-serif gap-4 p-4 text-xl w-full indent-4 dyslexic:font-dyslexic dyslexic:text-lg">
             <p>
               I'm Nick, a full stack developer with a passion for creating
               practical, user-focused applications&mdash;from desktop automation
@@ -56,11 +57,11 @@ export default async function AboutMe() {
               problems, and believe software should make life
               easier&mdash;whether for businesses, users, or entire communities.
             </p>
-            <p>Undecided? Well, then...</p>
+            <p>
+              Undecided? Well, then{" "}
+              <TextLink href="/contact">meet me yourself</TextLink>!
+            </p>
           </div>
-          <Button asChild>
-            <Link href={"/contact"}>Meet Me Yourself</Link>
-          </Button>
         </div>
       </div>
     </section>
