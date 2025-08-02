@@ -1,15 +1,14 @@
 import YouTubeVideo from "@/types/yt-video";
 import VideoSelector from "../utils/video-selector";
 import { sanityClient } from "@/lib/sanity";
-import { Button } from "../ui/button";
-import Link from "next/link";
 import TextLink from "../utils/text-link";
 
 async function GetVideos(): Promise<YouTubeVideo[] | null> {
-  const query = `*[_type == "ytVideo"]{_id, title, youtubeUrl, category->{title}}`;
+  const query = `*[_type == "ytVideo"]{_id, title, youtubeUrl, category->{title, "slug": slug.current}}`;
 
   try {
     const data: YouTubeVideo[] = await sanityClient.fetch(query);
+    console.log(data);
 
     if (!data) {
       console.warn("No data found.");
@@ -24,7 +23,9 @@ async function GetVideos(): Promise<YouTubeVideo[] | null> {
 }
 
 export default async function AboutMe() {
-  const videos: YouTubeVideo[] = (await GetVideos()) ?? [];
+  const videos = (await GetVideos())?.filter(
+    (x) => x.category?.slug === "about-me"
+  );
 
   return (
     <section
@@ -33,7 +34,7 @@ export default async function AboutMe() {
     >
       <h2 className="text-6xl text-center font-bold">About Me</h2>
       <div className="flex flex-col lg:flex-row w-full gap-16">
-        <VideoSelector videos={videos} />
+        {videos && videos.length > 0 && <VideoSelector videos={videos} />}
         <div className="flex flex-col flex-1 gap-4 items-center justify-start">
           <h3 className="text-center text-wrap text-3xl font-semibold">
             Who I Am
