@@ -20,10 +20,15 @@ async function GetVideos() : Promise<YouTubeVideo[] | null> {
     }
 }
 
-export default async function Introduction() {
+export default async function AboutMe() {
   const videos: YouTubeVideo[] = await GetVideos() ?? [];
 
   return (
-    <VideoSelector videos={videos} />
+    <div className="w-full">
+      <h1 className="text-7xl text-center font-serif font-bold">About Me</h1>
+      <div className="flex flex-col md:flex-row w-full p-4">
+        <VideoSelector videos={videos} />
+      </div>
+    </div>
   )
 }
