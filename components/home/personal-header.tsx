@@ -36,7 +36,7 @@ export default async function PersonalHeader() {
         <div className="absolute inset-0 w-full h-full z-0">
           <AnimatedBackground
             nodeDensity={250}
-            minNodes={50}
+            minNodes={60}
             mouseForce={0.05}
             className="opacity-20"
           />
