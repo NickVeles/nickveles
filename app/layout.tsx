@@ -7,7 +7,6 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider";
 import SkipNavigation from "@/components/accessibility/skip-navigation";
 import Header from "@/components/header";
@@ -95,14 +94,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            <AccessibilityProvider>
-              <SkipNavigation />
-              <Header />
-              <Main>{children}</Main>
-              <Footer />
-            </AccessibilityProvider>
-          </TooltipProvider>
+          <AccessibilityProvider>
+            <SkipNavigation />
+            <Header />
+            <Main>{children}</Main>
+            <Footer />
+          </AccessibilityProvider>
         </ThemeProvider>
       </body>
     </html>
