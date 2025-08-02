@@ -1,8 +1,8 @@
-import YouTubeVideoCategory from "./yt-video-category";
+import SectionCategory from "./section-category";
 
 export default interface YouTubeVideo {
   _id: string;
   title: string;
   youtubeUrl: string;
-  category?: YouTubeVideoCategory;
+  category?: SectionCategory;
 }
