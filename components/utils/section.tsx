@@ -16,7 +16,7 @@ export default function Section({
     <section
       id={id}
       className={cn(
-        "flex flex-col justify-center items-center container gap-12",
+        "flex flex-col justify-center items-center container px-4 gap-12",
         className
       )}
       {...props}
