@@ -38,16 +38,16 @@ export default function VideoSelector({ videos }: VideoSelectorProps) {
   };
 
   return (
-    <div className="flex flex-col flex-1 p-4 w-full">
+    <div className="flex flex-col flex-1 gap-4 w-full">
       {/* Video Title */}
       <motion.div
         key={currentVideoIndex}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="mb-4 text-center"
+        className="text-center text-wrap"
       >
-        <h3 className="text-xl font-semibold">
+        <h3 className="text-3xl font-semibold">
           {videos[currentVideoIndex].title}
         </h3>
       </motion.div>
@@ -83,15 +83,16 @@ export default function VideoSelector({ videos }: VideoSelectorProps) {
 
       {/* Video Selection Buttons */}
       {videos.length > 1 && (
-        <div className="flex flex-wrap justify-center gap-2 mt-8">
+        <div className="flex flex-wrap justify-center gap-2 mt-4">
           {videos.map((video, index) => (
             <Button
               key={video._id}
               onClick={() => handleVideoChange(index)}
               variant={currentVideoIndex === index ? "default" : "outline"}
               size="icon"
+              className="w-11 h-11 md:w-9 md:h-9"
             >
-              <span className="font-bold">{index + 1}</span>
+              <span className="font-bold text-xl md:text-sm">{index + 1}</span>
             </Button>
           ))}
         </div>
