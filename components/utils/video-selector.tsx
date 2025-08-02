@@ -53,7 +53,7 @@ export default function VideoSelector({ videos }: VideoSelectorProps) {
       </motion.div>
 
       {/* Video Player Container */}
-      <div className="relative w-full max-w-4xl mx-auto">
+      <div className="relative w-full">
         <div className="relative aspect-video rounded-lg overflow-hidden">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
