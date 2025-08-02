@@ -192,7 +192,7 @@ export default function SkillSearch({ items }: SkillSearchProps) {
         />
       </div>
 
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         <div className="text-sm text-muted-foreground">
           {filteredChips.length}{" "}
           {filteredChips.length === 1 ? "result" : "results"}
