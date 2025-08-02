@@ -4,6 +4,7 @@ import { getSanityData } from "@/lib/get-sanity-data";
 import SectionText from "@/types/section-text";
 import WhoIAm from "../utils/who-i-am";
 import Section from "../utils/section";
+import { SectionH } from "../ui/typography";
 
 export default async function AboutMe() {
   // Get videos for about-me section
@@ -34,7 +35,7 @@ export default async function AboutMe() {
 
   return (
     <Section id="about-me">
-      <h2 className="text-6xl text-center font-bold text-wrap">About Me</h2>
+      <SectionH>About Me</SectionH>
       <div className="flex flex-col lg:flex-row w-full gap-16">
         {videos && videos.length > 0 && <VideoSelector videos={videos} />}
         {sectionText && <WhoIAm textObject={sectionText} />}
