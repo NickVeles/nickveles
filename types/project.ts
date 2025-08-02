@@ -5,6 +5,7 @@ export default interface Project {
   _id: string;
   title: string;
   slug: string;
+  description?: string;
   author: Author;
   editor?: Author;
   mainImage?: any;
