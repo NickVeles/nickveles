@@ -47,9 +47,9 @@ export default function VideoSelector({ videos }: VideoSelectorProps) {
         transition={{ delay: 0.2 }}
         className="mb-4 text-center"
       >
-        <h2 className="text-xl font-semibold">
+        <h3 className="text-xl font-semibold">
           {videos[currentVideoIndex].title}
-        </h2>
+        </h3>
       </motion.div>
 
       {/* Video Player Container */}
