@@ -3,30 +3,14 @@ import TypedStrings from "../utils/typed-strings";
 import AnimatedBackground from "../utils/animated-background";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity-image";
 import Author from "@/types/author";
-
-async function getMe(): Promise<Author | null> {
-  const query = `*[_type == "author"][0]{_id, name, slug, titles, image}`;
-
-  try {
-    const data: Author = await sanityClient.fetch(query);
-
-    if (!data) {
-      console.warn("No data found.");
-      return null;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch data from Sanity:", error);
-    return null;
-  }
-}
+import { getSanityData } from "@/lib/get-sanity-data";
 
 export default async function PersonalHeader() {
-  const me = await getMe();
+  const me = await getSanityData<Author>(
+    `*[_type == "author"][0]{_id, name, slug, titles, image}`
+  );
 
   return (
     <section className="flex w-full items-center justify-center">
