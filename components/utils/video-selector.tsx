@@ -38,7 +38,7 @@ export default function VideoSelector({ videos }: VideoSelectorProps) {
   };
 
   return (
-    <div className="flex flex-col flex-1 gap-4 w-full justify-center">
+    <div className="flex flex-col flex-1 gap-4 w-full justify-center max-w-5xl">
       {/* Video Title */}
       <motion.div
         key={currentVideoIndex}
