@@ -5,4 +5,5 @@ export default interface Skill {
   name: string;
   category: SkillCategory;
   tags: string[];
+  points: number;
 }
