@@ -1,20 +1,30 @@
-'use client';
+"use client";
 
 //TODO: test it on mobile
 
-import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowUpIcon } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowUpIcon } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function BackToTopButton() {
   const [visible, setVisible] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect mobile based on window width
+    const checkIsMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkIsMobile();
+
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
 
   useEffect(() => {
     const handleFocusIn = (e: FocusEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
-      if (tag === 'INPUT' || tag === 'TEXTAREA') {
+      if (isMobile && (tag === "INPUT" || tag === "TEXTAREA")) {
         setIsInputFocused(true);
       }
     };
@@ -27,17 +37,18 @@ export function BackToTopButton() {
       setVisible(window.scrollY > window.innerHeight);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('focusin', handleFocusIn);
-    window.addEventListener('focusout', handleFocusOut);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("focusin", handleFocusIn);
+    window.addEventListener("focusout", handleFocusOut);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('focusin', handleFocusIn);
-      window.removeEventListener('focusout', handleFocusOut);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("focusin", handleFocusIn);
+      window.removeEventListener("focusout", handleFocusOut);
     };
-  }, []);
+  }, [isMobile]);
 
+  // Hide if user is in an input (on mobile)
   const shouldShow = visible && !isInputFocused;
 
   return (
@@ -51,7 +62,7 @@ export function BackToTopButton() {
           className="fixed bottom-6 right-6 z-50"
         >
           <Button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             variant="default"
             size="icon"
             className="shadow-lg w-11 h-11 md:w-9 md:h-9"
