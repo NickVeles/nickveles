@@ -68,7 +68,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground ml-1">
           {filteredSkills.length}{" "}
           {filteredSkills.length === 1 ? "result" : "results"}
           {searchTerm && <span> for "{searchTerm}"</span>}
@@ -101,7 +101,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
                       <li key={skill._id}>
                         <Badge
                           variant="secondary"
-                          className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
+                          className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer dyslexic:font-dyslexic dyslexic:text-sx"
                         >
                           {skill.name}
                         </Badge>
