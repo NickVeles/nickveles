@@ -26,11 +26,16 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
     // On mobile, scroll the search input to the top when focused
     if (window.innerWidth < 768) {
       setTimeout(() => {
-        searchRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 300); // Small delay to allow keyboard to appear
+        const inputTop = searchRef.current?.getBoundingClientRect().top;
+        const offset = 80; // so the search wouldn't hide behind the sticky header
+
+        if (inputTop !== undefined) {
+          window.scrollTo({
+            top: window.scrollY + inputTop - offset,
+            behavior: "smooth",
+          });
+        }
+      }, 300); // small delay to wait for keyboard
     }
   };
 
