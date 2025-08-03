@@ -1,5 +1,5 @@
 export default interface SkillCategory {
-  _ud: string;
+  _id: string;
   name: string;
   description: string;
   level: number;
