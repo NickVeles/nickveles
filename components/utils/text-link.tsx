@@ -1,8 +1,8 @@
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 import { ExternalLinkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type TextLinkProps = {
+type TextLinkProps = LinkProps & {
   href: string;
   isIcon?: boolean;
   isUncolored?: boolean;
@@ -18,6 +18,7 @@ export default function TextLink({
   target,
   className,
   children,
+  ...props
 }: TextLinkProps) {
   return (
     <Link
@@ -26,6 +27,7 @@ export default function TextLink({
       target={target}
       rel={target === "_blank" ? "noopener noreferrer" : undefined}
       translate="no"
+      {...props}
     >
       {children}
       {isIcon && <ExternalLinkIcon size={16} className="inline align-baseline" />}
