@@ -21,6 +21,7 @@ export default function SocialNavigation({
         {sitemap.socials.map(({ name, url, Icon }) => (
           <NavigationMenuItem key={name}>
             <NavigationMenuLink
+              aria-label={name}
               href={url}
               onClick={onClick ? () => onClick() : undefined}
               target="_blank"

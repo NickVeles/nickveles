@@ -23,7 +23,7 @@ export default function PCMenu({ className }: PCMenuProps) {
       <NavigationMenu viewport={false}>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink href="/">
+            <NavigationMenuLink aria-label="Home" href="/">
               <Logomark className="size-6 text-inherit" />
             </NavigationMenuLink>
           </NavigationMenuItem>

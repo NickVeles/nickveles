@@ -43,6 +43,7 @@ export default function Footer() {
               <li key={name}>
                 <TextLink href={url} target="_blank" isUncolored>
                   {Icon && <Icon className="size-8" />}
+                  <span className="sr-only">{name}</span>
                 </TextLink>
               </li>
             ))}
