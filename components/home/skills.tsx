@@ -15,7 +15,7 @@ export default async function Skills() {
     },
     tags,
     points
-  } | order(points desc)`);
+  } | order(points desc, name asc)`);
 
   // Get skill categories
   const skillCategories = await getSanityData<
