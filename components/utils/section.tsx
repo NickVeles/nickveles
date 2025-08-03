@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { AppearingDiv } from "./appearing-div";
 
 type SectionProps = React.HTMLAttributes<HTMLElement> & {
   id: string;
@@ -21,7 +22,7 @@ export default function Section({
       )}
       {...props}
     >
-      {children}
+      <AppearingDiv>{children}</AppearingDiv>
     </section>
   );
 }
