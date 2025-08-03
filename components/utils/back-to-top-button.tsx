@@ -68,7 +68,7 @@ export function BackToTopButton() {
             className="shadow-lg w-11 h-11 md:w-9 md:h-9"
             aria-label="Back to top"
           >
-            <ArrowUpIcon className="size-7 md:size-5" />
+            <ArrowUpIcon className="size-8 md:size-6" />
           </Button>
         </motion.div>
       )}
