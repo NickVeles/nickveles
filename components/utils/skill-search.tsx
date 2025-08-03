@@ -7,6 +7,11 @@ import { useState, useRef, useMemo } from "react";
 import Skill from "@/types/skill";
 import TextLink from "./text-link";
 import SkillCategory from "@/types/skill-category";
+import {
+  HybridTooltip,
+  HybridTooltipContent,
+  HybridTooltipTrigger,
+} from "../ui/hybrid-tooltip";
 
 type SkillSearchProps = {
   items: Skill[];
@@ -82,7 +87,14 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
                 <div className="flex flex-col gap-2" key={category._id}>
                   <h3 className="flex items-center gap-1 text-xl font-semibold ml-1">
                     {category.name}
-                    <InfoIcon className="size-4"/>
+                    <HybridTooltip>
+                      <HybridTooltipTrigger>
+                        <InfoIcon className="size-4" />
+                      </HybridTooltipTrigger>
+                      <HybridTooltipContent>
+                        {category.description}
+                      </HybridTooltipContent>
+                    </HybridTooltip>
                   </h3>
                   <ul className="flex flex-wrap gap-2">
                     {skillsInCategory.map((skill) => (
