@@ -2,137 +2,18 @@
 
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search } from "lucide-react";
+import { InfoIcon, Search } from "lucide-react";
 import { useState, useRef, useMemo } from "react";
 import Skill from "@/types/skill";
 import TextLink from "./text-link";
-
-interface Chip {
-  id: number;
-  name: string;
-  tags: string[];
-}
+import SkillCategory from "@/types/skill-category";
 
 type SkillSearchProps = {
   items: Skill[];
+  categories: SkillCategory[];
 };
 
-const skillData: Chip[] = [
-  {
-    id: 1,
-    name: "React",
-    tags: ["javascript", "frontend", "library", "ui", "component"],
-  },
-  {
-    id: 2,
-    name: "Next.js",
-    tags: ["react", "framework", "fullstack", "ssr", "routing"],
-  },
-  {
-    id: 3,
-    name: "TypeScript",
-    tags: ["javascript", "types", "static", "microsoft", "language"],
-  },
-  {
-    id: 4,
-    name: "Tailwind CSS",
-    tags: ["css", "utility", "styling", "responsive", "design"],
-  },
-  {
-    id: 5,
-    name: "Node.js",
-    tags: ["javascript", "backend", "server", "runtime", "npm"],
-  },
-  {
-    id: 6,
-    name: "Python",
-    tags: ["programming", "backend", "data", "machine learning", "scripting"],
-  },
-  {
-    id: 7,
-    name: "Docker",
-    tags: [
-      "container",
-      "deployment",
-      "devops",
-      "virtualization",
-      "microservices",
-    ],
-  },
-  {
-    id: 8,
-    name: "PostgreSQL",
-    tags: ["database", "sql", "relational", "backend", "data"],
-  },
-  {
-    id: 9,
-    name: "Redis",
-    tags: ["cache", "database", "memory", "performance", "nosql"],
-  },
-  {
-    id: 10,
-    name: "GraphQL",
-    tags: ["api", "query", "facebook", "data", "flexible"],
-  },
-  {
-    id: 11,
-    name: "MongoDB",
-    tags: ["database", "nosql", "document", "json", "scalable"],
-  },
-  {
-    id: 12,
-    name: "Vue.js",
-    tags: ["javascript", "frontend", "framework", "reactive", "component"],
-  },
-  {
-    id: 13,
-    name: "Angular",
-    tags: ["javascript", "frontend", "framework", "google", "typescript"],
-  },
-  {
-    id: 14,
-    name: "Express.js",
-    tags: ["node", "backend", "framework", "api", "middleware"],
-  },
-  {
-    id: 15,
-    name: "AWS",
-    tags: ["cloud", "amazon", "infrastructure", "deployment", "scalable"],
-  },
-  {
-    id: 16,
-    name: "Kubernetes",
-    tags: ["container", "orchestration", "devops", "scaling", "google"],
-  },
-  {
-    id: 17,
-    name: "Git",
-    tags: [
-      "version control",
-      "collaboration",
-      "code",
-      "repository",
-      "distributed",
-    ],
-  },
-  {
-    id: 18,
-    name: "Figma",
-    tags: ["design", "ui", "ux", "prototype", "collaboration"],
-  },
-  {
-    id: 19,
-    name: "Stripe",
-    tags: ["payment", "api", "ecommerce", "billing", "subscription"],
-  },
-  {
-    id: 20,
-    name: "Vercel",
-    tags: ["deployment", "hosting", "frontend", "serverless", "nextjs"],
-  },
-];
-
-export default function SkillSearch({ items }: SkillSearchProps) {
+export default function SkillSearch({ items, categories }: SkillSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -148,12 +29,12 @@ export default function SkillSearch({ items }: SkillSearchProps) {
     }
   };
 
-  const filteredChips = useMemo(() => {
-    if (!searchTerm.trim()) return skillData;
+  const filteredSkills = useMemo(() => {
+    if (!searchTerm.trim()) return items;
 
     const lowercaseSearch = searchTerm.toLowerCase().trim();
 
-    return skillData.filter((skill) => {
+    return items.filter((skill) => {
       // Search in name
       const nameMatch = skill.name.toLowerCase().includes(lowercaseSearch);
 
@@ -166,19 +47,8 @@ export default function SkillSearch({ items }: SkillSearchProps) {
     });
   }, [searchTerm]);
 
-  // TODO
-  // const skillsTop = filteredChips.filter(
-  //   (skill) => skill.category.level === 30
-  // );
-  // const skillsMid = filteredChips.filter(
-  //   (skill) => skill.category.level === 20
-  // );
-  // const skillsLow = filteredChips.filter(
-  //   (skill) => skill.category.level === 10
-  // );
-
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 space-y-6">
+    <div className="w-full max-w-4xl mx-auto p-4 flex flex-col gap-6">
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
         <Input
@@ -194,24 +64,44 @@ export default function SkillSearch({ items }: SkillSearchProps) {
 
       <div className="flex flex-col gap-4">
         <div className="text-sm text-muted-foreground">
-          {filteredChips.length}{" "}
-          {filteredChips.length === 1 ? "result" : "results"}
+          {filteredSkills.length}{" "}
+          {filteredSkills.length === 1 ? "result" : "results"}
           {searchTerm && <span> for "{searchTerm}"</span>}
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {filteredChips.map((chip) => (
-            <Badge
-              key={chip.id}
-              variant="secondary"
-              className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
-            >
-              {chip.name}
-            </Badge>
-          ))}
+        <div className="flex flex-col gap-6">
+          {filteredSkills.length > 0 &&
+            categories.map((category) => {
+              const skillsInCategory = filteredSkills.filter(
+                (skill) => skill.category.level === category.level
+              );
+
+              if (skillsInCategory.length === 0) return null;
+
+              return (
+                <div className="flex flex-col gap-2" key={category._id}>
+                  <h3 className="flex items-center gap-1 text-xl font-semibold ml-1">
+                    {category.name}
+                    <InfoIcon className="size-4"/>
+                  </h3>
+                  <ul className="flex flex-wrap gap-2">
+                    {skillsInCategory.map((skill) => (
+                      <li key={skill._id}>
+                        <Badge
+                          variant="secondary"
+                          className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
+                        >
+                          {skill.name}
+                        </Badge>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
         </div>
 
-        {filteredChips.length === 0 && searchTerm && (
+        {filteredSkills.length === 0 && searchTerm && (
           <div className="text-center py-4 text-muted-foreground">
             <p className="text-lg font-medium mb-2">No results?</p>
             <div className="text-sm">
