@@ -27,7 +27,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
     if (window.innerWidth < 768) {
       setTimeout(() => {
         const inputTop = searchRef.current?.getBoundingClientRect().top;
-        const offset = 80; // so the search wouldn't hide behind the sticky header
+        const offset = 84; // offset so the search wouldn't hide behind the sticky header
 
         if (inputTop !== undefined) {
           window.scrollTo({
