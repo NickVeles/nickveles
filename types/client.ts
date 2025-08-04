@@ -1,6 +1,7 @@
 export default interface Client {
   _id: string;
   name: string;
-  logo: any;
+  personTitle?: string;
+  logo?: any;
   website?: string;
 }
