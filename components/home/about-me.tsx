@@ -34,7 +34,7 @@ export default async function AboutMe() {
   )?.filter((x) => x.category?.slug === "about-me")[0];
 
   return (
-    <Section id="about-me">
+    <Section id="about-me" className="gap-12">
       <SectionH>About Me</SectionH>
       <div className="flex flex-col lg:flex-row w-full gap-16">
         {videos && videos.length > 0 && <VideoSelector videos={videos} />}
