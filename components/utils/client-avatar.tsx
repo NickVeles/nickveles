@@ -4,7 +4,6 @@ import { cn, getInitials } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
-import { urlFor } from "@/lib/sanity-image";
 
 type ClientAvatarProps = {
   client: Client;
@@ -23,7 +22,7 @@ export default function ClientAvatar({
     <div className={cn("relative inline-block", className)}>
       <Avatar className={cn("size-16", avatarClassName)}>
         <AvatarImage
-          src={urlFor(client.logo).width(64).height(64).url()}
+          src={client.resolvedLogo}
           alt={client.name}
         />
         <AvatarFallback
