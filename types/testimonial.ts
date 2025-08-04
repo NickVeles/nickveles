@@ -6,5 +6,6 @@ export default interface Testimonial {
   date: string;
   title?: string;
   content: string;
+  proofUrl?: string;
   score?: number; // 0 - 1
 }
