@@ -43,7 +43,7 @@ export default function LatestProject({ project }: LatestProjectProps) {
         <CardHeader className="pt-0">
           <CardTitle className="text-xl">{project.title}</CardTitle>
           {project.description && (
-            <CardDescription className="text-base">
+            <CardDescription className="text-base line-clamp-5">
               {project.description}
             </CardDescription>
           )}
