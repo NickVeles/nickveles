@@ -10,6 +10,7 @@ type ClientAvatarProps = {
   className?: string;
   avatarClassName?: string;
   fallbackClassName?: string;
+  hideWebsite?: boolean;
 };
 
 export default function ClientAvatar({
@@ -17,6 +18,7 @@ export default function ClientAvatar({
   className,
   avatarClassName,
   fallbackClassName,
+  hideWebsite,
 }: ClientAvatarProps) {
   return (
     <div className={cn("relative inline-block", className)}>
@@ -35,7 +37,7 @@ export default function ClientAvatar({
         </AvatarFallback>
       </Avatar>
 
-      {client.website && (
+      {client.website && !hideWebsite && (
         <Button
           variant="secondary"
           size="icon"
