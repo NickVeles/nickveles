@@ -15,7 +15,7 @@ export const AppearingDiv = ({ children, className }: AppearingDivProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.15 }}
-      className={cn("w-full flex flex-col", className)}
+      className={cn("w-full flex flex-col px-4", className)}
     >
       {children}
     </motion.div>
