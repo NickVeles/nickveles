@@ -18,10 +18,10 @@ import {
   ChevronRightIcon,
   DotIcon,
 } from "lucide-react";
-
-import { PlaceholderImage } from "@/constants/placeholders";
 import Image from "next/image";
 import Link from "next/link";
+
+import { PlaceholderImage } from "@/constants/placeholders";
 
 type CertificateCarouselProps = {
   certificates: Certificate[];
@@ -45,12 +45,25 @@ export default function CertificateCarousel({
 
   return (
     <div className="relative flex max-w-[75%] justify-center items-center">
+      {/* Navigation Left */}
+      <div className="flex justify-between absolute -left-11 top-1/2 -translate-y-1/2">
+        <Button
+          size="icon"
+          variant="outline"
+          onClick={() => slider.current?.prev()}
+          className="shadow-sm"
+        >
+          <ChevronLeftIcon className="size-4" />
+        </Button>
+      </div>
+      
+      {/* Carousel */}
       <div ref={sliderInstanceRef} className="keen-slider">
         {certificates.map((cert) => (
           <div key={cert._id} className="keen-slider__slide p-4">
             <Link
               href={cert.url || "https://example.com"}
-              className="block h-full group cursor-pointer"
+              className="block h-full group hover:cursor-pointer"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -90,17 +103,7 @@ export default function CertificateCarousel({
         ))}
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-between absolute -left-11 top-1/2 -translate-y-1/2">
-        <Button
-          size="icon"
-          variant="outline"
-          onClick={() => slider.current?.prev()}
-          className="shadow-sm"
-        >
-          <ChevronLeftIcon className="size-4" />
-        </Button>
-      </div>
+      {/* Navigation Right */}
       <div className="flex justify-between absolute -right-11 top-1/2 -translate-y-1/2">
         <Button
           size="icon"
