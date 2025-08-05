@@ -15,7 +15,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className="container"
+      className="container last:mb-32"
       {...props}
     >
       <AppearingDiv className={className}>{children}</AppearingDiv>

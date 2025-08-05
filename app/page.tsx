@@ -9,13 +9,13 @@ import { BackToTopButton } from "@/components/utils/back-to-top-button";
 export default function Home() {
   return (
     <>
+      <BackToTopButton />
       <PersonalHeader />
       <AboutMe />
       <Testimonials />
       <Projects />
       <Skills />
       <Certificates />
-      <BackToTopButton />
     </>
   );
 }
