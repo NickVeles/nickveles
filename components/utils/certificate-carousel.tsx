@@ -68,8 +68,8 @@ export default function CertificateCarousel({
                       <ExternalLinkIcon className="size-3 text-foreground group-hover:text-primary-highlighter transition-colors" />
                     </Badge>
                   </div>
-                  <div className="p-6 pb-0">
-                    <CardTitle className="text-lg group-hover:text-primary-highlighter transition-colors mb-2">
+                  <div className="flex flex-col gap-2 p-6 pb-0">
+                    <CardTitle className="text-lg group-hover:text-primary-highlighter transition-colors">
                       {cert.title}
                     </CardTitle>
                     <CardDescription className="flex items-center text-sm">
