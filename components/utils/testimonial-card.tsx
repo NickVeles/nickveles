@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import Testimonial from "@/types/testimonial";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 
 type TestimonialCardProps = {
   testimonials: Testimonial[];
@@ -30,18 +31,21 @@ export default function TestimonialCard({
   useEffect(() => {
     if (!hasMultipleTestimonials || isPaused || isMobile) return;
 
-    const startTime = Date.now();
-
     const timer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const newProgress = progress + (elapsed / TESTIMONIAL_DURATION) * 100;
+      setProgress((prevProgress) => {
+        const newProgress =
+          prevProgress +
+          (PROGRESS_UPDATE_INTERVAL / TESTIMONIAL_DURATION) * 100;
 
-      if (newProgress >= 100) {
-        setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-        setProgress(0);
-      } else {
-        setProgress(newProgress);
-      }
+        if (newProgress >= 100) {
+          setCurrentTestimonialIndex(
+            (prevIndex) => (prevIndex + 1) % testimonials.length
+          );
+          return 0;
+        } else {
+          return newProgress;
+        }
+      });
     }, PROGRESS_UPDATE_INTERVAL);
 
     return () => clearInterval(timer);
@@ -134,51 +138,64 @@ export default function TestimonialCard({
               </div>
             </div>
           )}
-          <div className="flex items-start gap-6 mb-6">
-            <ClientAvatar
-              client={currentTestimonial.client}
-              className="hidden md:flex"
-            />
 
-            <div className="flex flex-col">
-              <div className="flex gap-4 justify-center items-center mb-4 md:mb-0">
+          {/* Content */}
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial.client._id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="flex items-start gap-6 mb-6"
+              >
                 <ClientAvatar
                   client={currentTestimonial.client}
-                  className="flex md:hidden"
+                  className="hidden md:flex"
                 />
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="text-xl font-semibold text-foreground">
-                      {currentTestimonial.client.name}
+
+                <div className="flex flex-col">
+                  <div className="flex gap-4 justify-center items-center mb-4 md:mb-0">
+                    <ClientAvatar
+                      client={currentTestimonial.client}
+                      className="flex md:hidden"
+                    />
+                    <div className="flex-1 flex flex-col">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="text-xl font-semibold text-foreground">
+                          {currentTestimonial.client.name}
+                        </div>
+                      </div>
+
+                      {currentTestimonial.client.personTitle && (
+                        <div className="text-muted-foreground mb-3">
+                          {currentTestimonial.client.personTitle}
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {currentTestimonial.client.personTitle && (
-                    <div className="text-muted-foreground mb-3">
-                      {currentTestimonial.client.personTitle}
+                  {currentTestimonial.title && (
+                    <h4 className="text-lg font-semibold text-foreground mb-3">
+                      {currentTestimonial.title}
+                    </h4>
+                  )}
+
+                  {currentTestimonial.score && (
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="flex gap-1">
+                        <Stars score={currentTestimonial.score} />
+                      </div>
                     </div>
                   )}
+
+                  <blockquote className="text-foreground text-lg leading-relaxed">
+                    "{currentTestimonial.content}"
+                  </blockquote>
                 </div>
-              </div>
-
-              {currentTestimonial.title && (
-                <h4 className="text-lg font-semibold text-foreground mb-3">
-                  {currentTestimonial.title}
-                </h4>
-              )}
-
-              {currentTestimonial.score && (
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex gap-1">
-                    <Stars score={currentTestimonial.score} />
-                  </div>
-                </div>
-              )}
-
-              <blockquote className="text-foreground text-lg leading-relaxed">
-                "{currentTestimonial.content}"
-              </blockquote>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </CardContent>
 
