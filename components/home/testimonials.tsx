@@ -54,9 +54,8 @@ export default async function Testimonials() {
         <div className="w-full flex flex-wrap gap-4 justify-center items-center">
           {clients.map((client) =>
             client.resolvedFullImage ? (
-              <div className="relative h-16 aspect-video">
+              <div key={client._id} className="relative h-12 aspect-video">
                 <Image
-                  key={client._id}
                   src={client.resolvedFullImage}
                   alt={`${client.name}'s logo`}
                   className="object-contain"
@@ -64,7 +63,12 @@ export default async function Testimonials() {
                 />
               </div>
             ) : (
-              <ClientAvatar key={client._id} client={client} hideWebsite />
+              <ClientAvatar
+                key={client._id}
+                client={client}
+                avatarClassName="size-12"
+                hideWebsite
+              />
             )
           )}
         </div>
