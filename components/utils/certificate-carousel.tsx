@@ -64,8 +64,8 @@ export default function CertificateCarousel({
                       width={300}
                       height={200}
                     />
-                    <Badge className="absolute top-2 right-2 p-1 h-auto bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-colors">
-                      <ExternalLinkIcon className="h-3 w-3 text-foreground group-hover:text-primary-highlighter transition-colors" />
+                    <Badge className="absolute top-2 right-2 p-1 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-colors">
+                      <ExternalLinkIcon className="size-3 text-foreground group-hover:text-primary-highlighter transition-colors" />
                     </Badge>
                   </div>
                   <div className="p-6 pb-0">
