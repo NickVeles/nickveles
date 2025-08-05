@@ -85,7 +85,7 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
         <DropdownMenuSeparator />
 
         {/* Font Section */}
-        <DropdownMenuLabel>UI</DropdownMenuLabel>
+        <DropdownMenuLabel>User Interface</DropdownMenuLabel>
         <DropdownMenuItem onClick={toggleDyslexicFont}>
           {isDyslexicFont ? (
             <OpenDyelxicCrossedIcon className={cn("mr-1", ICON_STYLE)} />
