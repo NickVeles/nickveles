@@ -16,6 +16,7 @@ import {
   ExternalLinkIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  DotIcon,
 } from "lucide-react";
 
 import { PlaceholderImage } from "@/constants/placeholders";
@@ -67,12 +68,14 @@ export default function CertificateCarousel({
                       <ExternalLinkIcon className="h-3 w-3 text-foreground group-hover:text-primary-highlighter transition-colors" />
                     </Badge>
                   </div>
-                  <div className="p-6 pb-4">
+                  <div className="p-6 pb-0">
                     <CardTitle className="text-lg group-hover:text-primary-highlighter transition-colors mb-2">
                       {cert.title}
                     </CardTitle>
-                    <CardDescription className="text-sm">
-                      {cert.issuer} • {cert.date}
+                    <CardDescription className="flex items-center text-sm">
+                      <span>{cert.issuer}</span>
+                      <DotIcon className="mt-0.5" />
+                      <span>{cert.date}</span>
                     </CardDescription>
                   </div>
                 </CardHeader>
