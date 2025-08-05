@@ -1,4 +1,5 @@
 import AboutMe from "@/components/home/about-me";
+import Certificates from "@/components/home/certificates";
 import PersonalHeader from "@/components/home/personal-header";
 import Projects from "@/components/home/projects";
 import Skills from "@/components/home/skills";
@@ -13,6 +14,7 @@ export default function Home() {
       <Testimonials />
       <Projects />
       <Skills />
+      <Certificates />
       <BackToTopButton />
     </>
   );
