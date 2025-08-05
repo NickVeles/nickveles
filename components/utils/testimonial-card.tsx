@@ -191,7 +191,7 @@ export default function TestimonialCard({
                   )}
 
                   <blockquote className="text-foreground text-lg leading-relaxed">
-                    "{currentTestimonial.content}"
+                    <q>{currentTestimonial.content}</q>
                   </blockquote>
                 </div>
               </motion.div>
