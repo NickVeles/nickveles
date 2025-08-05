@@ -85,7 +85,7 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
         <DropdownMenuSeparator />
 
         {/* Font Section */}
-        <DropdownMenuLabel>Font</DropdownMenuLabel>
+        <DropdownMenuLabel>UI</DropdownMenuLabel>
         <DropdownMenuItem onClick={toggleDyslexicFont}>
           {isDyslexicFont ? (
             <OpenDyelxicCrossedIcon className={cn("mr-1", ICON_STYLE)} />
@@ -103,7 +103,7 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           disabled={fontSize >= 1.5}
         >
           <AArrowUpIcon className={cn("mr-1", ICON_STYLE)} />
-          <span>Increase Font Size</span>
+          <span>Increase UI Size</span>
           <span className="ml-auto text-xs text-inherit">{fontSize}x</span>
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -112,7 +112,7 @@ export function AccessibilityButton({ className }: AccessibilityButtonProps) {
           disabled={fontSize <= 1}
         >
           <AArrowDownIcon className={cn("mr-1", ICON_STYLE)} />
-          <span>Decrease Font Size</span>
+          <span>Decrease UI Size</span>
           <span className="ml-auto text-xs text-inherit">{fontSize}x</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
