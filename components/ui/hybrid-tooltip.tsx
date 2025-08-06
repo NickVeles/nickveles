@@ -59,7 +59,7 @@ const HybridTooltipTrigger = (
   props: TooltipTriggerProps & PopoverTriggerProps
 ) => {
   const ringStyle =
-    "flex justify-center items-center rounded-full outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive";
+    "rounded-full outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive";
   const isTouch = useTouch();
 
   return isTouch ? (

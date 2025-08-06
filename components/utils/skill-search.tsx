@@ -93,7 +93,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
                   <h3 className="flex items-center gap-1 text-xl font-semibold ml-1">
                     {category.name}
                     <HybridTooltip>
-                      <HybridTooltipTrigger aria-label="Info trigger">
+                      <HybridTooltipTrigger aria-label="Info trigger" className="flex justify-center items-center">
                         <InfoIcon className="size-4" />
                       </HybridTooltipTrigger>
                       <HybridTooltipContent>
