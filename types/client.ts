@@ -24,6 +24,6 @@ export default class Client {
     this.website = data.website;
 
     this.resolvedLogo = this.logo ? urlFor(this.logo).width(64).height(64).url() : undefined;
-    this.resolvedFullImage = this.fullImage ? urlFor(this.fullImage).height(64).url() : undefined;
+    this.resolvedFullImage = this.fullImage ? urlFor(this.fullImage).width(114).height(64).url() : undefined;
   }
 }
