@@ -27,7 +27,7 @@ export default function Disclaimer({ children }: DisclaimerProps) {
           variant="ghost"
           className="size-6 text-destructive-foreground hover:cursor-pointer hover:bg-background hover:text-destructive transition-colors"
         >
-          <XIcon className="size-5" />
+          <XIcon className="size-4" />
         </Button>
       </div>
     </div>
