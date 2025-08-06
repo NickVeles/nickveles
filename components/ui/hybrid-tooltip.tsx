@@ -30,6 +30,7 @@ import {
   PopoverProps,
   PopoverTriggerProps,
 } from "@radix-ui/react-popover";
+import { cn } from "@/lib/utils";
 
 const TouchContext = createContext<boolean | undefined>(undefined);
 const useTouch = () => useContext(TouchContext);
@@ -57,12 +58,14 @@ const HybridTooltip = (props: TooltipProps & PopoverProps) => {
 const HybridTooltipTrigger = (
   props: TooltipTriggerProps & PopoverTriggerProps
 ) => {
+  const ringStyle =
+    "flex justify-center items-center rounded-full outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive";
   const isTouch = useTouch();
 
   return isTouch ? (
-    <PopoverTrigger {...props} />
+    <PopoverTrigger {...props} className={cn(ringStyle, props.className)} />
   ) : (
-    <TooltipTrigger {...props} />
+    <TooltipTrigger {...props} className={cn(ringStyle, props.className)} />
   );
 };
 
