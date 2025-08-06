@@ -119,7 +119,7 @@ export default function CertificateCarousel({
         </Button>
       </div>
 
-      <p className="px-4 w-full inline text-wrap text-muted-foreground">
+      <p className="mt-2 px-4 w-full inline text-wrap text-muted-foreground">
         <CircleAlertIcon className="inline size-5 mr-1 align-text-top" />
         <span className="inline font-bold">Disclaimer</span>: Some certificates
         may display my previous name. All credentials are authentic and can be
