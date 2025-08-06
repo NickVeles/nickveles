@@ -15,12 +15,14 @@ export default class Client {
     name: string;
     personTitle?: string;
     logo?: any;
+    fullImage?: any;
     website?: string;
   }) {
     this._id = data._id;
     this.name = data.name;
     this.personTitle = data.personTitle;
     this.logo = data.logo;
+    this.fullImage = data.fullImage;
     this.website = data.website;
 
     this.resolvedLogo = this.logo ? urlFor(this.logo).width(64).height(64).url() : undefined;
