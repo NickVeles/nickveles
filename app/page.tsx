@@ -1,5 +1,6 @@
 import AboutMe from "@/components/home/about-me";
 import Certificates from "@/components/home/certificates";
+import ContactCTA from "@/components/home/contact-cta";
 import PersonalHeader from "@/components/home/personal-header";
 import Projects from "@/components/home/projects";
 import Skills from "@/components/home/skills";
@@ -16,6 +17,7 @@ export default function Home() {
       <Projects />
       <Skills />
       <Certificates />
+      <ContactCTA />
     </>
   );
 }
