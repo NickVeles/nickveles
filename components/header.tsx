@@ -9,7 +9,7 @@ export default function Header() {
       <Disclaimer>
         This website is a{" "}
         <span className="inline font-bold">WORK IN PROGRESS (WIP)</span> and
-        contains mockup data &ndash; be welcome to reach out to me and provide
+        contains mockup data &ndash; be welcome to reach out to me to provide
         feedback.
       </Disclaimer>
       <div className="flex h-(--header-height) items-center px-4 gap-1">
