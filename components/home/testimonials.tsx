@@ -4,14 +4,18 @@ import TestimonialCard from "../utils/testimonial-card";
 import Image from "next/image";
 import ClientAvatar from "../utils/client-avatar";
 import { getSanityData } from "@/lib/get-sanity-data";
-import Client from "@/types/client";
+import {
+  Client,
+  ClientData,
+  processClient,
+  processClients,
+} from "@/types/client";
 import Testimonial from "@/types/testimonial";
 
 export default async function Testimonials() {
   // Fetch testimonials
-  const testimonials = await getSanityData<
-    Testimonial[]
-  >(`*[_type == "testimonial"]{
+  const rawTestimonials =
+    (await getSanityData<Testimonial[]>(`*[_type == "testimonial"]{
     client->{
       _id,
       name,
@@ -25,19 +29,29 @@ export default async function Testimonials() {
     content,
     proofUrl,
     score
-  }`);
+  }`)) ?? [];
+
+  // Manually create Client data because typescript is broken
+  const testimonials = rawTestimonials.map((t) => ({
+    ...t,
+    client: processClient(t.client),
+  }));
 
   // Fetch clients
-  const clients = await getSanityData<Client[]>(`*[_type == "client"]{
+  const rawClients =
+    (await getSanityData<ClientData[]>(`*[_type == "client"]{
     _id,
     name,
     personTitle,
     logo,
     fullImage,
     website
-  }`);
+  }`)) ?? [];
 
-  if (!clients || clients.length === 0) return null;
+  // Manually create Client data because typescript is broken
+  const clients = processClients(rawClients);
+
+  if (clients.length === 0) return null;
 
   return (
     <Section id="testimonials" className="gap-2 justify-center items-center">

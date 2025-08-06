@@ -1,31 +1,27 @@
 import { urlFor } from "@/lib/sanity-image";
 
-export default class Client {
+export interface ClientData {
   _id: string;
   name: string;
   personTitle?: string;
   logo?: any;
-  resolvedLogo?: string;
   fullImage?: any;
-  resolvedFullImage?: string;
   website?: string;
+}
 
-  constructor(data: {
-    _id: string;
-    name: string;
-    personTitle?: string;
-    logo?: any;
-    fullImage?: any;
-    website?: string;
-  }) {
-    this._id = data._id;
-    this.name = data.name;
-    this.personTitle = data.personTitle;
-    this.logo = data.logo;
-    this.fullImage = data.fullImage;
-    this.website = data.website;
+export interface Client extends ClientData {
+  resolvedLogo?: string;
+  resolvedFullImage?: string;
+}
 
-    this.resolvedLogo = this.logo ? urlFor(this.logo).width(64).height(64).url() : undefined;
-    this.resolvedFullImage = this.fullImage ? urlFor(this.fullImage).width(114).height(64).url() : undefined;
-  }
+export function processClient(data: ClientData): Client {
+  return {
+    ...data,
+    resolvedLogo: data.logo ? urlFor(data.logo).width(64).height(64).url() : undefined,
+    resolvedFullImage: data.fullImage ? urlFor(data.fullImage).width(114).height(64).url() : undefined,
+  };
+}
+
+export function processClients(data: ClientData[]): Client[] {
+  return data.map(processClient);
 }
