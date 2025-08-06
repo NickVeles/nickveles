@@ -51,7 +51,7 @@ export default async function Certificates() {
 
 
   return (
-    <Section id="certificates" className="gap-12 justify-center items-center">
+    <Section id="certificates" className="gap-8 justify-center items-center">
       <SectionH>Certificates</SectionH>
       <CertificateCarousel certificates={certificates} />
     </Section>
