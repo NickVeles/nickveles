@@ -16,10 +16,10 @@ export default function Disclaimer({ children }: DisclaimerProps) {
   return (
     <div className="w-full bg-destructive border-b text-destructive-foreground flex justify-center items-center">
       <div className="px-4 py-1 w-full flex justify-between items-center">
-        <p className="text-xs font-medium inline pt-0.5">
-          <CircleAlertIcon className="size-4 inline mr-1 mb-0.5" />
-          {children}
-        </p>
+        <div className="flex items-center gap-1">
+          <CircleAlertIcon className="size-4 min-w-4 min-h-4" />
+          <p className="text-xs font-medium inline">{children}</p>
+        </div>
         <Button
           onClick={() => setVisible(false)}
           aria-label="dismiss disclaimer"
