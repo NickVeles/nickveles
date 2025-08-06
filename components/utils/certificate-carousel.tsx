@@ -1,7 +1,7 @@
 "use client";
 
 import "keen-slider/keen-slider.min.css";
-import Certificate from "@/types/certificate";
+import { Certificate } from "@/types/certificate";
 import { useKeenSlider } from "keen-slider/react";
 import {
   Card,
@@ -19,14 +19,17 @@ import {
   DotIcon,
   CircleAlertIcon,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-
-import { PlaceholderImage } from "@/constants/placeholders";
+import Image from "next/image";
 
 type CertificateCarouselProps = {
   certificates: Certificate[];
 };
+
+function getYear(date: string) {
+  const d = new Date(date);
+  return d.getFullYear();
+}
 
 export default function CertificateCarousel({
   certificates,
@@ -67,20 +70,14 @@ export default function CertificateCarousel({
               asChild
             >
               <Link
-                href={cert.url || "https://example.com"}
+                href={cert.url || cert.file!.asset.url}
                 className="block h-full group hover:cursor-pointer"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <CardHeader className="p-0 relative overflow-hidden">
                   <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 rounded-t-lg overflow-hidden relative">
-                    <Image
-                      src={PlaceholderImage}
-                      alt={`${cert.title} certificate`}
-                      className="w-full h-full object-cover"
-                      width={300}
-                      height={200}
-                    />
+                    <Image src={cert.imageUrl} alt="certificate thumbnail" width={300} height={200} />
                     <Badge className="absolute top-2 right-2 p-1 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-colors">
                       <ExternalLinkIcon className="size-3 text-foreground group-hover:text-primary-highlighter transition-colors" />
                     </Badge>
@@ -90,9 +87,11 @@ export default function CertificateCarousel({
                       {cert.title}
                     </CardTitle>
                     <CardDescription className="flex items-center text-sm">
-                      <span>{cert.issuer}</span>
-                      <DotIcon className="mt-0.5" />
-                      <span>{cert.date}</span>
+                      <span>
+                        <span>{cert.issuer}</span>
+                        <DotIcon className="inline" />
+                        <span>{getYear(cert.date)}</span>
+                      </span>
                     </CardDescription>
                   </div>
                 </CardHeader>
