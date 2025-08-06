@@ -1,5 +1,5 @@
 import { AccessibilityButton } from "./accessibility/accessibility-button";
-import Disclaimer from "./message";
+import Disclaimer from "./disclaimer";
 import MobileMenu from "./utils/mobile-menu";
 import PCMenu from "./utils/pc-menu";
 
