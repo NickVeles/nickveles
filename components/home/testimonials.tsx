@@ -5,7 +5,6 @@ import Image from "next/image";
 import ClientAvatar from "../utils/client-avatar";
 import { getSanityData } from "@/lib/get-sanity-data";
 import {
-  Client,
   ClientData,
   processClient,
   processClients,
