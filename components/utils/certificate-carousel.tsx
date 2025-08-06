@@ -56,18 +56,21 @@ export default function CertificateCarousel({
           <ChevronLeftIcon className="size-4" />
         </Button>
       </div>
-      
+
       {/* Carousel */}
       <div ref={sliderInstanceRef} className="keen-slider">
         {certificates.map((cert) => (
           <div key={cert._id} className="keen-slider__slide p-4">
-            <Link
-              href={cert.url || "https://example.com"}
-              className="block h-full group hover:cursor-pointer"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Card
+              className="h-full transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg border-2 hover:border-primary/20 group-hover:bg-accent/5 pt-0 overflow-hidden"
+              asChild
             >
-              <Card className="h-full transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg border-2 hover:border-primary/20 group-hover:bg-accent/5 pt-0 overflow-hidden">
+              <Link
+                href={cert.url || "https://example.com"}
+                className="block h-full group hover:cursor-pointer"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <CardHeader className="p-0 relative overflow-hidden">
                   <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 rounded-t-lg overflow-hidden relative">
                     <Image
@@ -97,8 +100,8 @@ export default function CertificateCarousel({
                     {cert.description}
                   </p>
                 </CardContent>
-              </Card>
-            </Link>
+              </Link>
+            </Card>
           </div>
         ))}
       </div>
