@@ -17,6 +17,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   DotIcon,
+  CircleAlertIcon,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,7 +45,7 @@ export default function CertificateCarousel({
   });
 
   return (
-    <div className="relative flex max-w-[75%] justify-center items-center">
+    <div className="relative max-w-[75%] flex flex-col justify-center items-center">
       {/* Navigation Left */}
       <div className="flex justify-between absolute -left-11 top-1/2 -translate-y-1/2">
         <Button
@@ -117,6 +118,8 @@ export default function CertificateCarousel({
           <ChevronRightIcon className="size-4" />
         </Button>
       </div>
+
+      <p className="px-4 w-full inline text-wrap text-muted-foreground"><CircleAlertIcon className="inline size-5 mr-1 align-text-top" /><span className="inline font-bold">Disclaimer</span>: Some certificates may display my previous name. All credentials are authentic and can be verified upon request.</p>
     </div>
   );
 }
