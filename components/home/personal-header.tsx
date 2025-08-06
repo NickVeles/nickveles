@@ -63,7 +63,7 @@ export default async function PersonalHeader() {
         </div>
 
         <Button className="relative" asChild>
-          <Link href={"/contact"}>Contact Now</Link>
+          <Link href="/contact">Contact Now</Link>
         </Button>
       </div>
     </section>
