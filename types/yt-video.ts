@@ -1,8 +1,11 @@
-import SectionCategory from "./section-category";
+import { z } from 'zod';
+import { SectionCategorySchema } from './section-category';
 
-export default interface YouTubeVideo {
-  _id: string;
-  title: string;
-  youtubeUrl: string;
-  category?: SectionCategory;
-}
+export const YouTubeVideoSchema = z.object({
+  _id: z.string(),
+  title: z.string(),
+  youtubeUrl: z.string(),
+  category: SectionCategorySchema.optional(),
+});
+
+export type YouTubeVideo = z.infer<typeof YouTubeVideoSchema>;

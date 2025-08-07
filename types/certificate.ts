@@ -1,24 +1,34 @@
 import { urlFor } from "@/lib/sanity-image";
+import { z } from "zod";
 
-export interface CertificateData {
-  _id: string;
-  title: string;
-  description?: string;
-  issuer: string;
-  date: string;
-  url?: string;
-  file?: { asset: { url: string }};
-  image?: any;
-}
+export const CertificateDataSchema = z.object({
+  _id: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  issuer: z.string(),
+  date: z.string(),
+  url: z.string().optional(),
+  file: z
+    .object({
+      asset: z.object({
+        url: z.string(),
+      }),
+    })
+    .optional(),
+  image: z.unknown().optional(),
+});
 
-export interface Certificate extends CertificateData {
-  imageUrl: string;
-}
+export const CertificateSchema = CertificateDataSchema.extend({
+  imageUrl: z.string(),
+});
+
+export type CertificateData = z.infer<typeof CertificateDataSchema>;
+export type Certificate = z.infer<typeof CertificateSchema>;
 
 export function processCertificate(data: CertificateData): Certificate {
   return {
     ...data,
-    imageUrl: data.image ? urlFor(data.image).width(300).height(200).url() : ''
+    imageUrl: data.image ? urlFor(data.image).width(300).height(200).url() : "",
   };
 }
 

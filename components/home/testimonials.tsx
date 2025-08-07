@@ -9,7 +9,7 @@ import {
   processClient,
   processClients,
 } from "@/types/client";
-import Testimonial from "@/types/testimonial";
+import { Testimonial } from "@/types/testimonial";
 
 export default async function Testimonials() {
   // Fetch testimonials
@@ -66,10 +66,10 @@ export default async function Testimonials() {
         {/* List of clients */}
         <div className="w-full flex flex-wrap gap-4 justify-center items-center">
           {clients.map((client) =>
-            client.resolvedFullImage ? (
+            client.fullImageUrl ? (
               <div key={client._id} className="relative h-12 aspect-video">
                 <Image
-                  src={client.resolvedFullImage}
+                  src={client.fullImageUrl}
                   alt={`${client.name}'s logo`}
                   className="object-contain"
                   fill

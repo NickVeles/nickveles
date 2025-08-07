@@ -4,7 +4,7 @@ import AnimatedBackground from "../utils/animated-background";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { urlFor } from "@/lib/sanity-image";
-import Author from "@/types/author";
+import { Author } from "@/types/author";
 import { getSanityData } from "@/lib/get-sanity-data";
 
 export default async function PersonalHeader() {

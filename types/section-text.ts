@@ -1,8 +1,11 @@
-import SectionCategory from "./section-category";
+import { z } from 'zod';
+import { SectionCategorySchema } from './section-category';
 
-export default interface SectionText {
-  _id: string;
-  title: string;
-  paragraphs: string[];
-  category: SectionCategory;
-}
+export const SectionTextSchema = z.object({
+  _id: z.string(),
+  title: z.string(),
+  paragraphs: z.string().array(),
+  category: SectionCategorySchema,
+});
+
+export type SectionText = z.infer<typeof SectionTextSchema>;

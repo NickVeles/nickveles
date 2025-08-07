@@ -5,7 +5,7 @@ import Stars from "../utils/stars";
 import { BadgeCheckIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Testimonial from "@/types/testimonial";
+import { Testimonial } from "@/types/testimonial";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";

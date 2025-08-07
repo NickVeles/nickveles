@@ -1,7 +1,7 @@
-import YouTubeVideo from "@/types/yt-video";
+import { YouTubeVideo } from "@/types/yt-video";
 import VideoSelector from "../utils/video-selector";
 import { getSanityData } from "@/lib/get-sanity-data";
-import SectionText from "@/types/section-text";
+import { SectionText } from "@/types/section-text";
 import WhoIAm from "../utils/who-i-am";
 import Section from "../utils/section";
 import { SectionH } from "../ui/typography";

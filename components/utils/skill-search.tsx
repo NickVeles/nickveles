@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { InfoIcon, Search } from "lucide-react";
 import { useState, useRef, useMemo } from "react";
-import Skill from "@/types/skill";
+import { Skill } from "@/types/skill";
 import TextLink from "./text-link";
-import SkillCategory from "@/types/skill-category";
+import { SkillCategory } from "@/types/skill-category";
 import {
   HybridTooltip,
   HybridTooltipContent,

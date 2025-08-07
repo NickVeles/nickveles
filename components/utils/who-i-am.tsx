@@ -1,4 +1,4 @@
-import SectionText from "@/types/section-text";
+import { SectionText } from "@/types/section-text";
 import TextLink from "./text-link";
 
 type WhoIAmProps = {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
-import SectionText from "@/types/section-text";
+import { SectionText } from "@/types/section-text";
 import { SectionH } from "../ui/typography";
 
 type ProjectsInfoProps = {

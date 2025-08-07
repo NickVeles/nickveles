@@ -2,8 +2,8 @@ import { getSanityData } from "@/lib/get-sanity-data";
 import { SectionH } from "../ui/typography";
 import Section from "../utils/section";
 import SkillSearch from "../utils/skill-search";
-import Skill from "@/types/skill";
-import SkillCategory from "@/types/skill-category";
+import { Skill } from "@/types/skill";
+import { SkillCategory } from "@/types/skill-category";
 
 export default async function Skills() {
   // Get individual skills

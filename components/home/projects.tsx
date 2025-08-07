@@ -1,9 +1,9 @@
 import Section from "../utils/section";
 import ProjectsInfo from "../utils/projects-info";
 import { getSanityData } from "@/lib/get-sanity-data";
-import SectionText from "@/types/section-text";
+import { SectionText } from "@/types/section-text";
 import LatestProject from "../utils/latest-project";
-import Project from "@/types/project";
+import { Project } from "@/types/project";
 
 export default async function Projects() {
   const sectionText = (
@@ -18,8 +18,7 @@ export default async function Projects() {
     }`)
   )?.filter((x) => x.category?.slug === "projects")[0];
 
-  const latestProject = (
-    await getSanityData<Project>(`*[_type == "project"]{
+  const latestProject = await getSanityData<Project>(`*[_type == "project"]{
       _id,
       title,
       "slug": slug.current,
@@ -35,8 +34,7 @@ export default async function Projects() {
       repositoryUrl,
       publishedAt,
       editedAt
-    } | order(publishedAt desc)[0]`)
-  );
+    } | order(publishedAt desc)[0]`);
 
   return (
     <Section id="projects">

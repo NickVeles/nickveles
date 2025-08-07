@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import YouTubeVideo from "@/types/yt-video";
+import { YouTubeVideo } from "@/types/yt-video";
 
 type VideoSelectorProps = {
   videos: YouTubeVideo[];

@@ -1,11 +1,14 @@
-import Client from "./client";
+import { z } from 'zod';
+import { ClientSchema } from './client';
 
-export default interface Testimonial {
-  _id: string;
-  client: Client;
-  date: string;
-  title?: string;
-  content: string;
-  proofUrl?: string;
-  score?: number; // 0 - 1
-}
+export const TestimonialSchema = z.object({
+  _id: z.string(),
+  client: ClientSchema,
+  date: z.string(),
+  title: z.string().optional(),
+  content: z.string(),
+  proofUrl: z.string().optional(),
+  score: z.number().min(0).max(1).optional(),
+});
+
+export type Testimonial = z.infer<typeof TestimonialSchema>;

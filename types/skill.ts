@@ -1,9 +1,12 @@
-import SkillCategory from "./skill-category";
+import { z } from 'zod';
+import { SkillCategorySchema } from './skill-category';
 
-export default interface Skill {
-  _id: string;
-  name: string;
-  category: SkillCategory;
-  tags: string[];
-  points: number;
-}
+export const SkillSchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  category: SkillCategorySchema,
+  tags: z.string().array(),
+  points: z.number(),
+});
+
+export type Skill = z.infer<typeof SkillSchema>;

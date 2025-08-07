@@ -1,4 +1,4 @@
-import Project from "@/types/project";
+import { Project } from "@/types/project";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,11 @@ export default function LatestProject({ project }: LatestProjectProps) {
         </CardHeader>
         <div className="px-6 pb-3">
           <Image
-            src={project.mainImage ? urlFor(project.mainImage).height(200).width(400).url() : PlaceholderImage}
+            src={
+              project.mainImage
+                ? urlFor(project.mainImage).height(200).width(400).url()
+                : PlaceholderImage
+            }
             alt="Latest project preview"
             width={400}
             height={200}

@@ -1,4 +1,4 @@
-import Client from "@/types/client";
+import { Client } from "@/types/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn, getInitials } from "@/lib/utils";
 import { Button } from "../ui/button";
@@ -24,7 +24,7 @@ export default function ClientAvatar({
     <div className={cn("relative inline-block", className)}>
       <Avatar className={cn("size-16", avatarClassName)}>
         <AvatarImage
-          src={client.resolvedLogo}
+          src={client.logoUrl}
           alt={client.name}
         />
         <AvatarFallback
