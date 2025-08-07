@@ -3,33 +3,17 @@
 import "keen-slider/keen-slider.min.css";
 import { Certificate } from "@/types/certificate";
 import { useKeenSlider } from "keen-slider/react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  ExternalLinkIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  DotIcon,
   CircleAlertIcon,
 } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+import CertificateCard from "./certificate-card";
 
 type CertificateCarouselProps = {
   certificates: Certificate[];
 };
-
-function getYear(date: string) {
-  const d = new Date(date);
-  return d.getFullYear();
-}
 
 export default function CertificateCarousel({
   certificates,
@@ -65,43 +49,7 @@ export default function CertificateCarousel({
       <div ref={sliderInstanceRef} className="keen-slider">
         {certificates.map((cert) => (
           <div key={cert._id} className="keen-slider__slide p-4">
-            <Card
-              className="h-full transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg border-2 hover:border-primary/20 group-hover:bg-accent/5 pt-0 overflow-hidden"
-              asChild
-            >
-              <Link
-                href={cert.url || cert.file!.asset.url}
-                className="block h-full group hover:cursor-pointer"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <CardHeader className="p-0 relative overflow-hidden">
-                  <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 rounded-t-lg overflow-hidden relative">
-                    <Image src={cert.imageUrl} alt="certificate thumbnail" width={300} height={200} />
-                    <Badge className="absolute top-2 right-2 p-1 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-colors">
-                      <ExternalLinkIcon className="size-3 text-foreground group-hover:text-primary-highlighter transition-colors" />
-                    </Badge>
-                  </div>
-                  <div className="flex flex-col gap-2 p-6 pb-0">
-                    <CardTitle className="text-lg group-hover:text-primary-highlighter transition-colors">
-                      {cert.title}
-                    </CardTitle>
-                    <CardDescription className="flex items-center text-sm">
-                      <span>
-                        <span>{cert.issuer}</span>
-                        <DotIcon className="inline" />
-                        <span>{getYear(cert.date)}</span>
-                      </span>
-                    </CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent className="px-6">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {cert.description}
-                  </p>
-                </CardContent>
-              </Link>
-            </Card>
+            <CertificateCard certificate={cert} />
           </div>
         ))}
       </div>
