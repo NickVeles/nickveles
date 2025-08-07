@@ -19,12 +19,12 @@ export default async function Certificates() {
       }
     },
     image
-  } | order(title desc)`) ?? [];
+  } | order(title asc)`) ?? [];
+
+  if (rawCertificates.length === 0) return null;
 
   // Process the raw data into plain objects with computed properties
   const certificates = processCertificates(rawCertificates);
-
-  if (certificates.length === 0) return null;
 
   return (
     <Section id="certificates" className="gap-8 justify-center items-center">
