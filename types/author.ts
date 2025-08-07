@@ -8,5 +8,4 @@ export const AuthorSchema = z.object({
   image: z.any(),
 });
 
-// Optionally, you can infer the TypeScript type from the schema:
 export type Author = z.infer<typeof AuthorSchema>;
