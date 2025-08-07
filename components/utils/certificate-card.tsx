@@ -37,8 +37,8 @@ export default function CertificateCard({ certificate }: CertificateCardProps) {
             <Image
               src={certificate.imageUrl}
               alt="certificate thumbnail"
-              width={450}
-              height={300}
+              width={300}
+              height={200}
               className="w-full"
             />
             <Badge className="absolute top-2 right-2 p-1 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-colors">
