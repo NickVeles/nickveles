@@ -2,8 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
+import { useEffect, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,7 +16,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,8 +24,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ContactForm, ContactFormSchema } from "@/types/contact-form";
+import { useTheme } from "next-themes";
 
 export default function ContactFormCard() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
   const form = useForm<ContactForm>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
@@ -35,16 +41,75 @@ export default function ContactFormCard() {
       subject: "",
       message: "",
       hasAcceptedTerms: false,
+      captchaToken: "",
     },
     mode: "onChange",
     reValidateMode: "onChange",
   });
 
-  function onSubmit(values: ContactForm) {
-    // TODO: Implement submission logic
-    //!Remember to trim the fields before sending
-    console.log(values);
+  const onCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+    // Update the form field as well
+    form.setValue('captchaToken', token || '', { 
+      shouldValidate: true,
+      shouldDirty: true 
+    });
+  };
+
+  const onCaptchaExpired = () => {
+    setCaptchaToken(null);
+    form.setValue('captchaToken', '', { 
+      shouldValidate: true,
+      shouldDirty: true 
+    });
+  };
+
+  async function onSubmit(values: ContactForm) {
+    setIsSubmitting(true);
+
+    try {
+      // Trim the fields before sending
+      const trimmedValues = {
+        name: values.name.trim(),
+        email: values.email.trim(),
+        subject: values.subject.trim(),
+        message: values.message.trim(),
+        hasAcceptedTerms: values.hasAcceptedTerms,
+        captchaToken: values.captchaToken,
+      };
+
+      // Send form data along with captcha token
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(trimmedValues),
+      });
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        form.reset();
+        setCaptchaToken(null);
+        recaptchaRef.current?.reset();
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
+
+  // Ensure theme is loaded before rendering
+  useEffect(() => setMounted(true), []);
+  if (!mounted) {
+    return null;
+  }
+
+  const isFormValid = form.formState.isValid && captchaToken !== null;
 
   return (
     <Card className="w-full max-w-2xl">
@@ -148,12 +213,32 @@ export default function ContactFormCard() {
               )}
             />
 
+            {/* reCAPTCHA */}
+            <FormField
+              control={form.control}
+              name="captchaToken"
+              render={() => (
+                <FormItem>
+                  <FormControl>
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                      onChange={onCaptchaChange}
+                      onExpired={onCaptchaExpired}
+                      theme={resolvedTheme === "dark" ? "dark" : "light"}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button
               type="submit"
               className="w-full"
-              disabled={!form.formState.isValid}
+              disabled={!isFormValid || isSubmitting}
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </Form>
