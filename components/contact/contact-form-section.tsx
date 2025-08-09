@@ -19,7 +19,7 @@ export default function ContactFormSection() {
           <p>You can also contact me through one of my social platforms:</p>
           <ul className="flex flex-col gap-2 list-disc ml-4">
             {sitemap.socials.map((social) => (
-              <li>
+              <li key={social.url}>
                 <TextLink href={social.url} target="_blank" isIcon>
                   {social.name}
                 </TextLink>
