@@ -73,17 +73,19 @@ export default function MobileMenu({ className }: MobileMenuProps) {
             {/* Menu */}
             <div className="flex flex-col w-full">
               <h4 className="ml-2 mb-1 text-sm text-muted-foreground">Menu</h4>
-              {sitemap.navigation.map(({ name, url }) => (
-                <NavigationMenuItem key={name}>
-                  <NavigationMenuLink
-                    href={url}
-                    onClick={() => setIsOpen(false)}
-                    className="inline-flex flex-row text-lg w-full"
-                  >
-                    {name}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
+              {sitemap.navigation
+                .filter((link) => !link.isFooterOnly)
+                .map(({ name, url }) => (
+                  <NavigationMenuItem key={name}>
+                    <NavigationMenuLink
+                      href={url}
+                      onClick={() => setIsOpen(false)}
+                      className="inline-flex flex-row text-lg w-full"
+                    >
+                      {name}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
             </div>
 
             {/* Affiliates */}

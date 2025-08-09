@@ -4,6 +4,7 @@ type SitemapLink = {
   url: string;
   name: string;
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  isFooterOnly?: boolean;
 };
 
 type Sitemap = {
@@ -25,6 +26,11 @@ export const sitemap: Sitemap = {
     {
       url: "/contact",
       name: "Hire/Contact",
+    },
+    {
+      url: "/tos",
+      name: "Terms and Conditions",
+      isFooterOnly: true,
     },
   ],
   affiliates: [

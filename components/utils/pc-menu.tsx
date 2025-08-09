@@ -29,24 +29,29 @@ export default function PCMenu({ className }: PCMenuProps) {
           </NavigationMenuItem>
 
           {/* Rest of navigation */}
-          {sitemap.navigation.slice(1).map(({ name, url }) => (
-            <NavigationMenuItem key={name}>
-              <NavigationMenuLink
-                href={url}
-                className={
-                  name === "Hire/Contact"
-                    ? "text-primary-highlighter rounded-sm hover:bg-primary hover:text-primary-foreground"
-                    : ""
-                }
-              >
-                {name}
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          ))}
+          {sitemap.navigation
+            .slice(1)
+            .filter((link) => !link.isFooterOnly)
+            .map(({ name, url }) => (
+              <NavigationMenuItem key={name}>
+                <NavigationMenuLink
+                  href={url}
+                  className={
+                    name === "Hire/Contact"
+                      ? "text-primary-highlighter rounded-sm hover:bg-primary hover:text-primary-foreground"
+                      : ""
+                  }
+                >
+                  {name}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
 
           {/* Affiliates */}
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="px-2">Affiliates</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="px-2">
+              Affiliates
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="min-w-[250px] gap-1">
                 {sitemap.affiliates.map(({ name, url, Icon }) => (
