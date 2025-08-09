@@ -3,6 +3,7 @@ import { SectionCategorySchema } from './section-category';
 
 export const SectionTextSchema = z.object({
   _id: z.string(),
+  _updatedAt: z.string().optional(),
   title: z.string(),
   paragraphs: z.string().array(),
   category: SectionCategorySchema,
