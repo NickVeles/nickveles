@@ -24,13 +24,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ContactForm, ContactFormSchema } from "@/types/contact-form";
-import { useTheme } from "next-themes";
+import { CheckIcon } from "lucide-react";
+import Loading from "@/app/loading";
 
 export default function ContactFormCard() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const form = useForm<ContactForm>({
@@ -50,17 +50,17 @@ export default function ContactFormCard() {
   const onCaptchaChange = (token: string | null) => {
     setCaptchaToken(token);
     // Update the form field as well
-    form.setValue('captchaToken', token || '', { 
+    form.setValue("captchaToken", token || "", {
       shouldValidate: true,
-      shouldDirty: true 
+      shouldDirty: true,
     });
   };
 
   const onCaptchaExpired = () => {
     setCaptchaToken(null);
-    form.setValue('captchaToken', '', { 
+    form.setValue("captchaToken", "", {
       shouldValidate: true,
-      shouldDirty: true 
+      shouldDirty: true,
     });
   };
 
@@ -88,10 +88,15 @@ export default function ContactFormCard() {
       });
 
       if (response.ok) {
-        alert("Message sent successfully!");
         form.reset();
-        setCaptchaToken(null);
         recaptchaRef.current?.reset();
+        setCaptchaToken(null);
+
+        // Confirm submission
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 5000);
       } else {
         throw new Error("Failed to send message");
       }
@@ -101,12 +106,6 @@ export default function ContactFormCard() {
     } finally {
       setIsSubmitting(false);
     }
-  }
-
-  // Ensure theme is loaded before rendering
-  useEffect(() => setMounted(true), []);
-  if (!mounted) {
-    return null;
   }
 
   const isFormValid = form.formState.isValid && captchaToken !== null;
@@ -225,7 +224,6 @@ export default function ContactFormCard() {
                       sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                       onChange={onCaptchaChange}
                       onExpired={onCaptchaExpired}
-                      theme={resolvedTheme === "dark" ? "dark" : "light"}
                     />
                   </FormControl>
                   <FormMessage />
@@ -236,9 +234,15 @@ export default function ContactFormCard() {
             <Button
               type="submit"
               className="w-full"
-              disabled={!isFormValid || isSubmitting}
+              disabled={!isFormValid || isSubmitting || isSubmitted}
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
+              {isSubmitted ? (
+                <CheckIcon />
+              ) : isSubmitting ? (
+                <Loading className="size-6" />
+              ) : (
+                "Send Message"
+              )}
             </Button>
           </form>
         </Form>
