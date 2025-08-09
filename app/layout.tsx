@@ -13,6 +13,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Main from "@/components/main";
 import { HybridTooltipProvider, TouchProvider } from "@/components/ui/hybrid-tooltip";
+import { Toaster } from "@/components/ui/sonner";
 
 const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -102,6 +103,7 @@ export default function RootLayout({
                 <Header />
                 <Main>{children}</Main>
                 <Footer />
+                <Toaster />
               </HybridTooltipProvider>
             </TouchProvider>
           </AccessibilityProvider>
