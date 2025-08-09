@@ -27,6 +27,7 @@ import { ContactForm, ContactFormSchema } from "@/types/contact-form";
 import { CheckIcon } from "lucide-react";
 import Loading from "@/app/loading";
 import { toast } from "sonner";
+import TextLink from "./text-link";
 
 export default function ContactFormCard() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -207,7 +208,12 @@ export default function ContactFormCard() {
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormLabel>I accept the terms and conditions</FormLabel>
+                    <FormLabel className="inline">
+                      I accept the{" "}
+                      <TextLink href="/tos" target="_blank" isIcon iconSize={12}>
+                        terms and conditions
+                      </TextLink>
+                    </FormLabel>
                   </div>
                   <FormMessage />
                 </FormItem>

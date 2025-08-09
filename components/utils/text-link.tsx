@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 type TextLinkProps = LinkProps & {
   href: string;
   isIcon?: boolean;
+  iconSize?: number;
   isUncolored?: boolean;
   target?: string;
   className?: string;
@@ -14,6 +15,7 @@ type TextLinkProps = LinkProps & {
 export default function TextLink({
   href,
   isIcon,
+  iconSize,
   isUncolored,
   target,
   className,
@@ -30,7 +32,7 @@ export default function TextLink({
       {...props}
     >
       {children}
-      {isIcon && <ExternalLinkIcon size={16} className="inline align-baseline" />}
+      {isIcon && <ExternalLinkIcon size={iconSize ?? 16} className="inline align-baseline" />}
     </Link>
   );
 }
