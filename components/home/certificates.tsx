@@ -19,7 +19,7 @@ export default async function Certificates() {
       }
     },
     image
-  } | order(date asc)`) ?? [];
+  } | order(date desc)`) ?? [];
 
   if (rawCertificates.length === 0) return null;
 
