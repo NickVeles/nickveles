@@ -95,7 +95,9 @@ export default function ContactFormCard() {
         setCaptchaToken(null);
 
         // Confirm submission
-        toast.success("Message sent successfully");
+        toast.success("Message sent successfully", {
+          description: "I'll message back as soon as possible!",
+        });
         setIsSubmitted(true);
         setTimeout(() => {
           setIsSubmitted(false);
@@ -210,7 +212,12 @@ export default function ContactFormCard() {
                     </FormControl>
                     <FormLabel className="inline">
                       I accept the{" "}
-                      <TextLink href="/tos" target="_blank" isIcon iconSize={12}>
+                      <TextLink
+                        href="/tos"
+                        target="_blank"
+                        isIcon
+                        iconSize={12}
+                      >
                         terms and conditions
                       </TextLink>
                     </FormLabel>
