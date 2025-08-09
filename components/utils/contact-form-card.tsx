@@ -26,6 +26,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ContactForm, ContactFormSchema } from "@/types/contact-form";
 import { CheckIcon } from "lucide-react";
 import Loading from "@/app/loading";
+import { toast } from "sonner";
 
 export default function ContactFormCard() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -93,6 +94,7 @@ export default function ContactFormCard() {
         setCaptchaToken(null);
 
         // Confirm submission
+        toast.success("Message sent successfully");
         setIsSubmitted(true);
         setTimeout(() => {
           setIsSubmitted(false);
@@ -102,7 +104,7 @@ export default function ContactFormCard() {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Failed to send message. Please try again.");
+      toast.error("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
