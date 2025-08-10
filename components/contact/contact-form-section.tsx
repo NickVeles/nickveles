@@ -20,16 +20,21 @@ export default function ContactFormSection() {
           <ul className="flex flex-col gap-2 list-disc ml-4">
             {sitemap.socials.map((social) => (
               <li key={social.url}>
-                <TextLink href={social.url} target="_blank" isIcon iconSize={14}>
+                <TextLink
+                  href={social.url}
+                  target="_blank"
+                  isIcon
+                  iconSize={14}
+                >
                   {social.name}
                 </TextLink>
               </li>
             ))}
           </ul>
           <p>
-            To prevent bots and spam, I only share my phone number and direct
-            email address with people who already contacted me through my form
-            or any of my social media.
+            To prevent spam, I only share my phone number and direct email
+            address with people who already contacted me through my form or any
+            of my social media.
           </p>
         </div>
       </div>
