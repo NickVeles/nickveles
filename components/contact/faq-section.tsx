@@ -13,9 +13,10 @@ export default async function FAQSection() {
   const faq =
     (await getSanityData<FAQ[]>(`*[_type == "faq"]{
     _id,
+    _createdAt,
     question,
     answer,
-  }`)) ?? [];
+  } | order(_createdAt desc)`)) ?? [];
 
   if (faq.length === 0) return null;
 
