@@ -28,12 +28,17 @@ import { CheckIcon } from "lucide-react";
 import Loading from "@/app/loading";
 import { toast } from "sonner";
 import TextLink from "./text-link";
+import { sitemap } from "@/constants/sitemap";
+import Link from "next/link";
 
 export default function ContactFormCard() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  // Check if Upwork censoring is enabled
+  const isUpworkCensored = !!process.env.NEXT_PUBLIC_UPWORK_CENSOR;
 
   const form = useForm<ContactForm>({
     resolver: zodResolver(ContactFormSchema),
@@ -116,152 +121,189 @@ export default function ContactFormCard() {
   const isFormValid = form.formState.isValid && captchaToken !== null;
 
   return (
-    <Card className="w-full max-w-2xl">
-      <CardHeader>
-        <CardTitle>Contact Me</CardTitle>
-        <CardDescription>
-          Fill out the form below and I'll get back to you as soon as possible.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Name */}
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your full name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Email */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="Enter your email address"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Subject */}
-            <FormField
-              control={form.control}
-              name="subject"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Subject</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter the subject of your message"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Message */}
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Message</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Enter your message here..."
-                      className="min-h-[120px] resize-y"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Accept Terms */}
-            <FormField
-              control={form.control}
-              name="hasAcceptedTerms"
-              render={({ field }) => (
-                <FormItem className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
+    <div className="relative w-full max-w-2xl">
+      <Card className="w-full overflow-hidden">
+        <CardHeader>
+          <CardTitle>Contact Me</CardTitle>
+          <CardDescription>
+            Fill out the form below and I'll get back to you as soon as
+            possible.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-6"
+              aria-disabled={isUpworkCensored}
+              inert={isUpworkCensored}
+            >
+              {/* Name */}
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
+                      <Input placeholder="Enter your full name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Email */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Enter your email address"
+                        {...field}
                       />
                     </FormControl>
-                    <FormLabel className="inline">
-                      I accept the{" "}
-                      <TextLink
-                        href="/tos"
-                        target="_blank"
-                        isIcon
-                        iconSize={12}
-                      >
-                        terms and conditions
-                      </TextLink>
-                    </FormLabel>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* reCAPTCHA */}
-            <FormField
-              control={form.control}
-              name="captchaToken"
-              render={() => (
-                <FormItem>
-                  <FormControl>
-                    <ReCAPTCHA
-                      ref={recaptchaRef}
-                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                      onChange={onCaptchaChange}
-                      onExpired={onCaptchaExpired}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              {/* Subject */}
+              <FormField
+                control={form.control}
+                name="subject"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Subject</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter the subject of your message"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={!isFormValid || isSubmitting || isSubmitted}
-            >
-              {isSubmitted ? (
-                <CheckIcon />
-              ) : isSubmitting ? (
-                <Loading className="size-6" />
-              ) : (
-                "Send Message"
-              )}
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+              {/* Message */}
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Message</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Enter your message here..."
+                        className="min-h-[120px] resize-y"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Accept Terms */}
+              <FormField
+                control={form.control}
+                name="hasAcceptedTerms"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormLabel className="inline">
+                        I accept the{" "}
+                        <TextLink
+                          href="/tos"
+                          target="_blank"
+                          isIcon
+                          iconSize={12}
+                        >
+                          terms and conditions
+                        </TextLink>
+                      </FormLabel>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* reCAPTCHA */}
+              <FormField
+                control={form.control}
+                name="captchaToken"
+                render={() => (
+                  <FormItem>
+                    <FormControl>
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                        onChange={onCaptchaChange}
+                        onExpired={onCaptchaExpired}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={!isFormValid || isSubmitting || isSubmitted}
+              >
+                {isSubmitted ? (
+                  <CheckIcon />
+                ) : isSubmitting ? (
+                  <Loading className="size-6" />
+                ) : (
+                  "Send Message"
+                )}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+
+      {/* Upwork Overlay */}
+      {isUpworkCensored && (
+        <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm rounded-lg">
+          <div className="flex flex-col text-center p-6 max-w-md gap-2">
+            <h3 className="text-lg font-semibold text-destructive">
+              Contact Form Not Available
+            </h3>
+            <p className="text-muted-foreground">
+              For Upwork users, please contact me directly through my Upwork
+              profile instead of using this form.
+            </p>
+            <div className="flex justify-center items-center gap-2 mt-4">
+              {sitemap.socials.map(({ name, url, Icon }) => (
+                <Button
+                  key={name}
+                  variant="outline"
+                  className="size-12"
+                  asChild
+                >
+                  <Link href={url} target="_blank" aria-label={name}>
+                    {Icon && <Icon className="size-8 text-inherit" />}
+                  </Link>
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

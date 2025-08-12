@@ -1,4 +1,9 @@
-import { LinkedInIcon, GitHubIcon, UpworkIcon, DatingSimplifiedIcon } from "@/components/icons";
+import {
+  LinkedInIcon,
+  GitHubIcon,
+  UpworkIcon,
+  DatingSimplifiedIcon,
+} from "@/components/icons";
 
 type SitemapLink = {
   url: string;
@@ -13,7 +18,7 @@ type Sitemap = {
   socials: SitemapLink[];
 };
 
-export const sitemap: Sitemap = {
+const sitemap: Sitemap = {
   navigation: [
     {
       url: "/",
@@ -42,6 +47,16 @@ export const sitemap: Sitemap = {
   ],
   socials: [
     {
+      url: "https://www.upwork.com/", //TODO: put your Upwork profile link here
+      name: "Upwork",
+      Icon: UpworkIcon,
+    },
+  ],
+};
+
+if (!process.env.NEXT_PUBLIC_UPWORK_CENSOR) {
+  sitemap.socials = [
+    {
       url: "https://www.linkedin.com/in/nickveles/",
       name: "LinkedIn",
       Icon: LinkedInIcon,
@@ -51,10 +66,8 @@ export const sitemap: Sitemap = {
       name: "GitHub",
       Icon: GitHubIcon,
     },
-    {
-      url: "https://www.upwork.com/", //TODO: put your Upwork profile link here
-      name: "Upwork",
-      Icon: UpworkIcon,
-    },
-  ],
-};
+    ...sitemap.socials,
+  ];
+}
+
+export { sitemap };

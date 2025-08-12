@@ -12,6 +12,12 @@ export default function Header() {
         contains mockup data &ndash; be welcome to reach out to me and provide
         feedback.
       </Disclaimer>
+      {process.env.NEXT_PUBLIC_UPWORK_CENSOR && (
+        <Disclaimer>
+          You're currently viewing the Upwork version of my original website. Some
+          features have been hidden to comply with Upwork's policies.
+        </Disclaimer>
+      )}
       <div className="flex h-(--header-height) items-center px-4 gap-1">
         <div className="flex flex-1">
           <MobileMenu className="sm:hidden h-10 w-10" />
