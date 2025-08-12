@@ -16,10 +16,14 @@ export default function Disclaimer({
 }: DisclaimerProps) {
   const [visible, setVisible] = useState(true);
   const iconStyle = "size-4 min-w-4 min-h-4";
-  const discStyle =
+  const disclaimerStyle =
     variant === "destructive"
       ? "bg-destructive text-destructive-foreground"
       : "bg-primary text-primary-foreground";
+  const dismissStyle =
+    variant === "destructive"
+      ? "text-destructive-foreground hover:text-destructive"
+      : "text-primary-foreground hover:text-primary";
 
   if (!visible || !children) return null;
 
@@ -27,7 +31,7 @@ export default function Disclaimer({
     <div
       className={cn(
         "w-full border-b flex justify-center items-center",
-        discStyle
+        disclaimerStyle
       )}
     >
       <div className="px-4 py-1 w-full flex justify-between items-center">
@@ -44,7 +48,7 @@ export default function Disclaimer({
           aria-label="dismiss disclaimer"
           size="icon"
           variant="ghost"
-          className="size-6 text-destructive-foreground hover:cursor-pointer hover:bg-background hover:text-destructive transition-colors"
+          className={`size-6 hover:cursor-pointer hover:bg-background transition-colors ${dismissStyle}`}
         >
           <XIcon className="size-4" />
         </Button>
