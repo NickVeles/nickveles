@@ -8,7 +8,7 @@ export default function GoBack() {
   const router = useRouter();
 
   return (
-    <Button variant="ghost" className="mb-6" onClick={() => router.back()}>
+    <Button variant="ghost" className="w-fit" onClick={() => router.back()}>
       <ArrowLeftIcon className="size-4 mr-1" />
       Go Back
     </Button>
