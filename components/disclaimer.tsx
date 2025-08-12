@@ -23,7 +23,7 @@ export default function Disclaimer({
   const dismissStyle =
     variant === "destructive"
       ? "text-destructive-foreground hover:text-destructive"
-      : "text-primary-foreground hover:text-primary";
+      : "text-primary-foreground hover:text-primary-highlighter";
 
   if (!visible || !children) return null;
 
