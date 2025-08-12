@@ -131,7 +131,7 @@ export default function ProjectList() {
             className="overflow-hidden group cursor-pointer py-0 transition-all duration-300 hover:scale-102 hover:shadow-lg border-border hover:border-primary-highlighter"
             asChild
           >
-            <Link href={`/projects/${project.slug}`}>
+            <Link href={`/portfolio/${project.slug}`}>
               <div className="relative overflow-hidden">
                 <Image
                   src={project.mainImage || PlaceholderImage}
