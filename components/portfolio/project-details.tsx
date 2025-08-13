@@ -4,6 +4,7 @@ import { Badge } from "../ui/badge";
 import { cn, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { urlFor } from "@/lib/sanity-image";
+import MarkdownRenderer from "../utils/markdown-renderer";
 
 type ProjectDetailsProps = {
   project: Project;
@@ -26,14 +27,9 @@ export default function ProjectDetails({
     <div className={cn("grid grid-cols-1 lg:grid-cols-3 gap-4", className)}>
       <Card className="lg:col-span-2">
         <CardContent>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: project.markdownContent
-                .replace(/\n/g, "<br>")
-                .replace(/## /g, "<h3>")
-                .replace(/# /g, "<h2>"),
-            }}
-          />
+          <article className="font-sans dyslexic:font-dyslexic">
+            <MarkdownRenderer content={project.markdownContent} />
+          </article>
         </CardContent>
       </Card>
 
