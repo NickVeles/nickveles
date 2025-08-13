@@ -15,48 +15,29 @@ import {
 import { SearchIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { ProjectCategory } from "@/types/project-category";
 import { Project } from "@/types/project";
 import { PlaceholderImage } from "@/constants/placeholders";
 import Loading from "@/app/loading";
+import { ProjectCategory } from "@/types/project-category";
 
-// Mock data
-const mockCategories: ProjectCategory[] = [
-  { _id: "1", title: "Web Development" },
-  { _id: "2", title: "Mobile Apps" },
-  { _id: "3", title: "Design" },
-  { _id: "4", title: "Data Science" },
-];
+type ProjectListProps = {
+  projects: Project[];
+};
 
-const mockProjects: Project[] = Array.from({ length: 25 }, (_, i) => ({
-  _id: `project-${i + 1}`,
-  title: `Project ${i + 1}`,
-  slug: `project-${i + 1}`,
-  author: { _id: "1", name: "1", slug: "1", image: null },
-  description: `This is a detailed description of project ${
-    i + 1
-  }. It showcases various technologies and methodologies used in modern development.`,
-  mainImage: PlaceholderImage,
-  category: mockCategories[i % mockCategories.length],
-  markdownContent: `# Project ${i + 1}\n\nDetailed content here...`,
-  url: `https://project-${i + 1}.example.com`,
-  repositoryUrl: `https://github.com/user/project-${i + 1}`,
-  publishedAt: new Date(
-    2024,
-    Math.floor(Math.random() * 12),
-    Math.floor(Math.random() * 28) + 1
-  ).toISOString(),
-}));
-
-export default function ProjectList() {
+export default function ProjectList({ projects }: ProjectListProps) {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [displayCount, setDisplayCount] = useState(12);
 
+  // Get categories
+  const categories: ProjectCategory[] = [
+    ...new Map(projects.map((p) => [p.category._id, p.category])).values(),
+  ];
+
   // Filter and search projects
   const filteredProjects = useMemo(() => {
-    return mockProjects.filter((project) => {
+    return projects.filter((project) => {
       const matchesSearch =
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.description?.toLowerCase().includes(searchQuery.toLowerCase());
@@ -106,7 +87,7 @@ export default function ProjectList() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Categories</SelectItem>
-            {mockCategories.map((category) => (
+            {categories.map((category) => (
               <SelectItem key={category._id} value={category._id}>
                 {category.title}
               </SelectItem>
@@ -134,10 +115,10 @@ export default function ProjectList() {
             <Link href={`/portfolio/${project.slug}`}>
               <div className="relative overflow-hidden">
                 <Image
-                  src={project.mainImage || PlaceholderImage}
+                  src={project.mainImageUrl ?? PlaceholderImage}
                   alt={project.title}
-                  width={300}
-                  height={200}
+                  width={450}
+                  height={300}
                   className="w-full h-48 object-cover transition-transform duration-300"
                 />
                 <Badge
