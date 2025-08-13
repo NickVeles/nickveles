@@ -29,7 +29,7 @@ export type Project = z.infer<typeof ProjectSchema>;
 export function processProject(data: ProjectData): Project {
   return {
     ...data,
-    mainImageUrl: data.mainImage ? urlFor(data.mainImage).width(300).height(200).url() : undefined,
+    mainImageUrl: data.mainImage ? urlFor(data.mainImage).width(450).height(300).url() : undefined,
   };
 }
 
