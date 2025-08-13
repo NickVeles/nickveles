@@ -9,7 +9,7 @@ export default function GoBack() {
 
   return (
     <Button variant="ghost" className="w-fit" onClick={() => router.back()}>
-      <ArrowLeftIcon className="size-4 mr-1" />
+      <ArrowLeftIcon className="size-4" />
       Go Back
     </Button>
   );
