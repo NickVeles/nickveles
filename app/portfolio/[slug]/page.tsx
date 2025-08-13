@@ -5,6 +5,7 @@ import ProjectHeader from "@/components/portfolio/project-header";
 import ProjectDetails from "@/components/portfolio/project-details";
 import { getSanityData } from "@/lib/get-sanity-data";
 import { processProject, ProjectData } from "@/types/project";
+import { BackToTopButton } from "@/components/utils/back-to-top-button";
 
 export default async function ProjectPage({
   params,
@@ -55,6 +56,7 @@ export default async function ProjectPage({
   return (
     <Section id={project.slug} className="gap-4" disableAnims>
       <div className="flex flex-col gap-12 first:pt-4">
+        <BackToTopButton />
         <GoBack />
         <ProjectHeader project={project} />
       </div>
