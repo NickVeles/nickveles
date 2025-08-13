@@ -19,22 +19,22 @@ export default async function Projects() {
   )?.filter((x) => x.category?.slug === "projects")[0];
 
   const latestProject = await getSanityData<Project>(`*[_type == "project"]{
-      _id,
-      title,
-      "slug": slug.current,
-      description,
-      author,
-      editor,
-      mainImage,
-      category->{
-        title
-      },
-      markdownContent,
-      url,
-      repositoryUrl,
-      publishedAt,
-      editedAt
-    } | order(publishedAt desc)[0]`);
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    author,
+    editor,
+    mainImage,
+    category->{
+      title
+    },
+    markdownContent,
+    url,
+    repositoryUrl,
+    publishedAt,
+    editedAt
+  } | order(publishedAt desc)[0]`);
 
   return (
     <Section id="projects">
