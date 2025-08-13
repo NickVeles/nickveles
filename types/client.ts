@@ -11,8 +11,8 @@ export const ClientDataSchema = z.object({
 });
 
 export const ClientSchema = ClientDataSchema.extend({
-  logoUrl: z.string().optional(),
-  fullImageUrl: z.string().optional(),
+  logoUrl: z.url().optional(),
+  fullImageUrl: z.url().optional(),
 });
 
 export type ClientData = z.infer<typeof ClientDataSchema>;

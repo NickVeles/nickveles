@@ -1,15 +1,16 @@
 import { z } from 'zod';
 import { AuthorSchema } from './author';
 import { ProjectCategorySchema } from './project-category';
+import { urlFor } from '@/lib/sanity-image';
 
-export const ProjectSchema = z.object({
+export const ProjectDataSchema = z.object({
   _id: z.string(),
   title: z.string(),
   slug: z.string(),
   description: z.string().optional(),
   author: AuthorSchema,
   editor: AuthorSchema.optional(),
-  mainImage: z.any().optional(),
+  mainImage: z.unknown().optional(),
   category: ProjectCategorySchema,
   markdownContent: z.string(),
   url: z.string().optional(),
@@ -18,4 +19,20 @@ export const ProjectSchema = z.object({
   editedAt: z.string().optional(),
 });
 
+export const ProjectSchema = ProjectDataSchema.extend({
+  mainImageUrl: z.url().optional(),
+});
+
+export type ProjectData = z.infer<typeof ProjectDataSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
+
+export function processProject(data: ProjectData): Project {
+  return {
+    ...data,
+    mainImageUrl: data.mainImage ? urlFor(data.mainImage).width(300).height(200).url() : undefined,
+  };
+}
+
+export function processProjects(data: ProjectData[]): Project[] {
+  return data.map(processProject);
+}
