@@ -35,12 +35,12 @@ export default function LatestProject({ project }: LatestProjectProps) {
           <Image
             src={
               project.mainImage
-                ? urlFor(project.mainImage).height(200).width(400).url()
+                ? urlFor(project.mainImage).width(450).height(300).url()
                 : PlaceholderImage
             }
             alt="Latest project preview"
-            width={400}
-            height={200}
+            width={450}
+            height={300}
             className="w-full h-48 object-cover rounded-lg"
           />
         </div>
