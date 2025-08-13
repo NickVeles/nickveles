@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import GoBack from "@/components/utils/go-back";
+import AllProjectsButton from "@/components/utils/all-projects-button";
 import Section from "@/components/utils/section";
 import ProjectHeader from "@/components/portfolio/project-header";
 import ProjectDetails from "@/components/portfolio/project-details";
@@ -57,7 +57,7 @@ export default async function ProjectPage({
     <Section id={project.slug} className="gap-4" disableAnims>
       <div className="flex flex-col gap-12 first:pt-4">
         <BackToTopButton />
-        <GoBack />
+        <AllProjectsButton />
         <ProjectHeader project={project} />
       </div>
       <ProjectDetails project={project} />
