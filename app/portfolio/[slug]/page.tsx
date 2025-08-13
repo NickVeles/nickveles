@@ -64,7 +64,7 @@ export default async function ProjectPage({
   const project = processProject(projectData);
 
   return (
-    <Section id={project.slug} className="gap-4" disableAnims>
+    <Section id={project.slug} className="gap-6" disableAnims>
       <div className="flex flex-col gap-12 first:pt-4">
         <BackToTopButton />
         <AllProjectsButton />
