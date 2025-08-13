@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { AuthorSchema } from './author';
 import { ProjectCategorySchema } from './project-category';
 import { urlFor } from '@/lib/sanity-image';
+import { SkillSchema } from './skill';
 
 export const ProjectDataSchema = z.object({
   _id: z.string(),
@@ -13,6 +14,7 @@ export const ProjectDataSchema = z.object({
   mainImage: z.unknown().optional(),
   category: ProjectCategorySchema,
   markdownContent: z.string(),
+  skills: z.array(SkillSchema),
   url: z.string().optional(),
   repositoryUrl: z.string().optional(),
   publishedAt: z.string().optional(),

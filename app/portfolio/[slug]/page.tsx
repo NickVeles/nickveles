@@ -41,6 +41,16 @@ export default async function ProjectPage({
       title
     },
     markdownContent,
+    skills[]->{
+      _id,
+      name,
+      category->{
+        _id,
+        title
+      },
+      tags,
+      points
+    },
     url,
     repositoryUrl,
     publishedAt,

@@ -71,6 +71,18 @@ export default function ProjectDetails({
               <p className="font-medium">{formatDate(project.editedAt)}</p>
             </div>
           )}
+          {project.skills && (
+            <div className="flex flex-col gap-1">
+              <h4 className="text-sm text-muted-foreground">Skills</h4>
+              <div className="flex flex-wrap items-center gap-1">
+                {project.skills.map((skill) => (
+                  <Badge key={skill._id} variant="outline">
+                    {skill.name}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
