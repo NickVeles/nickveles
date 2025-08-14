@@ -54,7 +54,12 @@ export default function LatestProject({ project }: LatestProjectProps) {
         </CardHeader>
         <CardFooter className="pt-0">
           <Button variant="outline" className="w-full" asChild>
-            <Link href={`/portfolio/${project.slug}`}>Read More</Link>
+            <Link
+              href={`/portfolio/${project.slug}`}
+              aria-label="Read more about this project"
+            >
+              Read More
+            </Link>
           </Button>
         </CardFooter>
       </Card>

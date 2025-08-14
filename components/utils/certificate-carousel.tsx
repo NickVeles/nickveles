@@ -40,6 +40,7 @@ export default function CertificateCarousel({
           variant="outline"
           onClick={() => slider.current?.prev()}
           className="shadow-sm"
+          aria-label="Previous certificate"
         >
           <ChevronLeftIcon className="size-4" />
         </Button>
@@ -61,6 +62,7 @@ export default function CertificateCarousel({
           variant="outline"
           onClick={() => slider.current?.next()}
           className="shadow-sm"
+          aria-label="Next certificate"
         >
           <ChevronRightIcon className="size-4" />
         </Button>

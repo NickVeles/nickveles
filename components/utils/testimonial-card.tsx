@@ -121,6 +121,7 @@ export default function TestimonialCard({
                     handlePrevious();
                   }}
                   className="w-12 h-9 md:w-10 md:h-8"
+                  aria-label="Previous testimonial"
                 >
                   <ChevronLeft className="size-6 md:size-4" />
                 </Button>
@@ -132,6 +133,7 @@ export default function TestimonialCard({
                     handleNext();
                   }}
                   className="w-12 h-9 md:w-10 md:h-8"
+                  aria-label="Next testimonial"
                 >
                   <ChevronRight className="size-6 md:size-4" />
                 </Button>
