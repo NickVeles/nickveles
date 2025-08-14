@@ -33,8 +33,8 @@ export default function CookieNotification() {
         "border-t border-border shadow-lg supports-[backdrop-filter]:bg-background/80"
       )}
     >
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="mx-auto px-4 py-3">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex-1 text-sm text-muted-foreground">
             <p>
               This website uses third-party cookies for functionality. By
