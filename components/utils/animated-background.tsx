@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
 type AnimatedBackgroundProps = {
   nodeDensity?: number;
@@ -28,7 +28,10 @@ const AnimatedBackground = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const nodes = useRef<Node[]>([]);
   const mouse = useRef<{ x: number; y: number } | null>(null);
-  const colorOKLCH = resolvedTheme === "dark" ? "0.799 0.11674 297.701" : "0.5393 0.2713 286.7462";
+  const colorOKLCH =
+    resolvedTheme === "dark"
+      ? "0.799 0.11674 297.701"
+      : "0.5393 0.2713 286.7462";
 
   class Node {
     x!: number;
@@ -184,7 +187,17 @@ const AnimatedBackground = ({
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [connectionDistance, mouseRadius, mouseForce, className, resolvedTheme]);
+  }, [
+    Node,
+    colorOKLCH,
+    minNodes,
+    nodeDensity,
+    connectionDistance,
+    mouseRadius,
+    mouseForce,
+    className,
+    resolvedTheme,
+  ]);
 
   return (
     <div ref={containerRef} className={cn("w-full h-full z-0", className)}>

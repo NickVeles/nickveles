@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";
 import {
@@ -135,7 +135,6 @@ export default function ContactFormCard() {
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-6"
-              aria-disabled={isUpworkCensored}
               inert={isUpworkCensored}
             >
               {/* Name */}

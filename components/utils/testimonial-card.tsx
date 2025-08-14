@@ -49,7 +49,13 @@ export default function TestimonialCard({
     }, PROGRESS_UPDATE_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [currentTestimonialIndex, isPaused, hasMultipleTestimonials, isMobile]);
+  }, [
+    currentTestimonialIndex,
+    isPaused,
+    hasMultipleTestimonials,
+    isMobile,
+    testimonials.length,
+  ]);
 
   // Detect screen size
   useEffect(() => {

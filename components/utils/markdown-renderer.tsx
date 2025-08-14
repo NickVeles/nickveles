@@ -49,6 +49,59 @@ interface TableProps {
   children?: React.ReactNode;
 }
 
+//TODO: organize this file cuz there's too much clutter
+const PreComponent: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
+  const [copied, setCopied] = useState(false);
+  const preRef = useRef<HTMLPreElement>(null);
+
+  const copyToClipboard = async () => {
+    try {
+      let textContent = "";
+
+      if (preRef.current) {
+        // Get the actual rendered text content from the DOM
+        const codeElement = preRef.current.querySelector("code");
+        textContent =
+          codeElement?.textContent || preRef.current.textContent || "";
+      }
+
+      if (textContent) {
+        await navigator.clipboard.writeText(textContent);
+        setCopied(true);
+        toast.success("Code copied successfully!", { duration: 2000 });
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (error) {
+      toast.error("Code failed co copy!", { duration: 2000 });
+      console.error("Failed to copy text: ", error);
+    }
+  };
+
+  return (
+    <pre
+      ref={preRef}
+      className="relative bg-muted border border-border rounded-lg p-0 overflow-hidden my-4 last:mb-0 [&>*]:font-mono [&>*]:dyslexic:font-dyslexic-mono group"
+    >
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={copyToClipboard}
+        className="absolute top-1 right-1"
+        aria-label="Copy code"
+      >
+        {copied ? (
+          <CheckIcon className="size-4 text-primary-highlighter" />
+        ) : (
+          <CopyIcon className="size-4" />
+        )}
+      </Button>
+      {children}
+    </pre>
+  );
+};
+
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
   content,
   className,
@@ -100,55 +153,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
     },
 
     // Code blocks
-    pre: ({ children }) => {
-      const [copied, setCopied] = useState(false);
-      const preRef = useRef<HTMLPreElement>(null);
-
-      const copyToClipboard = async () => {
-        try {
-          let textContent = "";
-
-          if (preRef.current) {
-            // Get the actual rendered text content from the DOM
-            const codeElement = preRef.current.querySelector("code");
-            textContent =
-              codeElement?.textContent || preRef.current.textContent || "";
-          }
-
-          if (textContent) {
-            await navigator.clipboard.writeText(textContent);
-            setCopied(true);
-            toast.success("Code copied successfully!", { duration: 2000 });
-            setTimeout(() => setCopied(false), 2000);
-          }
-        } catch (error) {
-          toast.error("Code failed co copy!", { duration: 2000 });
-          console.error("Failed to copy text: ", error);
-        }
-      };
-
-      return (
-        <pre
-          ref={preRef}
-          className="relative bg-muted border border-border rounded-lg p-0 overflow-hidden my-4 last:mb-0 [&>*]:font-mono [&>*]:dyslexic:font-dyslexic-mono group"
-        >
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={copyToClipboard}
-            className="absolute top-1 right-1"
-            aria-label="Copy code"
-          >
-            {copied ? (
-              <CheckIcon className="size-4 text-primary-highlighter" />
-            ) : (
-              <CopyIcon className="size-4" />
-            )}
-          </Button>
-          {children}
-        </pre>
-      );
-    },
+    pre: PreComponent,
 
     // Inline code
     code: ({ children, className }: CodeProps) => {

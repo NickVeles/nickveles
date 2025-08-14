@@ -55,7 +55,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
 
       return nameMatch || tagMatch;
     });
-  }, [searchTerm]);
+  }, [searchTerm, items]);
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 flex flex-col gap-6">

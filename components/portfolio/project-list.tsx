@@ -45,7 +45,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
         selectedCategory === "all" || project.category._id === selectedCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [projects, searchQuery, selectedCategory]);
 
   const displayedProjects = filteredProjects.slice(0, displayCount);
   const hasMoreProjects = displayCount < filteredProjects.length;

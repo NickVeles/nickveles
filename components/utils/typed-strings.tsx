@@ -34,7 +34,8 @@ export default function TypedStrings({ list, ...props }: TypedStringsProps) {
     }, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, currentStringIndex]);
+  }, [displayedText, isDeleting, currentStringIndex, list]);
+  
   return (
     <p {...props}>
       {displayedText}
