@@ -49,23 +49,27 @@ My modern, accessible portfolio website - freelance web developer and machine le
 ## Getting Started
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/NickVeles/nickveles
    cd nickveles
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 4. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -121,7 +125,7 @@ RECAPTCHA_SECRET_KEY=your-secret-recaptcha-key
 
 # Nodemailer
 GMAIL_USER_SENDER=sender-gmail-address
-GMAIL_APP_PASSWORD=sender-gmail-app-password 
+GMAIL_APP_PASSWORD=sender-gmail-app-password
 GMAIL_USER_RECEIVER=receiver-gmail-address
 
 # Upwork (1 for censor or nothing for not censor)
@@ -131,6 +135,10 @@ NEXT_PUBLIC_UPWORK_CENSOR=
 ## License
 
 This project is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) with terms specified in the LICENSE file.
+
+## Special Thanks
+
+- [Arnold Francisca](https://unsplash.com/@clark_fransa) for his great [image](https://unsplash.com/photos/turned-on-macbook-pro-wit-programming-codes-display-f77Bh3inUpE) I use as a placeholder and my logo background.
 
 ## Contact
 
