@@ -82,13 +82,22 @@ export default function ProjectList({ projects }: ProjectListProps) {
           />
         </div>
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger className="w-full sm:w-[200px]">
+          <SelectTrigger
+            className="w-full sm:w-[200px]"
+            aria-label="Select category"
+          >
             <SelectValue placeholder="Select category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
+            <SelectItem value="all" aria-label="Filter for all categories">
+              All Categories
+            </SelectItem>
             {categories.map((category) => (
-              <SelectItem key={category._id} value={category._id}>
+              <SelectItem
+                key={category._id}
+                value={category._id}
+                aria-label={`Filter for ${category.title}`}
+              >
                 {category.title}
               </SelectItem>
             ))}
