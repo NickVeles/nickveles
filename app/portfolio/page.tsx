@@ -3,6 +3,39 @@ import { SectionH } from "@/components/ui/typography";
 import Section from "@/components/utils/section";
 import { getSanityData } from "@/lib/get-sanity-data";
 import { processProjects, ProjectData } from "@/types/project";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://nickveles.com/"),
+  title: "Portfolio",
+  description:
+    "Explore Nick Veles' portfolio of web development projects, machine learning applications, and blog articles. Showcasing full-stack development, AI solutions, and technical expertise.",
+  keywords: [
+    "Nick Veles portfolio",
+    "web development portfolio",
+    "machine learning projects",
+    "full-stack developer portfolio",
+    "software engineering projects",
+    "React projects",
+    "Node.js applications",
+    "Python projects",
+    "AI applications",
+    "data science projects",
+    "freelance developer work",
+    "technical blog articles",
+    "open source projects",
+    "web applications",
+    "custom software solutions",
+  ],
+  openGraph: {
+    title: "Portfolio | Nick Veles",
+    description:
+      "Explore Nick Veles' portfolio of web development projects, machine learning applications, and blog articles. Showcasing full-stack development, AI solutions, and technical expertise.",
+    images: ["/og-image.jpg"],
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default async function Portfolio() {
   // Fetch data from Sanity
