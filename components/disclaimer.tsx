@@ -35,7 +35,7 @@ export default function Disclaimer({
       )}
     >
       <div className="px-4 py-1 w-full flex justify-between items-center">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           {variant === "destructive" ? (
             <CircleAlertIcon className={iconStyle} />
           ) : (
