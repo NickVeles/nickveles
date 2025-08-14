@@ -130,7 +130,7 @@ NEXT_PUBLIC_UPWORK_CENSOR=
 
 ## License
 
-This project is licensed under the Apache License version 2.0 with terms specified in the LICENSE file.
+This project is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) with terms specified in the LICENSE file.
 
 ## Contact
 
