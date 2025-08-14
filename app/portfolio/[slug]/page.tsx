@@ -6,6 +6,72 @@ import ProjectDetails from "@/components/portfolio/project-details";
 import { getSanityData } from "@/lib/get-sanity-data";
 import { processProject, ProjectData } from "@/types/project";
 import { BackToTopButton } from "@/components/utils/back-to-top-button";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  // Fetch project data for metadata
+  const projectData =
+    await getSanityData<ProjectData>(`*[_type == "project" && slug.current == "${slug}"]{
+    _id,
+    title,
+    description,
+    category->{
+      title
+    },
+    skills[]->{
+      name
+    },
+    mainImage
+  }[0]`);
+
+  if (!projectData) {
+    return {
+      title: "Project Not Found",
+      description: "The requested project could not be found.",
+    };
+  }
+
+  const skillNames =
+    projectData.skills?.map((skill) => skill.name).join(", ") || "";
+  const categoryName = projectData.category?.title || "";
+
+  return {
+    metadataBase: new URL("https://nickveles.com/"),
+    title: projectData.title,
+    description:
+      projectData.description ||
+      `${
+        projectData.title
+      } - A ${categoryName.toLowerCase()} project by Nick Veles showcasing ${skillNames}.`,
+    keywords: [
+      projectData.title,
+      "Nick Veles project",
+      categoryName,
+      ...skillNames.split(", ").filter(Boolean),
+      "web development",
+      "portfolio project",
+      "software development",
+      "freelance developer",
+    ],
+    openGraph: {
+      title: `${projectData.title} | Nick Veles`,
+      description:
+        projectData.description ||
+        `${
+          projectData.title
+        } - A ${categoryName.toLowerCase()} project by Nick Veles.`,
+      images: projectData.mainImage ? ["/og-image.jpg"] : ["/og-image.jpg"],
+      locale: "en_US",
+      type: "article",
+    },
+  };
+}
 
 export default async function ProjectPage({
   params,
