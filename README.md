@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nickveles.com
+
+My modern, accessible portfolio website - freelance web developer and machine learning consultant. Built with Next.js 15, TypeScript, and Tailwind CSS.
+
+## Features
+
+- **Modern Design**: Clean, professional interface with dark/light theme support
+- **Accessibility First**: Built with comprehensive accessibility features including:
+  - OpenDyslexic font support for dyslexic users
+  - Skip navigation links
+  - ARIA compliance
+  - Keyboard navigation support
+- **Responsive**: Fully responsive design that works on all devices
+- **Performance Optimized**: Built with Next.js App Router for optimal performance
+- **SEO Optimized**: Comprehensive metadata and Open Graph tags
+- **Contact Form**: Integrated contact form with FAQ section
+- **Portfolio Showcase**: Projects, skills, certificates, and testimonials
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Icons**: Lucide React
+- **Fonts**: Custom font stack including OpenDyslexic for accessibility
+
+## Project Structure
+
+```
+├── app/                  # Next.js App Router pages
+│   ├── contact/          # Contact page
+│   ├── portfolio/        # Portfolio page
+│   ├── tos/              # Terms of Service page
+│   └── api/              # API routes
+├── components/           # React components
+│   ├── accessibility/    # Accessibility-focused components
+│   ├── contact/          # Contact form and FAQ
+│   ├── home/             # Homepage sections
+│   ├── portfolio/        # Portfolio components
+│   ├── ui/               # shadcn/ui components
+│   └── utils/            # Utility components
+├── constants/            # Application constants
+├── lib/                  # Utility functions
+├── types/                # TypeScript type definitions
+└── assets/               # Static assets (logos, images)
+```
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/NickVeles/nickveles
+   cd nickveles
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+
+## Accessibility Features
+
+This portfolio prioritizes accessibility with:
+
+- **OpenDyslexic Font**: Special font designed for dyslexic users
+- **Theme Support**: System-aware dark/light mode
+- **Skip Navigation**: Quick navigation for screen readers
+- **ARIA Labels**: Comprehensive ARIA implementation
+- **Keyboard Navigation**: Full keyboard accessibility
+- **Touch-Friendly**: Optimized for touch devices
+
+## Pages
+
+- **Home** (`/`): Personal header, about, testimonials, projects, skills, certificates, and contact CTA
+- **Contact** (`/contact`): Contact form and frequently asked questions
+- **Portfolio** (`/portfolio`): Detailed project showcase
+- **Terms of Service** (`/tos`): Legal terms and conditions
+
+## Deployment
+
+The site is optimized for deployment on Vercel:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For other platforms, ensure you have Node.js 18+ and follow the platform-specific deployment guides.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+# Sanity
+SANITY_ID=your-sanity-project-id
+SANITY_DS=your-sanity-project-dataset
 
-## Learn More
+# reCAPTCHA
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-public-recaptcha-site-key
+RECAPTCHA_SECRET_KEY=your-secret-recaptcha-key
 
-To learn more about Next.js, take a look at the following resources:
+# Nodemailer
+GMAIL_USER_SENDER=sender-gmail-address
+GMAIL_APP_PASSWORD=sender-gmail-app-password 
+GMAIL_USER_RECEIVER=receiver-gmail-address
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Upwork (1 for censor or nothing for not censor)
+NEXT_PUBLIC_UPWORK_CENSOR=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
+This project is licensed under the Apache License version 2.0 with terms specified in the LICENSE file.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For inquiries about this project or freelance opportunities, visit [nickveles.com/contact](https://nickveles.com/contact).
