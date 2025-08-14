@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nickveles.com/"),
   title: "Portfolio",
   description:
-    "Explore Nick Veles' portfolio of web development projects, machine learning applications, and blog articles. Showcasing full-stack development, AI solutions, and technical expertise.",
+    "Explore Nick Veles's portfolio of web development projects, machine learning applications, and blog articles. Showcasing full-stack development, AI solutions, and technical expertise.",
   keywords: [
     "Nick Veles portfolio",
     "web development portfolio",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Portfolio | Nick Veles",
     description:
-      "Explore Nick Veles' portfolio of web development projects, machine learning applications, and blog articles. Showcasing full-stack development, AI solutions, and technical expertise.",
+      "Explore Nick Veles's portfolio of web development projects, machine learning applications, and blog articles. Showcasing full-stack development, AI solutions, and technical expertise.",
     images: ["/og-image.jpg"],
     locale: "en_US",
     type: "website",
