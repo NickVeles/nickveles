@@ -75,6 +75,7 @@ My modern, accessible portfolio website - freelance web developer and machine le
    ```
 
 5. **Open your browser**
+
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## Available Scripts
