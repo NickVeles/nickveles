@@ -5,6 +5,8 @@ import { Certificate } from "@/types/certificate";
 import { useKeenSlider } from "keen-slider/react";
 import { Button } from "@/components/ui/button";
 import {
+  ArrowBigLeftDashIcon,
+  ArrowBigRightDashIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   CircleAlertIcon,
@@ -32,9 +34,20 @@ export default function CertificateCarousel({
   });
 
   return (
-    <div className="relative max-w-[75%] flex flex-col gap-2 justify-center items-center">
+    <div className="relative max-w-full sm:max-w-[75%] flex flex-col gap-2 justify-center items-center">
+      {/* Swipe reminder */}
+      <div className="w-full flex-col justify-center items-center sm:hidden text-muted-foreground">
+        <div className="w-full flex justify-center items-center gap-2">
+          <ArrowBigLeftDashIcon className="size-6" />
+          <ArrowBigRightDashIcon className="size-6" />
+        </div>
+        <p className="px-4 text-center text-wrap">
+          Swipe to see more certificates
+        </p>
+      </div>
+
       {/* Navigation Left */}
-      <div className="flex justify-between absolute -left-11 top-1/2 -translate-y-1/2">
+      <div className="hidden sm:flex justify-between absolute -left-11 top-1/2 -translate-y-1/2">
         <Button
           size="icon"
           variant="outline"
@@ -45,7 +58,6 @@ export default function CertificateCarousel({
           <ChevronLeftIcon className="size-4" />
         </Button>
       </div>
-
       {/* Carousel */}
       <div ref={sliderInstanceRef} className="keen-slider">
         {certificates.map((cert) => (
@@ -54,9 +66,8 @@ export default function CertificateCarousel({
           </div>
         ))}
       </div>
-
       {/* Navigation Right */}
-      <div className="flex justify-between absolute -right-11 top-1/2 -translate-y-1/2">
+      <div className="hidden sm:flex jjustify-between absolute -right-11 top-1/2 -translate-y-1/2">
         <Button
           size="icon"
           variant="outline"
@@ -67,7 +78,6 @@ export default function CertificateCarousel({
           <ChevronRightIcon className="size-4" />
         </Button>
       </div>
-
       <p className="px-4 w-full inline text-wrap text-muted-foreground">
         <CircleAlertIcon className="inline size-5 mr-1 align-text-top" />
         <span className="inline font-bold">Disclaimer</span>: Some certificates

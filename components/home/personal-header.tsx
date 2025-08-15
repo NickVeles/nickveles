@@ -45,7 +45,7 @@ export default async function PersonalHeader() {
 
           <div className="flex flex-col gap-2">
             {/* Name */}
-            <h1 className="text-8xl sm:text-9xl font-bold font-stylized text-foreground px-4 drop-shadow-sm">
+            <h1 className="text-7xl sm:text-8xl md:text-9xl text-nowrap font-bold font-stylized text-foreground px-4 drop-shadow-sm">
               {me?.name ?? "Nick Veles"}
             </h1>
 

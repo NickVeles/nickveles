@@ -250,6 +250,7 @@ export default function ContactFormCard() {
                         sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                         onChange={onCaptchaChange}
                         onExpired={onCaptchaExpired}
+                        className="scale-90 -translate-x-4 sm:scale-100 sm:translate-0"
                       />
                     </FormControl>
                     <FormMessage />
