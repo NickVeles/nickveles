@@ -15,7 +15,7 @@ export default function TypedStrings({ list, ...props }: TypedStringsProps) {
   // Typing animation effect
   useEffect(() => {
     const currentString = list[currentStringIndex];
-    const typingSpeed = isDeleting ? 50 : 100;
+    const typingSpeed = isDeleting ? 40 : 80;
     const pauseTime = isDeleting ? 500 : 2000;
 
     const timer = setTimeout(() => {
