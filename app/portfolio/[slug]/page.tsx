@@ -37,20 +37,22 @@ export async function generateMetadata({
     };
   }
 
+  const project = processProject(projectData);
+
   const skillNames =
-    projectData.skills?.map((skill) => skill.name).join(", ") || "";
-  const categoryName = projectData.category?.title || "";
+    project.skills?.map((skill) => skill.name).join(", ") || "";
+  const categoryName = project.category?.title || "";
 
   return {
     metadataBase: new URL("https://nickveles.com/"),
-    title: projectData.title,
+    title: project.title,
     description:
-      projectData.description ||
+      project.description ||
       `${
-        projectData.title
+        project.title
       } - A ${categoryName.toLowerCase()} project by Nick Veles showcasing ${skillNames}.`,
     keywords: [
-      projectData.title,
+      project.title,
       "Nick Veles project",
       categoryName,
       ...skillNames.split(", ").filter(Boolean),
@@ -60,13 +62,13 @@ export async function generateMetadata({
       "freelance developer",
     ],
     openGraph: {
-      title: `${projectData.title} | Nick Veles`,
+      title: `${project.title} | Nick Veles`,
       description:
-        projectData.description ||
+        project.description ||
         `${
-          projectData.title
+          project.title
         } - A ${categoryName.toLowerCase()} project by Nick Veles.`,
-      images: projectData.mainImage ? ["/og-image.jpg"] : ["/og-image.jpg"],
+      images: project.mainImageUrl ? [project.mainImageUrl] : ["/og-image.jpg"],
       locale: "en_US",
       type: "article",
     },
