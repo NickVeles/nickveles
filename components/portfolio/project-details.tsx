@@ -5,6 +5,7 @@ import { cn, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { urlFor } from "@/lib/sanity-image";
 import MarkdownRenderer from "../utils/markdown-renderer";
+import TableOfContents from "./table-of-contents";
 
 type ProjectDetailsProps = {
   project: Project;
@@ -28,6 +29,7 @@ export default function ProjectDetails({
       <Card className="lg:col-span-2">
         <CardContent>
           <article className="font-sans dyslexic:font-dyslexic">
+            <TableOfContents content={project.markdownContent} />
             <MarkdownRenderer content={project.markdownContent} />
           </article>
         </CardContent>

@@ -6,7 +6,7 @@ import rehypeHighlight from "rehype-highlight";
 import type { Components } from "react-markdown";
 import Image from "next/image";
 import { PlaceholderImage } from "@/constants/placeholders";
-import { cn } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 import TextLink from "./text-link";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
@@ -117,11 +117,24 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
         {children}
       </h1>
     ),
-    h2: ({ children }: HeadingProps) => (
-      <h2 className="text-2xl font-semibold mb-4 last:mb-0 mt-8 text-foreground">
-        {children}
-      </h2>
-    ),
+    h2: ({ children }: HeadingProps) => {
+      // Generate id for anchor links (same as in TOC)
+      const text =
+        typeof children === "string"
+          ? children
+          : React.Children.map(children, (c) =>
+              typeof c === "string" ? c : ""
+            )?.join("") ?? "";
+      const id = slugify(text);
+      return (
+        <h2
+          id={id}
+          className="text-2xl font-semibold mb-4 last:mb-0 mt-8 text-foreground scroll-mt-30"
+        >
+          {children}
+        </h2>
+      );
+    },
     h3: ({ children }: HeadingProps) => (
       <h3 className="text-xl font-medium mb-3 last:mb-0 mt-6 text-foreground">
         {children}
