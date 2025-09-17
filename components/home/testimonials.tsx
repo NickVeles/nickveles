@@ -60,7 +60,7 @@ export default async function Testimonials() {
           : "Trusted by"}
       </SectionH>
       <div className="flex flex-col gap-12 justify-center items-center w-full max-w-3xl">
-        <h3 className="text-xl text-muted-foreground">
+        <h3 className="text-xl text-muted-foreground text-center">
           Join the people who trusted my services
         </h3>
         {/* List of clients */}
