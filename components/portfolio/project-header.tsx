@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ExternalLinkIcon } from "lucide-react";
 import { GitHubIcon } from "../icons";
 import { cn } from "@/lib/utils";
+import { ShareProjectModal } from "./share-project-modal";
 
 type ProjectHeaderProps = {
   project: Project;
@@ -16,7 +17,9 @@ export default function ProjectHeader({
 }: ProjectHeaderProps) {
   return (
     <div className={cn("w-full flex flex-col gap-6", className)}>
-      <h1 className="text-2xl md:text-4xl font-bold text-foreground">{project.title}</h1>
+      <h1 className="text-2xl md:text-4xl font-bold text-foreground">
+        {project.title}
+      </h1>
       <p className="text-lg md:text-xl text-muted-foreground">
         {project.description}
       </p>
@@ -48,6 +51,7 @@ export default function ProjectHeader({
             </Link>
           </Button>
         )}
+        <ShareProjectModal project={project} />
       </div>
     </div>
   );
