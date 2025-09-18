@@ -14,7 +14,10 @@ export default function Loading({
   className,
 }: LoadingProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 font-sans">
+    <div
+      className="flex flex-col items-center justify-center gap-4 font-sans"
+      aria-label="Loading"
+    >
       <LoaderCircleIcon className={cn("size-12 animate-spin", className)} />
       {showLoadingText && <LoadingText>{loadingText}</LoadingText>}
     </div>
