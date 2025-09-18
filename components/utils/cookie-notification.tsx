@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import { Link, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import TextLink from "./text-link";
 
 export default function CookieNotification() {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,7 +39,10 @@ export default function CookieNotification() {
           <div className="flex-1 text-sm text-muted-foreground">
             <p>
               This website uses third-party cookies for functionality. By
-              continuing to use this site, you consent to our use of cookies.
+              continuing to use this site, you consent to our use of cookies.{" "}
+              <TextLink href="/tos" target="_blank" iconSize={13} isIcon>
+                Read more
+              </TextLink>
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
