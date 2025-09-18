@@ -22,7 +22,7 @@ export default function ProjectHeader({
       </p>
 
       {/* Action Buttons */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 [&>*]:min-w-[135px] [&>*]:flex-1 [&>*]:sm:flex-0">
         {project.url && (
           <Button asChild>
             <Link
