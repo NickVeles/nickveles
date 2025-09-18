@@ -33,6 +33,11 @@ const sitemap: Sitemap = {
       name: "Hire/Contact",
     },
     {
+      url: "/profile",
+      name: "Profile",
+      isFooterOnly: true,
+    },
+    {
       url: "/tos",
       name: "Terms and Conditions",
       isFooterOnly: true,

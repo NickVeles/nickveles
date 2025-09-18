@@ -131,6 +131,9 @@ GMAIL_USER_RECEIVER=receiver-gmail-address
 
 # Upwork (1 for censor or nothing for not censor)
 NEXT_PUBLIC_UPWORK_CENSOR=
+
+# Other
+PROFILE_PASSWORD=your-password
 ```
 
 ## License
