@@ -107,12 +107,15 @@ export default function ContactFormCard() {
         setTimeout(() => {
           setIsSubmitted(false);
         }, 5000);
-      } else {
+      } else if (response.status === 429) {
+        throw new Error(response.statusText);
+      }
+      else {
         throw new Error("Failed to send message");
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to send message. Please try again.");
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      toast.error("Failed to send message. Please try again.", { description: `Reason: ${errorMessage}` });
     } finally {
       setIsSubmitting(false);
     }
