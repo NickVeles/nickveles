@@ -107,11 +107,9 @@ export default function ContactFormCard() {
         setTimeout(() => {
           setIsSubmitted(false);
         }, 5000);
-      } else if (response.status === 429) {
-        throw new Error(response.statusText);
       }
       else {
-        throw new Error("Failed to send message");
+        throw new Error(response.statusText || "Unknown");
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
