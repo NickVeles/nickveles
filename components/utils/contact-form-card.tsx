@@ -146,7 +146,7 @@ export default function ContactFormCard() {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your full name" {...field} />
+                      <Input placeholder="e.g. John Doe" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -163,7 +163,7 @@ export default function ContactFormCard() {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Enter your email address"
+                        placeholder="e.g. john@example.com"
                         {...field}
                       />
                     </FormControl>
@@ -181,7 +181,7 @@ export default function ContactFormCard() {
                     <FormLabel>Subject</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter the subject of your message"
+                        placeholder="e.g. Work Offer"
                         {...field}
                       />
                     </FormControl>
@@ -199,7 +199,7 @@ export default function ContactFormCard() {
                     <FormLabel>Message</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Enter your message here..."
+                        placeholder="e.g. Hello, I would like to discuss..."
                         className="min-h-[120px] resize-y"
                         {...field}
                       />
