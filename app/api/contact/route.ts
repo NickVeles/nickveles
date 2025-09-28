@@ -32,29 +32,36 @@ function getClientIp(request: NextRequest): string {
 }
 
 async function checkRateLimit(
-  ip: string
+  ip: string,
 ): Promise<{ allowed: boolean; retryAfter?: number; remaining: number }> {
   const key = `rate_limit:${ip}`;
   const ttlSeconds = RATE_LIMIT_WINDOW_MS / 1000;
 
-  // Increment count atomically
-  const count = await redis.incr(key);
+  try {
+    // Increment count atomically
+    const count = await redis.incr(key);
 
-  if (count === 1) {
-    // First request: set expiry window
-    await redis.expire(key, ttlSeconds);
+    if (count === 1) {
+      // First request: set expiry window
+      await redis.expire(key, ttlSeconds);
+    }
+
+    if (count > MAX_REQUESTS_PER_WINDOW) {
+      const ttl = await redis.ttl(key);
+      return {
+        allowed: false,
+        retryAfter: ttl > 0 ? ttl : ttlSeconds,
+        remaining: 0,
+      };
+    }
+
+    return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - count };
+  } catch (error) {
+    console.error("Error checking rate limit:", error);
   }
 
-  if (count > MAX_REQUESTS_PER_WINDOW) {
-    const ttl = await redis.ttl(key);
-    return {
-      allowed: false,
-      retryAfter: ttl > 0 ? ttl : ttlSeconds,
-      remaining: 0,
-    };
-  }
-
-  return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - count };
+  // In case of error, allow the request (fail open) with infinite remaining
+  return { allowed: true, remaining: Infinity };
 }
 
 async function verifyCaptcha(token: string): Promise<boolean> {
@@ -74,7 +81,7 @@ async function verifyCaptcha(token: string): Promise<boolean> {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: `secret=${secretKey}&response=${token}`,
-      }
+      },
     );
 
     const data = await response.json();
@@ -110,8 +117,8 @@ async function sendEmail(data: {
             <p style="margin: 10px 0;">
               <strong style="color: #555;">Email:</strong> 
               <a href="mailto:${data.email}" style="color: #0066cc;">${
-        data.email
-      }</a>
+                data.email
+              }</a>
             </p>
             <p style="margin: 10px 0;">
               <strong style="color: #555;">Subject:</strong> 
@@ -179,10 +186,10 @@ export async function POST(request: NextRequest) {
             "X-RateLimit-Limit": String(MAX_REQUESTS_PER_WINDOW),
             "X-RateLimit-Remaining": "0",
             "X-RateLimit-Reset": new Date(
-              Date.now() + retryAfter! * 1000
+              Date.now() + retryAfter! * 1000,
             ).toISOString(),
           },
-        }
+        },
       );
     }
 
@@ -209,8 +216,27 @@ export async function POST(request: NextRequest) {
 
     await sendEmail(validatedData);
 
-    const ttl = await redis.ttl(`rate_limit:${clientIp}`);
+    try {
+      const ttl = await redis.ttl(`rate_limit:${clientIp}`);
 
+      return NextResponse.json(
+        { message: "Form submitted successfully" },
+        {
+          status: 200,
+          headers: {
+            "X-RateLimit-Limit": String(MAX_REQUESTS_PER_WINDOW),
+            "X-RateLimit-Remaining": String(Math.max(0, remaining)),
+            "X-RateLimit-Reset": new Date(
+              Date.now() + ttl * 1000,
+            ).toISOString(),
+          },
+        },
+      );
+    } catch (error) {
+      console.error("Error fetching TTL:", error);
+    }
+
+    // Fallback response if TTL fetch fails
     return NextResponse.json(
       { message: "Form submitted successfully" },
       {
@@ -218,9 +244,9 @@ export async function POST(request: NextRequest) {
         headers: {
           "X-RateLimit-Limit": String(MAX_REQUESTS_PER_WINDOW),
           "X-RateLimit-Remaining": String(Math.max(0, remaining)),
-          "X-RateLimit-Reset": new Date(Date.now() + ttl * 1000).toISOString(),
+          "X-RateLimit-Reset": new Date().toISOString(),
         },
-      }
+      },
     );
   } catch (error) {
     console.error("Error processing form:", error);
@@ -228,13 +254,13 @@ export async function POST(request: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Invalid form data", details: error.message },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
