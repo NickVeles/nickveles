@@ -36,7 +36,7 @@ export default async function AboutMe() {
   return (
     <Section id="about-me" className="gap-12">
       <SectionH>About Me</SectionH>
-      <div className="flex flex-col lg:flex-row w-full gap-16">
+      <div className="flex flex-col lg:flex-row w-full gap-16 justify-center">
         {videos && videos.length > 0 && <VideoSelector videos={videos} />}
         {sectionText && <WhoIAm textObject={sectionText} />}
       </div>
