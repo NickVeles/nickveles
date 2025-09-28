@@ -197,12 +197,12 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
 
     // Lists
     ul: ({ children }: ListProps) => (
-      <ul className="list-disc list-inside mb-4 last:mb-0 space-y-1 text-foreground">
+      <ul className="list-disc ml-4 mb-4 last:mb-0 space-y-1 text-foreground">
         {children}
       </ul>
     ),
     ol: ({ children }: ListProps) => (
-      <ol className="list-decimal list-inside mb-4 last:mb-0 space-y-1 text-foreground">
+      <ol className="list-decimal ml-4 mb-4 last:mb-0 space-y-1 text-foreground">
         {children}
       </ol>
     ),
