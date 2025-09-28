@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
 
 // Get the webhook secret from environment variables
-const secret = process.env.SANITY_REVALIDATE_SECRET!;
+const secret = process.env.SANITY_WEBHOOK_SECRET!;
 
 export async function POST(req: NextRequest) {
   try {
