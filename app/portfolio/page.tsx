@@ -5,6 +5,9 @@ import { getSanityData } from "@/lib/get-sanity-data";
 import { processProjects, ProjectData } from "@/types/project";
 import { Metadata } from "next";
 
+// Enable on-demand revalidation
+export const revalidate = false;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nickveles.com/"),
   title: "Portfolio",

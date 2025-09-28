@@ -8,6 +8,9 @@ import { processProject, ProjectData } from "@/types/project";
 import { BackToTopButton } from "@/components/utils/back-to-top-button";
 import { Metadata } from "next";
 
+// Enable on-demand revalidation
+export const revalidate = false;
+
 export async function generateMetadata({
   params,
 }: {

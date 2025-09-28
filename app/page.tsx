@@ -7,6 +7,9 @@ import Skills from "@/components/home/skills";
 import Testimonials from "@/components/home/testimonials";
 import { BackToTopButton } from "@/components/utils/back-to-top-button";
 
+// Enable on-demand revalidation
+export const revalidate = false;
+
 export default function Home() {
   return (
     <>
