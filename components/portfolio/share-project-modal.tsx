@@ -19,7 +19,7 @@ interface ShareModalProps {
 
 export function ShareProjectModal({ project }: ShareModalProps) {
   const [currentUrl, setCurrentUrl] = useState("");
-  const { title, slug } = project;
+  const { title } = project;
 
   const getShareUrls = () => {
     return {

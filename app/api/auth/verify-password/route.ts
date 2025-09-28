@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       { success: isValid },
       { status: isValid ? 200 : 401 }
     )
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, message: 'Internal server error' },
       { status: 500 }

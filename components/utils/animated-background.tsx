@@ -14,24 +14,6 @@ type AnimatedBackgroundProps = {
   className?: string;
 };
 
-const AnimatedBackground = ({
-  nodeDensity = 100,
-  minNodes = 10,
-  maxNodeVelocity = 1,
-  connectionDistance = 100,
-  mouseRadius = 60,
-  mouseForce = 0.5,
-  className,
-}: AnimatedBackgroundProps) => {
-  const { resolvedTheme } = useTheme();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const nodes = useRef<Node[]>([]);
-  const mouse = useRef<{ x: number; y: number } | null>(null);
-  const colorOKLCH =
-    resolvedTheme === "dark"
-      ? "0.799 0.11674 297.701"
-      : "0.5393 0.2713 286.7462";
 
   class Node {
     x!: number;
@@ -40,8 +22,10 @@ const AnimatedBackground = ({
     vy!: number;
     age!: number;
     life!: number;
+    maxNodeVelocity: number;
 
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number, maxNodeVelocity: number) {
+      this.maxNodeVelocity = maxNodeVelocity;
       this.reset(width, height);
     }
 
@@ -60,8 +44,8 @@ const AnimatedBackground = ({
       this.age += dt;
 
       // Clamp velocity
-      this.vx = Math.max(-maxNodeVelocity, Math.min(maxNodeVelocity, this.vx));
-      this.vy = Math.max(-maxNodeVelocity, Math.min(maxNodeVelocity, this.vy));
+      this.vx = Math.max(-this.maxNodeVelocity, Math.min(this.maxNodeVelocity, this.vx));
+      this.vy = Math.max(-this.maxNodeVelocity, Math.min(this.maxNodeVelocity, this.vy));
 
       if (this.x < 0 || this.x > width) this.vx *= -1;
       if (this.y < 0 || this.y > height) this.vy *= -1;
@@ -71,6 +55,26 @@ const AnimatedBackground = ({
       }
     }
   }
+
+
+const AnimatedBackground = ({
+  nodeDensity = 100,
+  minNodes = 10,
+  maxNodeVelocity = 1,
+  connectionDistance = 100,
+  mouseRadius = 60,
+  mouseForce = 0.5,
+  className,
+}: AnimatedBackgroundProps) => {
+  const { resolvedTheme } = useTheme();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const nodes = useRef<Node[]>([]);
+  const mouse = useRef<{ x: number; y: number } | null>(null);
+  const colorOKLCH =
+    resolvedTheme === "dark"
+      ? "0.799 0.11674 297.701"
+      : "0.5393 0.2713 286.7462";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -98,7 +102,7 @@ const AnimatedBackground = ({
       nodeCount = getResponsiveNodes();
       nodes.current = Array.from(
         { length: nodeCount },
-        () => new Node(width, height)
+        () => new Node(width, height, maxNodeVelocity)
       );
     };
     const observer = new ResizeObserver(resize);
@@ -121,7 +125,7 @@ const AnimatedBackground = ({
     // Init nodes
     nodes.current = Array.from(
       { length: nodeCount },
-      () => new Node(width, height)
+      () => new Node(width, height, maxNodeVelocity)
     );
 
     let lastTime = performance.now();
@@ -188,7 +192,6 @@ const AnimatedBackground = ({
       container.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [
-    Node,
     colorOKLCH,
     minNodes,
     nodeDensity,
@@ -196,6 +199,7 @@ const AnimatedBackground = ({
     mouseRadius,
     mouseForce,
     className,
+    maxNodeVelocity,
     resolvedTheme,
   ]);
 
