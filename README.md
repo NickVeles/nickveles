@@ -119,6 +119,7 @@ For other platforms, ensure you have Node.js 18+ and follow the platform-specifi
 # Sanity
 SANITY_ID=your-sanity-project-id
 SANITY_DS=your-sanity-project-dataset
+SANITY_WEBHOOK_SECRET=your-webhook-secret
 
 # reCAPTCHA
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-public-recaptcha-site-key
