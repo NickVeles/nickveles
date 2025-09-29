@@ -2,11 +2,12 @@ import { notFound } from "next/navigation";
 import AllProjectsButton from "@/components/utils/all-projects-button";
 import Section from "@/components/utils/section";
 import ProjectHeader from "@/components/portfolio/project-header";
-import ProjectDetails from "@/components/portfolio/project-details";
+import ProjectContent from "@/components/portfolio/project-content";
 import { getSanityData } from "@/lib/get-sanity-data";
 import { processProject, ProjectData } from "@/types/project";
 import { BackToTopButton } from "@/components/utils/back-to-top-button";
 import { Metadata } from "next";
+import ProjectDetails from "@/components/portfolio/project-details";
 
 // Enable on-demand revalidation
 export const revalidate = false;
@@ -141,7 +142,10 @@ export default async function ProjectPage({
         <AllProjectsButton />
         <ProjectHeader project={project} />
       </div>
-      <ProjectDetails project={project} />
+      <div className="flex flex-col lg:flex-row gap-4">
+        <ProjectContent project={project} className="flex-2"/>
+        <ProjectDetails project={project} className="flex-1"/>
+      </div>
     </Section>
   );
 }

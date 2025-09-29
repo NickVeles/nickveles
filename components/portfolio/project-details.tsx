@@ -4,8 +4,10 @@ import { Badge } from "../ui/badge";
 import { cn, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { urlFor } from "@/lib/sanity-image";
-import MarkdownRenderer from "../utils/markdown-renderer";
-import TableOfContents from "./table-of-contents";
+
+//! IF YOU EVER ADD ANOTHER CARD TO THIS COMPONENT,
+//! CHANGE `lg:top-20` TO `lg:bottom-4` AND
+//! CHANGE `lg:self-start` TO `lg:self-end`
 
 type ProjectDetailsProps = {
   project: Project;
@@ -25,16 +27,7 @@ export default function ProjectDetails({
   className,
 }: ProjectDetailsProps) {
   return (
-    <div className={cn("grid grid-cols-1 lg:grid-cols-3 gap-4", className)}>
-      <Card className="lg:col-span-2">
-        <CardContent>
-          <article className="font-sans dyslexic:font-dyslexic">
-            <TableOfContents content={project.markdownContent} />
-            <MarkdownRenderer content={project.markdownContent} />
-          </article>
-        </CardContent>
-      </Card>
-
+    <div className={cn("flex flex-col gap-4 lg:sticky lg:top-20 lg:self-start", className)}>
       <Card className="flex flex-col gap-2 h-fit">
         <CardContent className="flex flex-col gap-4">
           <h3 className="font-semibold">Article Info</h3>
