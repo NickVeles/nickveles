@@ -29,21 +29,29 @@ My modern, accessible portfolio website - freelance web developer and machine le
 
 ```
 ├── app/                  # Next.js App Router pages
+│   ├── api/              # API routes
+│   │   ├── auth/.../     # Authentication routes
+│   │   ├── contact/      # Contact form API
+│   │   └── revalidate/   # Revalidation API
 │   ├── contact/          # Contact page
 │   ├── portfolio/        # Portfolio page
+│   │   └── [slug]/       # Dynamic project pages
 │   ├── tos/              # Terms of Service page
-│   └── api/              # API routes
+│   └── profile/          # Profile page
 ├── components/           # React components
 │   ├── accessibility/    # Accessibility-focused components
 │   ├── contact/          # Contact form and FAQ
 │   ├── home/             # Homepage sections
 │   ├── portfolio/        # Portfolio components
+│   ├── profile/          # Profile components
+│   ├── tos/              # Terms of Service components
 │   ├── ui/               # shadcn/ui components
 │   └── utils/            # Utility components
 ├── constants/            # Application constants
 ├── lib/                  # Utility functions
 ├── types/                # TypeScript type definitions
-└── assets/               # Static assets (logos, images)
+├── assets/               # Static assets (logos, images)
+└── public/               # Public static files
 ```
 
 ## Getting Started
@@ -101,6 +109,7 @@ This portfolio prioritizes accessibility with:
 - **Home** (`/`): Personal header, about, testimonials, projects, skills, certificates, and contact CTA
 - **Contact** (`/contact`): Contact form and frequently asked questions
 - **Portfolio** (`/portfolio`): Detailed project showcase
+- **Profile** (`/profile`): Password-protected profile with personal information for friends
 - **Terms of Service** (`/tos`): Legal terms and conditions
 
 ## Deployment
