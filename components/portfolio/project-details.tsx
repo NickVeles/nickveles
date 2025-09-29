@@ -26,8 +26,20 @@ export default function ProjectDetails({
   project,
   className,
 }: ProjectDetailsProps) {
+  // Check if the edit happened the same day as publication
+  const sameDayEdit =
+    project.publishedAt &&
+    project.editedAt &&
+    new Date(project.publishedAt).toDateString() ===
+      new Date(project.editedAt).toDateString();
+
   return (
-    <div className={cn("flex flex-col gap-4 lg:sticky lg:top-20 lg:self-start", className)}>
+    <div
+      className={cn(
+        "flex flex-col gap-4 lg:sticky lg:top-20 lg:self-start",
+        className,
+      )}
+    >
       <Card className="flex flex-col gap-2 h-fit">
         <CardContent className="flex flex-col gap-4">
           <h3 className="font-semibold">Article Info</h3>
@@ -56,7 +68,7 @@ export default function ProjectDetails({
               <p className="font-medium">{formatDate(project.publishedAt)}</p>
             </div>
           )}
-          {project.editedAt && (
+          {project.editedAt && !sameDayEdit && (
             <div className="flex flex-col gap-1">
               <h4 className="text-sm text-muted-foreground">Edited</h4>
               <p className="font-medium">{formatDate(project.editedAt)}</p>
