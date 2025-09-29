@@ -137,7 +137,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
                   {project.category.title}
                 </Badge>
               </div>
-              <CardContent className="p-4">
+              <CardContent className="px-4 pb-4">
                 <h3 className="font-semibold text-lg mb-2 text-foreground group-hover:text-primary-highlighter transition-colors">
                   {project.title}
                 </h3>
