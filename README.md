@@ -115,7 +115,7 @@ For other platforms, ensure you have Node.js 18+ and follow the platform-specifi
 
 ## Environment Variables
 
-```
+```env
 # Sanity
 SANITY_ID=your-sanity-project-id
 SANITY_DS=your-sanity-project-dataset
