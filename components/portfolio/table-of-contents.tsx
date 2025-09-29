@@ -27,7 +27,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
   return (
     <nav className="mb-12">
       <h2 className="text-lg font-semibold mb-2">Table of Contents</h2>
-      <ul className="list-disc list-inside space-y-1">
+      <ul className="list-disc ml-4 space-y-1">
         {headings.map((h) => (
           <li key={h.id}>
             <Link
