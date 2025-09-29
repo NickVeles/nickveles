@@ -159,7 +159,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
       }
 
       return (
-        <p className="mb-4 last:mb-0 leading-7 text-foreground inline">
+        <p className="mb-4 last:mb-0 leading-7 text-foreground">
           {children}
         </p>
       );
