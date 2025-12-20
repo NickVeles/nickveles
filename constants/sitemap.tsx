@@ -51,11 +51,11 @@ const sitemap: Sitemap = {
     },
   ],
   socials: [
-    {
-      url: "https://www.upwork.com/", //TODO: put your Upwork profile link here
-      name: "Upwork",
-      Icon: UpworkIcon,
-    },
+    // {
+    //   url: "https://www.upwork.com/", //TODO: put your Upwork profile link here
+    //   name: "Upwork",
+    //   Icon: UpworkIcon,
+    // },
   ],
 };
 

@@ -6,12 +6,6 @@ import PCMenu from "./utils/pc-menu";
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-sans">
-      <Disclaimer variant="destructive">
-        This website is a{" "}
-        <span className="inline font-bold">WORK IN PROGRESS (WIP)</span> and
-        contains mockup data &ndash; be welcome to reach out to me and provide
-        feedback.
-      </Disclaimer>
       {process.env.NEXT_PUBLIC_UPWORK_CENSOR && (
         <Disclaimer>
           You're currently viewing the Upwork version of my original website. Some
