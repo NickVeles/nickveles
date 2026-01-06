@@ -97,7 +97,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
         <Input
           ref={searchRef}
           type="text"
-          placeholder="Search for whatever skill you need..."
+          placeholder="Search for desired skills..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onFocus={handleSearchFocus}
