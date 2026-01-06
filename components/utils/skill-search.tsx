@@ -22,6 +22,7 @@ type SkillSearchProps = {
 
 export default function SkillSearch({ items, categories }: SkillSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -29,7 +30,8 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
 
   // Constants
   const SEARCH_OFFSET = 84; // so the search input doesn't hide behind the sticky header
-  const SEARCH_DELAY = 300; // delay to wait for keyboard on mobile
+  const SEARCH_DELAY = 300; // mobile keyboard delay
+  const DEBOUNCE_DELAY = 300; // search input debounce
   const OVERLAY_TRIGGER_HEIGHT = 600;
   const OVERLAY_MAX_HEIGHT = 400;
 
@@ -50,9 +52,9 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
   };
 
   const filteredSkills = useMemo(() => {
-    if (!searchTerm.trim()) return items;
+    if (!debouncedSearchTerm.trim()) return items;
 
-    const lowercaseSearch = searchTerm.toLowerCase().trim();
+    const lowercaseSearch = debouncedSearchTerm.toLowerCase().trim();
 
     return items.filter((skill) => {
       // Search in name
@@ -65,7 +67,16 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
 
       return nameMatch || tagMatch;
     });
-  }, [searchTerm, items]);
+  }, [debouncedSearchTerm, items]);
+
+  // Debounce search term input
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, DEBOUNCE_DELAY);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   // Measure content height whenever filtered skills change
   useEffect(() => {
@@ -75,7 +86,8 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
   }, [filteredSkills]);
 
   // Determine if overlay should be shown (content > 600px and not expanded)
-  const shouldShowOverlay = contentHeight > OVERLAY_TRIGGER_HEIGHT && !isExpanded;
+  const shouldShowOverlay =
+    contentHeight > OVERLAY_TRIGGER_HEIGHT && !isExpanded;
   const maxHeight = shouldShowOverlay ? OVERLAY_MAX_HEIGHT : contentHeight;
 
   return (
@@ -97,7 +109,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
         <div className="text-sm text-muted-foreground ml-1">
           {filteredSkills.length}{" "}
           {filteredSkills.length === 1 ? "result" : "results"}
-          {searchTerm && <span> for "{searchTerm}"</span>}
+          {debouncedSearchTerm && <span> for "{debouncedSearchTerm}"</span>}
         </div>
 
         <div className="relative">
@@ -148,40 +160,26 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
               })}
           </motion.div>
 
-          <AnimatePresence>
-            {shouldShowOverlay && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-x-0 bottom-10 h-32 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none"
-              />
-            )}
-          </AnimatePresence>
+          {/* Gradient */}
+          {shouldShowOverlay && (
+            <div className="absolute inset-x-0 bottom-10 h-32 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+          )}
 
-          <AnimatePresence>
-            {shouldShowOverlay && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.3 }}
-                className="relative z-10 flex justify-center transform -translate-y-1/2"
+          {/* Show All Button */}
+          {shouldShowOverlay && (
+            <div className="relative z-10 flex justify-center transform -translate-y-1/2">
+              <Button
+                onClick={() => setIsExpanded(true)}
+                variant="default"
+                size="lg"
               >
-                <Button
-                  onClick={() => setIsExpanded(true)}
-                  variant="default"
-                  size="lg"
-                >
-                  Show All
-                </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                Show All
+              </Button>
+            </div>
+          )}
         </div>
 
-        {filteredSkills.length === 0 && searchTerm && (
+        {filteredSkills.length === 0 && debouncedSearchTerm && (
           <div className="text-center py-4 text-muted-foreground">
             <p className="text-lg font-medium mb-2">No results?</p>
             <div className="text-sm">
