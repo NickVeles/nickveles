@@ -2,8 +2,9 @@
 
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { InfoIcon, Search } from "lucide-react";
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import { Skill } from "@/types/skill";
 import TextLink from "./text-link";
 import { SkillCategory } from "@/types/skill-category";
@@ -12,6 +13,7 @@ import {
   HybridTooltipContent,
   HybridTooltipTrigger,
 } from "../ui/hybrid-tooltip";
+import { motion, AnimatePresence } from "framer-motion";
 
 type SkillSearchProps = {
   items: Skill[];
@@ -20,22 +22,30 @@ type SkillSearchProps = {
 
 export default function SkillSearch({ items, categories }: SkillSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [contentHeight, setContentHeight] = useState(0);
   const searchRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Constants
+  const SEARCH_OFFSET = 84; // so the search input doesn't hide behind the sticky header
+  const SEARCH_DELAY = 300; // delay to wait for keyboard on mobile
+  const OVERLAY_TRIGGER_HEIGHT = 600;
+  const OVERLAY_MAX_HEIGHT = 400;
 
   const handleSearchFocus = () => {
     // On mobile, scroll the search input to the top when focused
     if (window.innerWidth < 768) {
       setTimeout(() => {
         const inputTop = searchRef.current?.getBoundingClientRect().top;
-        const offset = 84; // offset so the search wouldn't hide behind the sticky header
 
         if (inputTop !== undefined) {
           window.scrollTo({
-            top: window.scrollY + inputTop - offset,
+            top: window.scrollY + inputTop - SEARCH_OFFSET,
             behavior: "smooth",
           });
         }
-      }, 300); // small delay to wait for keyboard
+      }, SEARCH_DELAY);
     }
   };
 
@@ -50,12 +60,23 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
 
       // Search in tags
       const tagMatch = skill.tags.some((tag) =>
-        tag.toLowerCase().includes(lowercaseSearch)
+        tag.toLowerCase().includes(lowercaseSearch),
       );
 
       return nameMatch || tagMatch;
     });
   }, [searchTerm, items]);
+
+  // Measure content height whenever filtered skills change
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [filteredSkills]);
+
+  // Determine if overlay should be shown (content > 600px and not expanded)
+  const shouldShowOverlay = contentHeight > OVERLAY_TRIGGER_HEIGHT && !isExpanded;
+  const maxHeight = shouldShowOverlay ? OVERLAY_MAX_HEIGHT : contentHeight;
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 flex flex-col gap-6">
@@ -79,46 +100,85 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
           {searchTerm && <span> for "{searchTerm}"</span>}
         </div>
 
-        <div className="flex flex-col gap-6">
-          {filteredSkills.length > 0 &&
-            categories.map((category) => {
-              const skillsInCategory = filteredSkills.filter(
-                (skill) => skill.category.level === category.level
-              );
+        <div className="relative">
+          <motion.div
+            ref={contentRef}
+            className="flex flex-col gap-6 overflow-hidden"
+            animate={{ maxHeight }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            {filteredSkills.length > 0 &&
+              categories.map((category) => {
+                const skillsInCategory = filteredSkills.filter(
+                  (skill) => skill.category.level === category.level,
+                );
 
-              if (skillsInCategory.length === 0) return null;
+                if (skillsInCategory.length === 0) return null;
 
-              return (
-                <div className="flex flex-col gap-2" key={category._id}>
-                  <h3 className="flex items-center gap-1 text-xl font-semibold ml-1">
-                    {category.name}
-                    <HybridTooltip>
-                      <HybridTooltipTrigger
-                        aria-label="Info trigger"
-                        className="flex justify-center items-center"
-                      >
-                        <InfoIcon className="size-4" />
-                      </HybridTooltipTrigger>
-                      <HybridTooltipContent>
-                        {category.description}
-                      </HybridTooltipContent>
-                    </HybridTooltip>
-                  </h3>
-                  <ul className="flex flex-wrap gap-2">
-                    {skillsInCategory.map((skill) => (
-                      <li key={skill._id}>
-                        <Badge
-                          variant="secondary"
-                          className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer dyslexic:font-dyslexic dyslexic:text-sx"
+                return (
+                  <div className="flex flex-col gap-2" key={category._id}>
+                    <h3 className="flex items-center gap-1 text-xl font-semibold ml-1">
+                      {category.name}
+                      <HybridTooltip>
+                        <HybridTooltipTrigger
+                          aria-label="Info trigger"
+                          className="flex justify-center items-center"
                         >
-                          {skill.name}
-                        </Badge>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+                          <InfoIcon className="size-4" />
+                        </HybridTooltipTrigger>
+                        <HybridTooltipContent>
+                          {category.description}
+                        </HybridTooltipContent>
+                      </HybridTooltip>
+                    </h3>
+                    <ul className="flex flex-wrap gap-2">
+                      {skillsInCategory.map((skill) => (
+                        <li key={skill._id}>
+                          <Badge
+                            variant="secondary"
+                            className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer dyslexic:font-dyslexic dyslexic:text-sx"
+                          >
+                            {skill.name}
+                          </Badge>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+          </motion.div>
+
+          <AnimatePresence>
+            {shouldShowOverlay && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-x-0 bottom-10 h-32 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none"
+              />
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {shouldShowOverlay && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.3 }}
+                className="relative z-10 flex justify-center transform -translate-y-1/2"
+              >
+                <Button
+                  onClick={() => setIsExpanded(true)}
+                  variant="default"
+                  size="lg"
+                >
+                  Show All
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {filteredSkills.length === 0 && searchTerm && (
