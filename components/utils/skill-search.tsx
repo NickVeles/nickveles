@@ -13,7 +13,7 @@ import {
   HybridTooltipContent,
   HybridTooltipTrigger,
 } from "../ui/hybrid-tooltip";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 type SkillSearchProps = {
   items: Skill[];
