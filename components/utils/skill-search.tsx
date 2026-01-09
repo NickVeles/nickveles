@@ -14,6 +14,7 @@ import {
   HybridTooltipTrigger,
 } from "../ui/hybrid-tooltip";
 import { motion } from "framer-motion";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 
 type SkillSearchProps = {
   items: Skill[];
@@ -22,7 +23,7 @@ type SkillSearchProps = {
 
 export default function SkillSearch({ items, categories }: SkillSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebouncedValue(searchTerm);
   const [isExpanded, setIsExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -31,7 +32,6 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
   // Constants
   const SEARCH_OFFSET = 84; // so the search input doesn't hide behind the sticky header
   const SEARCH_DELAY = 300; // mobile keyboard delay
-  const DEBOUNCE_DELAY = 300; // search input debounce
   const OVERLAY_TRIGGER_HEIGHT = 600;
   const OVERLAY_MAX_HEIGHT = 400;
 
@@ -68,15 +68,6 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
       return nameMatch || tagMatch;
     });
   }, [debouncedSearchTerm, items]);
-
-  // Debounce search term input
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, DEBOUNCE_DELAY);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
 
   // Measure content height whenever filtered skills change
   useEffect(() => {

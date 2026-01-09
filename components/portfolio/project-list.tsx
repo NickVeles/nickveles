@@ -19,6 +19,7 @@ import { Project } from "@/types/project";
 import { PlaceholderImage } from "@/constants/placeholders";
 import Loading from "@/app/loading";
 import { ProjectCategory } from "@/types/project-category";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 
 type ProjectListProps = {
   projects: Project[];
@@ -27,6 +28,7 @@ type ProjectListProps = {
 export default function ProjectList({ projects }: ProjectListProps) {
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebouncedValue(searchQuery);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [displayCount, setDisplayCount] = useState(12);
 
@@ -39,13 +41,17 @@ export default function ProjectList({ projects }: ProjectListProps) {
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
       const matchesSearch =
-        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.description?.toLowerCase().includes(searchQuery.toLowerCase());
+        project.title
+          .toLowerCase()
+          .includes(debouncedSearchQuery.toLowerCase()) ||
+        project.description
+          ?.toLowerCase()
+          .includes(debouncedSearchQuery.toLowerCase());
       const matchesCategory =
         selectedCategory === "all" || project.category._id === selectedCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [projects, searchQuery, selectedCategory]);
+  }, [projects, debouncedSearchQuery, selectedCategory]);
 
   const displayedProjects = filteredProjects.slice(0, displayCount);
   const hasMoreProjects = displayCount < filteredProjects.length;
