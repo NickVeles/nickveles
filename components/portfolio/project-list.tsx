@@ -73,7 +73,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
       {/* Search and Filter Controls */}
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <div className="relative flex-1">
-          <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-4" />
           <Input
             placeholder="Search projects..."
             value={searchQuery}
