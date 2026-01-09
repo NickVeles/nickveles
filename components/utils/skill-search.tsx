@@ -139,7 +139,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
                         <li key={skill._id}>
                           <Badge
                             variant="secondary"
-                            className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer dyslexic:font-dyslexic dyslexic:text-sx"
+                            className="px-3 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors cursor-default dyslexic:font-dyslexic dyslexic:text-sx"
                           >
                             {skill.name}
                           </Badge>
