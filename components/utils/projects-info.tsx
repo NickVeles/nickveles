@@ -10,8 +10,8 @@ type ProjectsInfoProps = {
 export default function ProjectsInfo({ textObject }: ProjectsInfoProps) {
   return (
     <div className="flex flex-col flex-1 gap-4 max-w-xl">
-      <div className="flex flex-col gap-12">
-        <SectionH className="md:text-start">
+      <div className="flex flex-col w-full gap-12">
+        <SectionH className="lg:text-start">
           {textObject.title ?? "Projects"}
         </SectionH>
         <div className="flex flex-col gap-4 text-xl w-full indent-4 text-muted-foreground">
