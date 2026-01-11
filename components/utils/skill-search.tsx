@@ -164,7 +164,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
                 variant="default"
                 size="lg"
               >
-                Show All
+                Show All <span className="sr-only">Skills</span>
               </Button>
             </div>
           )}
