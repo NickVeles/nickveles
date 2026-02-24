@@ -53,7 +53,7 @@ export default function Footer() {
 
       {/* Copyright notice */}
       <span className="flex w-full justify-center text-muted-foreground text-sm">
-        © {new Date().getFullYear()} Nick Veles. All rights reserved.
+        &copy; {new Date().getFullYear()} Nick Veles. All rights reserved.
       </span>
     </footer>
   );
