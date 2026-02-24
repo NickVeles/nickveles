@@ -38,8 +38,8 @@ const sitemap: Sitemap = {
       isFooterOnly: true,
     },
     {
-      url: "/tos",
-      name: "Terms and Conditions",
+      url: "/terms",
+      name: "Terms of Service",
       isFooterOnly: true,
     },
   ],

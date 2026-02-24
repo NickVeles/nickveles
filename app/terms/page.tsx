@@ -1,4 +1,4 @@
-import TOSSection from "@/components/tos/tos-section";
+import TermsSection from "@/components/terms/terms-section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default function TOS() {
   return (
     <>
-      <TOSSection />
+      <TermsSection />
     </>
   );
 }

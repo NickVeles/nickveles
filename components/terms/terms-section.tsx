@@ -8,7 +8,7 @@ function getDate(date: string) {
   return d.toLocaleString();
 }
 
-export default async function TOSSection() {
+export default async function TermsSection() {
   const tos =
     await getSanityData<SectionText>(`*[_type == "sectionText" && category->title == "TOS"][0]{
     _id,
