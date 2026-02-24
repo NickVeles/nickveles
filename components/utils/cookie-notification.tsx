@@ -40,8 +40,8 @@ export default function CookieNotification() {
             <p>
               This website uses third-party cookies for functionality. By
               continuing to use this site, you consent to our use of cookies.{" "}
-              <TextLink href="/tos" target="_blank" iconSize={13} isIcon>
-                Read more
+              <TextLink href="/terms" target="_blank" iconSize={13} isIcon>
+                Read more<span className="sr-only"> about our Privacy Policy</span>
               </TextLink>
             </p>
           </div>
