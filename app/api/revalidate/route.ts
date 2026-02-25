@@ -92,6 +92,10 @@ export async function POST(req: NextRequest) {
 
       default:
         console.log(`No revalidation rules for type: ${_type}`);
+
+        // Revalidate home page since most of the dynamic content is stored there
+        revalidatePath("/", "page");
+        console.log("Revalidated: /");
         return NextResponse.json({
           revalidated: false,
           message: `No revalidation rules for type: ${_type}`,
