@@ -16,8 +16,8 @@ export default function WhoIAm({ textObject }: WhoIAmProps) {
           <p key={index}>{paragraph}</p>
         ))}
         <p>
-          If you're looking for web software that's thoughtfully designed and
-          built to last — <TextLink href="/contact">let's talk</TextLink>.
+          Curious how I could help your team or project?{" "}
+          <TextLink href="/contact">Let's talk</TextLink>.
         </p>
       </div>
     </div>
