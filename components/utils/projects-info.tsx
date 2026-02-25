@@ -14,7 +14,7 @@ export default function ProjectsInfo({ textObject }: ProjectsInfoProps) {
         <SectionH className="lg:text-start">
           {textObject.title ?? "Projects"}
         </SectionH>
-        <div className="flex flex-col gap-4 text-xl w-full indent-4 text-muted-foreground">
+        <div className="flex flex-col gap-4 text-xl w-full text-muted-foreground">
           {textObject.paragraphs?.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
