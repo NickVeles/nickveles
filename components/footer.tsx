@@ -6,49 +6,55 @@ export default function Footer() {
     <footer className="w-full flex-col justify-center items-center border-t border-border font-sans p-4">
       <nav className="flex flex-col sm:flex-row flex-wrap justify-center items-center sm:items-start gap-8 sm:gap-16 text-center sm:text-start mb-8">
         {/* Navigation */}
-        <div className="flex flex-col gap-1">
-          <h4 className="text-sm text-muted-foreground sm:text-start">
-            Navigation
-          </h4>
-          <ul className="flex flex-col gap-1">
-            {sitemap.navigation.map(({ name, url }) => (
-              <li key={name}>
-                <TextLink href={url} isUncolored>
-                  {name}
-                </TextLink>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {sitemap.navigation.length > 0 && (
+          <div className="flex flex-col gap-1">
+            <h4 className="text-sm text-muted-foreground sm:text-start">
+              Navigation
+            </h4>
+            <ul className="flex flex-col gap-1">
+              {sitemap.navigation.map(({ name, url }) => (
+                <li key={name}>
+                  <TextLink href={url} isUncolored>
+                    {name}
+                  </TextLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Affiliates */}
-        <div className="flex flex-col gap-1">
-          <h4 className="text-sm text-muted-foreground">Affiliates</h4>
-          <ul className="flex flex-col gap-1">
-            {sitemap.affiliates.map(({ name, url }) => (
-              <li key={name}>
-                <TextLink href={url} target="_blank" isIcon isUncolored>
-                  {name}
-                </TextLink>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {sitemap.affiliates.length > 0 && (
+          <div className="flex flex-col gap-1">
+            <h4 className="text-sm text-muted-foreground">Affiliates</h4>
+            <ul className="flex flex-col gap-1">
+              {sitemap.affiliates.map(({ name, url }) => (
+                <li key={name}>
+                  <TextLink href={url} target="_blank" isIcon isUncolored>
+                    {name}
+                  </TextLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Career */}
-        <div className="flex flex-col gap-1">
-          <h4 className="text-sm text-muted-foreground">Career</h4>
-          <ul className="flex gap-3">
-            {sitemap.socials.map(({ name, Icon, url }) => (
-              <li key={name}>
-                <TextLink href={url} target="_blank" isUncolored>
-                  {Icon && <Icon className="size-8" />}
-                  <span className="sr-only">{name}</span>
-                </TextLink>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {sitemap.socials.length > 0 && (
+          <div className="flex flex-col gap-1">
+            <h4 className="text-sm text-muted-foreground">Career</h4>
+            <ul className="flex gap-3">
+              {sitemap.socials.map(({ name, Icon, url }) => (
+                <li key={name}>
+                  <TextLink href={url} target="_blank" isUncolored>
+                    {Icon && <Icon className="size-8" />}
+                    <span className="sr-only">{name}</span>
+                  </TextLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </nav>
 
       {/* Copyright notice */}

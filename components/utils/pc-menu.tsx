@@ -48,29 +48,31 @@ export default function PCMenu({ className }: PCMenuProps) {
             ))}
 
           {/* Affiliates */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="px-2">
-              Affiliates
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="min-w-[250px] gap-1">
-                {sitemap.affiliates.map(({ name, url, Icon }) => (
-                  <li key={name} className="w-full">
-                    <NavigationMenuLink
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex flex-row items-center w-full"
-                    >
-                      {Icon && <Icon className="size-6 text-inherit" />}
-                      {name}
-                      <ExternalLinkIcon className="ml-auto size-4 text-inherit" />
-                    </NavigationMenuLink>
-                  </li>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          {sitemap.affiliates.length > 0 && (
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="px-2">
+                Affiliates
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="min-w-[250px] gap-1">
+                  {sitemap.affiliates.map(({ name, url, Icon }) => (
+                    <li key={name} className="w-full">
+                      <NavigationMenuLink
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex flex-row items-center w-full"
+                      >
+                        {Icon && <Icon className="size-6 text-inherit" />}
+                        {name}
+                        <ExternalLinkIcon className="ml-auto size-4 text-inherit" />
+                      </NavigationMenuLink>
+                    </li>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
 

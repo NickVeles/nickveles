@@ -71,43 +71,49 @@ export default function MobileMenu({ className }: MobileMenuProps) {
         >
           <NavigationMenuList className="flex flex-col gap-12 px-2 items-start w-[300px]">
             {/* Menu */}
-            <div className="flex flex-col w-full">
-              <h4 className="ml-2 mb-1 text-sm text-muted-foreground">Menu</h4>
-              {sitemap.navigation
-                .filter((link) => !link.isFooterOnly)
-                .map(({ name, url }) => (
+            {sitemap.navigation.length > 0 && (
+              <div className="flex flex-col w-full">
+                <h4 className="ml-2 mb-1 text-sm text-muted-foreground">
+                  Menu
+                </h4>
+                {sitemap.navigation
+                  .filter((link) => !link.isFooterOnly)
+                  .map(({ name, url }) => (
+                    <NavigationMenuItem key={name}>
+                      <NavigationMenuLink
+                        href={url}
+                        onClick={() => setIsOpen(false)}
+                        className="inline-flex flex-row text-lg w-full"
+                      >
+                        {name}
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  ))}
+              </div>
+            )}
+
+            {/* Affiliates */}
+            {sitemap.affiliates.length > 0 && (
+              <div className="flex flex-col w-full">
+                <h4 className="ml-2 mb-1 text-sm text-muted-foreground">
+                  Affiliates
+                </h4>
+                {sitemap.affiliates.map(({ name, url }) => (
                   <NavigationMenuItem key={name}>
                     <NavigationMenuLink
                       href={url}
                       onClick={() => setIsOpen(false)}
-                      className="inline-flex flex-row text-lg w-full"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex flex-row items-center text-lg w-full"
                     >
                       {name}
+                      <ExternalLinkIcon className="ml-auto size-4 text-inherit" />
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
-            </div>
-
-            {/* Affiliates */}
-            <div className="flex flex-col w-full">
-              <h4 className="ml-2 mb-1 text-sm text-muted-foreground">
-                Affiliates
-              </h4>
-              {sitemap.affiliates.map(({ name, url }) => (
-                <NavigationMenuItem key={name}>
-                  <NavigationMenuLink
-                    href={url}
-                    onClick={() => setIsOpen(false)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex flex-row items-center text-lg w-full"
-                  >
-                    {name}
-                    <ExternalLinkIcon className="ml-auto size-4 text-inherit" />
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </div>
+              </div>
+            )}
           </NavigationMenuList>
         </NavigationMenu>
 
