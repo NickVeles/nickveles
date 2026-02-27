@@ -44,11 +44,11 @@ const sitemap: Sitemap = {
     },
   ],
   affiliates: [
-    {
-      url: "https://datingsimplified.vercel.app/",
-      name: "Dating Simplified",
-      Icon: DatingSimplifiedIcon,
-    },
+    // {
+    //   url: "https://datingsimplified.vercel.app/",
+    //   name: "Dating Simplified",
+    //   Icon: DatingSimplifiedIcon,
+    // },
   ],
   socials: [
     // {
