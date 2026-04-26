@@ -7,7 +7,7 @@ import { SkillCategory } from "@/types/skill-category";
 
 export default async function Skills() {
   // Get individual skills
-  const skills = await getSanityData<Skill[]>(`*[_type == "skill"]{
+  const skills = await getSanityData<Skill[]>(`*[_type == "skill" && category->level >= 0]{
     _id,
     name,
     category->{
@@ -20,7 +20,7 @@ export default async function Skills() {
   // Get skill categories
   const skillCategories = await getSanityData<
     SkillCategory[]
-  >(`*[_type == "skillCategory"]{
+  >(`*[_type == "skillCategory" && level >= 0]{
     _id,
     name,
     description,
