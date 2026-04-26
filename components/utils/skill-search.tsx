@@ -200,8 +200,8 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
             <p className="text-lg font-medium mb-2">No results?</p>
             <div className="text-sm">
               <p>
-                <TextLink href="/contact">Contact me</TextLink> and I might
-                learn it for <span className="font-stylized text-xl">free</span>
+                <TextLink href="/contact">Contact me</TextLink> and we might{" "}
+                <span className="font-stylized text-xl">work it out</span>
               </p>
               <p>(Also, check your spelling in case you missed your search)</p>
             </div>
