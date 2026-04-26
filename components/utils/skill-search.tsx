@@ -3,6 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { InfoIcon, Search } from "lucide-react";
 import { useState, useRef, useMemo, useEffect } from "react";
 import { Skill } from "@/types/skill";
@@ -25,6 +26,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebouncedValue(searchTerm);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showHidden, setShowHidden] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const searchRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -51,12 +53,26 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
     }
   };
 
+  const visibleItems = useMemo(
+    () =>
+      showHidden ? items : items.filter((skill) => skill.category.level >= 0),
+    [items, showHidden],
+  );
+
+  const visibleCategories = useMemo(
+    () =>
+      showHidden
+        ? categories
+        : categories.filter((category) => category.level >= 0),
+    [categories, showHidden],
+  );
+
   const filteredSkills = useMemo(() => {
-    if (!debouncedSearchTerm.trim()) return items;
+    if (!debouncedSearchTerm.trim()) return visibleItems;
 
     const lowercaseSearch = debouncedSearchTerm.toLowerCase().trim();
 
-    return items.filter((skill) => {
+    return visibleItems.filter((skill) => {
       // Search in name
       const nameMatch = skill.name.toLowerCase().includes(lowercaseSearch);
 
@@ -67,7 +83,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
 
       return nameMatch || tagMatch;
     });
-  }, [debouncedSearchTerm, items]);
+  }, [debouncedSearchTerm, visibleItems]);
 
   // Measure content height whenever filtered skills change
   useEffect(() => {
@@ -97,10 +113,19 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="text-sm text-muted-foreground ml-1">
-          {filteredSkills.length}{" "}
-          {filteredSkills.length === 1 ? "result" : "results"}
-          {debouncedSearchTerm && <span> for "{debouncedSearchTerm}"</span>}
+        <div className="flex items-center justify-between gap-4 ml-1">
+          <div className="text-sm text-muted-foreground">
+            {filteredSkills.length}{" "}
+            {filteredSkills.length === 1 ? "result" : "results"}
+            {debouncedSearchTerm && <span> for "{debouncedSearchTerm}"</span>}
+          </div>
+          <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+            <Checkbox
+              checked={showHidden}
+              onCheckedChange={(checked) => setShowHidden(checked === true)}
+            />
+            Show hidden
+          </label>
         </div>
 
         <div className="relative">
@@ -111,7 +136,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {filteredSkills.length > 0 &&
-              categories.map((category) => {
+              visibleCategories.map((category) => {
                 const skillsInCategory = filteredSkills.filter(
                   (skill) => skill.category.level === category.level,
                 );
