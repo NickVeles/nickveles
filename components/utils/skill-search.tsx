@@ -113,13 +113,13 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between gap-4 ml-1">
-          <div className="text-sm text-muted-foreground">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 ml-1">
+          <div className="text-sm text-muted-foreground truncate">
             {filteredSkills.length}{" "}
             {filteredSkills.length === 1 ? "result" : "results"}
             {debouncedSearchTerm && <span> for "{debouncedSearchTerm}"</span>}
           </div>
-          <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+          <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none shrink-0">
             <Checkbox
               checked={showHidden}
               onCheckedChange={(checked) => setShowHidden(checked === true)}
