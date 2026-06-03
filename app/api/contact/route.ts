@@ -3,6 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
 import { Redis } from "@upstash/redis";
+import {
+  CONFIRMATION_FROM_NAME,
+  CONFIRMATION_SUBJECT,
+  contactConfirmationHtml,
+  contactConfirmationText,
+  contactNotificationHtml,
+  contactNotificationText,
+} from "./messages";
 
 // Initialize Redis
 const redis = new Redis({
@@ -92,76 +100,16 @@ async function verifyCaptcha(token: string): Promise<boolean> {
   }
 }
 
-async function sendEmail(data: {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}) {
-  try {
-    const { data: emailData, error } = await resend.emails.send({
-      from: `${data.name} <${process.env.ZOHO_SENDER_EMAIL}>`,
-      to: [process.env.ZOHO_RECEIVER_EMAIL!],
-      subject: `Contact Form: ${data.subject}`,
-      replyTo: data.email,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">
-            New Contact Form Submission
-          </h2>
-          <div style="padding: 20px 0;">
-            <p style="margin: 10px 0;">
-              <strong style="color: #555;">Name:</strong> 
-              <span style="color: #333;">${data.name}</span>
-            </p>
-            <p style="margin: 10px 0;">
-              <strong style="color: #555;">Email:</strong> 
-              <a href="mailto:${data.email}" style="color: #0066cc;">${
-                data.email
-              }</a>
-            </p>
-            <p style="margin: 10px 0;">
-              <strong style="color: #555;">Subject:</strong> 
-              <span style="color: #333;">${data.subject}</span>
-            </p>
-            <div style="margin: 20px 0;">
-              <strong style="color: #555;">Message:</strong>
-              <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 10px;">
-                <p style="color: #333; line-height: 1.6; margin: 0;">
-                  ${data.message.replace(/\n/g, "<br>")}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #888;">
-            <p>This email was sent from your website's contact form.</p>
-          </div>
-        </div>
-      `,
-      text: `
-New Contact Form Submission
+// Thin wrapper around Resend that surfaces API errors as thrown exceptions so
+// callers can rely on promise rejection (e.g. with Promise.allSettled).
+async function sendEmail(options: Parameters<typeof resend.emails.send>[0]) {
+  const { data: emailData, error } = await resend.emails.send(options);
 
-Name: ${data.name}
-Email: ${data.email}
-Subject: ${data.subject}
-
-Message:
-${data.message}
-
----
-This email was sent from your website's contact form.
-      `,
-    });
-
-    if (error) {
-      throw error;
-    }
-
-    return emailData;
-  } catch (error) {
-    console.error("Error sending email with Resend:", error);
+  if (error) {
     throw error;
   }
+
+  return emailData;
 }
 
 export async function POST(request: NextRequest) {
@@ -214,7 +162,44 @@ export async function POST(request: NextRequest) {
       ip: clientIp,
     });
 
-    await sendEmail(validatedData);
+    const { name, email, subject, message } = validatedData;
+
+    // Send the owner notification and the user confirmation concurrently.
+    // The confirmation is treated as non-fatal: if it fails the message was
+    // still received, the sender just won't get an acknowledgement.
+    const [notification, confirmation] = await Promise.allSettled([
+      sendEmail({
+        from: `${name} <${process.env.NOREPLY_EMAIL!}>`,
+        to: [process.env.TO_EMAIL!],
+        subject: `Contact Form: ${subject}`,
+        replyTo: email,
+        html: contactNotificationHtml({ name, email, subject, message }),
+        text: contactNotificationText({ name, email, subject, message }),
+      }),
+      sendEmail({
+        from: `${CONFIRMATION_FROM_NAME} <${process.env.NOREPLY_EMAIL!}>`,
+        to: [email],
+        subject: CONFIRMATION_SUBJECT,
+        html: contactConfirmationHtml({ name, subject, message }),
+        text: contactConfirmationText({ name, subject, message }),
+      }),
+    ]);
+
+    if (notification.status === "rejected") {
+      console.error(
+        "Error sending notification email with Resend:",
+        notification.reason,
+      );
+      throw notification.reason;
+    }
+
+    if (confirmation.status === "rejected") {
+      // Non-fatal: the owner was notified, the sender just won't get a copy.
+      console.error(
+        "Error sending confirmation email with Resend:",
+        confirmation.reason,
+      );
+    }
 
     try {
       const ttl = await redis.ttl(`rate_limit:${clientIp}`);
