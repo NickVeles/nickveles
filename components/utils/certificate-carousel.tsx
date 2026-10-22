@@ -9,7 +9,6 @@ import {
   ArrowBigRightDashIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  CircleAlertIcon,
 } from "lucide-react";
 import CertificateCard from "./certificate-card";
 
@@ -60,11 +59,15 @@ export default function CertificateCarousel({
       </div>
       {/* Carousel */}
       <div ref={sliderInstanceRef} className="keen-slider">
-        {certificates.map((cert) => (
-          <div key={cert._id} className="keen-slider__slide p-4">
-            <CertificateCard certificate={cert} />
-          </div>
-        ))}
+        {/* !IMPORTANT: Remove concat() and indx after getting more than 3 certs */}
+        {/* This solution prevents awkward loading to the slider when changing slides */}
+        {certificates
+          .concat(certificates.length > 3 ? certificates : [])
+          .map((cert, indx) => (
+            <div key={cert._id + indx} className="keen-slider__slide p-4">
+              <CertificateCard certificate={cert} />
+            </div>
+          ))}
       </div>
       {/* Navigation Right */}
       <div className="hidden sm:flex jjustify-between absolute -right-11 top-1/2 -translate-y-1/2">
@@ -78,12 +81,6 @@ export default function CertificateCarousel({
           <ChevronRightIcon className="size-4" />
         </Button>
       </div>
-      <p className="px-4 w-full inline text-wrap text-muted-foreground">
-        <CircleAlertIcon className="inline size-5 mr-1 align-text-top" />
-        <span className="inline font-bold">Disclaimer</span>: Some certificates
-        may display my previous name. All credentials are authentic and can be
-        verified upon request.
-      </p>
     </div>
   );
 }
