@@ -54,17 +54,8 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
   };
 
   const visibleItems = useMemo(
-    () =>
-      showHidden ? items : items.filter((skill) => skill.category.level >= 0),
+    () => (showHidden ? items : items.filter((skill) => !skill.isHidden)),
     [items, showHidden],
-  );
-
-  const visibleCategories = useMemo(
-    () =>
-      showHidden
-        ? categories
-        : categories.filter((category) => category.level >= 0),
-    [categories, showHidden],
   );
 
   const filteredSkills = useMemo(() => {
@@ -125,6 +116,18 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
               onCheckedChange={(checked) => setShowHidden(checked === true)}
             />
             Show hidden
+            <HybridTooltip>
+              <HybridTooltipTrigger
+                aria-label="Info trigger"
+                className="flex justify-center items-center"
+              >
+                <InfoIcon className="size-4" />
+              </HybridTooltipTrigger>
+              <HybridTooltipContent>
+                Show skills that I use less nowadays or that are built into more
+                complex skills (e.g. SCSS &rarr; CSS)
+              </HybridTooltipContent>
+            </HybridTooltip>
           </label>
         </div>
 
@@ -136,9 +139,9 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {filteredSkills.length > 0 &&
-              visibleCategories.map((category) => {
+              categories.map((category) => {
                 const skillsInCategory = filteredSkills.filter(
-                  (skill) => skill.category.level === category.level,
+                  (skill) => skill.category._id === category._id,
                 );
 
                 if (skillsInCategory.length === 0) return null;

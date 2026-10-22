@@ -6,7 +6,8 @@ export const SkillSchema = z.object({
   name: z.string(),
   category: SkillCategorySchema,
   tags: z.string().array(),
-  points: z.number(),
+  points: z.number().optional(),
+  isHidden: z.boolean().optional(),
 });
 
 export type Skill = z.infer<typeof SkillSchema>;

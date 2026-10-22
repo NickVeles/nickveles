@@ -11,11 +11,12 @@ export default async function Skills() {
     _id,
     name,
     category->{
-      level
+      _id
     },
     tags,
-    points
-  } | order(points desc, name asc)`);
+    points,
+    isHidden
+  } | order(lower(name) asc)`);
 
   // Get skill categories
   const skillCategories = await getSanityData<
