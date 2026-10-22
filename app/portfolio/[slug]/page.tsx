@@ -121,7 +121,6 @@ export default async function ProjectPage({
         title
       },
       tags,
-      points
     },
     url,
     repositoryUrl,

@@ -14,7 +14,6 @@ export default async function Skills() {
       _id
     },
     tags,
-    points,
     isHidden
   } | order(lower(name) asc)`);
 
