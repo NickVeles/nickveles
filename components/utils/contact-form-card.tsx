@@ -225,7 +225,7 @@ export default function ContactFormCard() {
                       <FormLabel className="inline">
                         I accept the{" "}
                         <TextLink
-                          href="/tos"
+                          href="/terms"
                           target="_blank"
                           isIcon
                           iconSize={12}
