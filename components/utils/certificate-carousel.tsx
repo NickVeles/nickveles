@@ -59,15 +59,11 @@ export default function CertificateCarousel({
       </div>
       {/* Carousel */}
       <div ref={sliderInstanceRef} className="keen-slider">
-        {/* !IMPORTANT: Remove concat() and indx after getting more than 3 certs */}
-        {/* This solution prevents awkward loading to the slider when changing slides */}
-        {certificates
-          .concat(certificates.length > 3 ? certificates : [])
-          .map((cert, indx) => (
-            <div key={cert._id + indx} className="keen-slider__slide p-4">
-              <CertificateCard certificate={cert} />
-            </div>
-          ))}
+        {certificates.map((cert, indx) => (
+          <div key={cert._id + indx} className="keen-slider__slide p-4">
+            <CertificateCard certificate={cert} />
+          </div>
+        ))}
       </div>
       {/* Navigation Right */}
       <div className="hidden sm:flex jjustify-between absolute -right-11 top-1/2 -translate-y-1/2">
