@@ -38,7 +38,7 @@ export default function CertificateCarousel({
         </p>
       </div>
 
-      {/* Navigation Left */}
+      {/* Previous button */}
       <div className="absolute -left-11 top-1/2 z-10 hidden -translate-y-1/2 sm:flex">
         <Button
           size="icon"
@@ -56,8 +56,9 @@ export default function CertificateCarousel({
         className="w-full"
         onSwiper={setSwiper}
         slidesPerView={1}
+        slidesPerGroup={1}
         spaceBetween={0}
-        loop={certificates.length >= 4}
+        loop={certificates.length > 3}
         breakpoints={{
           768: {
             slidesPerView: 2,
@@ -67,14 +68,16 @@ export default function CertificateCarousel({
           },
         }}
       >
-        {certificates.map((cert, indx) => (
-          <SwiperSlide key={cert._id + indx} className="p-4">
-            <CertificateCard certificate={cert} />
+        {certificates.map((cert) => (
+          <SwiperSlide key={`${cert._id}`} className="flex! h-auto! p-4">
+            <div className="flex h-full w-full *:h-full *:w-full">
+              <CertificateCard certificate={cert} />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Navigation Right */}
+      {/* Next button */}
       <div className="absolute -right-11 top-1/2 z-10 hidden -translate-y-1/2 sm:flex">
         <Button
           size="icon"
