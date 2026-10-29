@@ -1,7 +1,7 @@
 "use client";
 
 import "swiper/css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperInstance } from "swiper";
 
@@ -22,7 +22,14 @@ type CertificateCarouselProps = {
 export default function CertificateCarousel({
   certificates,
 }: CertificateCarouselProps) {
-  const [swiper, setSwiper] = useState<SwiperInstance | null>(null);
+  const swiperRef = useRef<SwiperInstance | null>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const updateNavigation = (swiper: SwiperInstance) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
+  };
 
   return (
     <div className="relative flex max-w-full flex-col items-center justify-center gap-2 sm:max-w-[75%]">
@@ -43,7 +50,8 @@ export default function CertificateCarousel({
         <Button
           size="icon"
           variant="outline"
-          onClick={() => swiper?.slidePrev()}
+          onClick={() => swiperRef.current?.slidePrev()}
+          disabled={isBeginning && certificates.length <= 3}
           className="shadow-sm"
           aria-label="Previous certificate"
         >
@@ -54,10 +62,17 @@ export default function CertificateCarousel({
       {/* Carousel */}
       <Swiper
         className="w-full"
-        onSwiper={setSwiper}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          updateNavigation(swiper);
+        }}
         slidesPerView={1}
         slidesPerGroup={1}
         spaceBetween={0}
+        onSlideChange={updateNavigation}
+        onResize={(swiper) => {
+          updateNavigation(swiper);
+        }}
         loop={certificates.length > 3}
         breakpoints={{
           768: {
@@ -69,7 +84,7 @@ export default function CertificateCarousel({
         }}
       >
         {certificates.map((cert) => (
-          <SwiperSlide key={`${cert._id}`} className="flex! h-auto! p-4">
+          <SwiperSlide key={cert._id} className="flex! h-auto! p-4">
             <div className="flex h-full w-full *:h-full *:w-full">
               <CertificateCard certificate={cert} />
             </div>
@@ -82,7 +97,8 @@ export default function CertificateCarousel({
         <Button
           size="icon"
           variant="outline"
-          onClick={() => swiper?.slideNext()}
+          onClick={() => swiperRef.current?.slideNext()}
+          disabled={isEnd && certificates.length <= 3}
           className="shadow-sm"
           aria-label="Next certificate"
         >
