@@ -1,8 +1,11 @@
 "use client";
 
-import "keen-slider/keen-slider.min.css";
+import "swiper/css";
+import { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperInstance } from "swiper";
+
 import { Certificate } from "@/types/certificate";
-import { useKeenSlider } from "keen-slider/react";
 import { Button } from "@/components/ui/button";
 import {
   ArrowBigLeftDashIcon,
@@ -19,62 +22,83 @@ type CertificateCarouselProps = {
 export default function CertificateCarousel({
   certificates,
 }: CertificateCarouselProps) {
-  const [sliderInstanceRef, slider] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    mode: "snap",
-    breakpoints: {
-      "(min-width: 768px)": {
-        slides: { perView: 2 },
-      },
-      "(min-width: 1280px)": {
-        slides: { perView: 3 },
-      },
-    },
-  });
+  const swiperRef = useRef<SwiperInstance | null>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const updateNavigation = (swiper: SwiperInstance) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
+  };
 
   return (
-    <div className="relative max-w-full sm:max-w-[75%] flex flex-col gap-2 justify-center items-center">
+    <div className="relative flex max-w-full flex-col items-center justify-center gap-2 sm:max-w-[75%]">
       {/* Swipe reminder */}
-      <div className="w-full flex-col justify-center items-center sm:hidden text-muted-foreground">
-        <div className="w-full flex justify-center items-center gap-2">
+      <div className="flex w-full flex-col items-center justify-center text-muted-foreground sm:hidden">
+        <div className="flex w-full items-center justify-center gap-2">
           <ArrowBigLeftDashIcon className="size-6" />
           <ArrowBigRightDashIcon className="size-6" />
         </div>
+
         <p className="px-4 text-center text-wrap">
           Swipe to see more certificates
         </p>
       </div>
 
-      {/* Navigation Left */}
-      <div className="hidden sm:flex justify-between absolute -left-11 top-1/2 -translate-y-1/2">
+      {/* Previous button */}
+      <div className="absolute -left-11 top-1/2 z-10 hidden -translate-y-1/2 sm:flex">
         <Button
           size="icon"
           variant="outline"
-          onClick={() => slider.current?.prev()}
+          onClick={() => swiperRef.current?.slidePrev()}
+          disabled={isBeginning && certificates.length <= 3}
           className="shadow-sm"
           aria-label="Previous certificate"
         >
           <ChevronLeftIcon className="size-4" />
         </Button>
       </div>
+
       {/* Carousel */}
-      <div ref={sliderInstanceRef} className="keen-slider">
-        {/* !IMPORTANT: Remove concat() and indx after getting more than 3 certs */}
-        {/* This solution prevents awkward loading to the slider when changing slides */}
-        {certificates
-          .concat(certificates.length > 3 ? certificates : [])
-          .map((cert, indx) => (
-            <div key={cert._id + indx} className="keen-slider__slide p-4">
+      <Swiper
+        className="w-full"
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          updateNavigation(swiper);
+        }}
+        slidesPerView={1}
+        slidesPerGroup={1}
+        spaceBetween={0}
+        onSlideChange={updateNavigation}
+        onResize={(swiper) => {
+          updateNavigation(swiper);
+        }}
+        loop={certificates.length > 3}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+          },
+          1280: {
+            slidesPerView: 3,
+          },
+        }}
+      >
+        {certificates.map((cert) => (
+          <SwiperSlide key={cert._id} className="flex! h-auto! p-4">
+            <div className="flex h-full w-full *:h-full *:w-full">
               <CertificateCard certificate={cert} />
             </div>
-          ))}
-      </div>
-      {/* Navigation Right */}
-      <div className="hidden sm:flex jjustify-between absolute -right-11 top-1/2 -translate-y-1/2">
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Next button */}
+      <div className="absolute -right-11 top-1/2 z-10 hidden -translate-y-1/2 sm:flex">
         <Button
           size="icon"
           variant="outline"
-          onClick={() => slider.current?.next()}
+          onClick={() => swiperRef.current?.slideNext()}
+          disabled={isEnd && certificates.length <= 3}
           className="shadow-sm"
           aria-label="Next certificate"
         >
