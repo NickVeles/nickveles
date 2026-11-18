@@ -16,6 +16,7 @@ import {
 } from "../ui/hybrid-tooltip";
 import { motion } from "framer-motion";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
+import { cn } from "@/lib/utils";
 
 type SkillSearchProps = {
   items: Skill[];
@@ -28,17 +29,28 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showHidden, setShowHidden] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
+
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    () =>
+      categories.find((category) =>
+        items.some((skill) => skill.category._id === category._id),
+      )?._id ?? null,
+  );
+
   const searchRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Tracks whether the initial category selection has been made.
+  // This also handles categories/items that load asynchronously.
+  const categoryInitialized = useRef(selectedCategory !== null);
+
   // Constants
-  const SEARCH_OFFSET = 84; // so the search input doesn't hide behind the sticky header
-  const SEARCH_DELAY = 300; // mobile keyboard delay
+  const SEARCH_OFFSET = 84;
+  const SEARCH_DELAY = 300;
   const OVERLAY_TRIGGER_HEIGHT = 600;
   const OVERLAY_MAX_HEIGHT = 400;
 
   const handleSearchFocus = () => {
-    // On mobile, scroll the search input to the top when focused
     if (window.innerWidth < 768) {
       setTimeout(() => {
         const inputTop = searchRef.current?.getBoundingClientRect().top;
@@ -53,37 +65,57 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
     }
   };
 
+  // Only omit categories that have no skills at all.
+  // Deliberately uses `items`, not `visibleItems`, so hidden skills count.
+  const categoriesWithItems = useMemo(
+    () =>
+      categories.filter((category) =>
+        items.some((skill) => skill.category._id === category._id),
+      ),
+    [categories, items],
+  );
+
+  // Select the first available category once the data has loaded.
+  useEffect(() => {
+    if (!categoryInitialized.current && categoriesWithItems.length > 0) {
+      setSelectedCategory(categoriesWithItems[0]._id);
+      categoryInitialized.current = true;
+    }
+  }, [categoriesWithItems]);
+
   const visibleItems = useMemo(
     () => (showHidden ? items : items.filter((skill) => !skill.isHidden)),
     [items, showHidden],
   );
 
   const filteredSkills = useMemo(() => {
-    if (!debouncedSearchTerm.trim()) return visibleItems;
+    // Apply the selected category first.
+    const categoryItems = selectedCategory
+      ? visibleItems.filter((skill) => skill.category._id === selectedCategory)
+      : visibleItems;
+
+    if (!debouncedSearchTerm.trim()) return categoryItems;
 
     const lowercaseSearch = debouncedSearchTerm.toLowerCase().trim();
 
-    return visibleItems.filter((skill) => {
-      // Search in name
+    return categoryItems.filter((skill) => {
       const nameMatch = skill.name.toLowerCase().includes(lowercaseSearch);
 
-      // Search in tags
       const tagMatch = skill.tags.some((tag) =>
         tag.toLowerCase().includes(lowercaseSearch),
       );
 
       return nameMatch || tagMatch;
     });
-  }, [debouncedSearchTerm, visibleItems]);
+  }, [debouncedSearchTerm, visibleItems, selectedCategory]);
 
-  // Measure content height whenever filtered skills change
+  // Measure content height whenever filtered skills change.
   useEffect(() => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, [filteredSkills]);
 
-  // Determine if overlay should be shown (content > 600px and not expanded)
   const shouldShowOverlay =
     contentHeight > OVERLAY_TRIGGER_HEIGHT && !isExpanded;
   const maxHeight = shouldShowOverlay ? OVERLAY_MAX_HEIGHT : contentHeight;
@@ -103,6 +135,49 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
         />
       </div>
 
+      {/* Category filters */}
+      <div className="flex flex-wrap gap-2">
+        {categoriesWithItems.map((category) => (
+          <button
+            key={category._id}
+            type="button"
+            onClick={() => setSelectedCategory(category._id)}
+            aria-pressed={selectedCategory === category._id}
+            className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <Badge
+              variant={
+                selectedCategory === category._id ? "default" : "outline"
+              }
+              className={cn(
+                "rounded-full px-3 py-1.5 text-sm cursor-pointer transition-colors",
+                selectedCategory === category._id ? null : "hover:bg-secondary",
+              )}
+            >
+              {category.name}
+            </Badge>
+          </button>
+        ))}
+
+        {/* All is always the last filter */}
+        <button
+          type="button"
+          onClick={() => setSelectedCategory(null)}
+          aria-pressed={selectedCategory === null}
+          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        >
+          <Badge
+            variant={selectedCategory === null ? "default" : "outline"}
+            className={cn(
+              "rounded-full px-3 py-1.5 text-sm cursor-pointer transition-colors",
+              selectedCategory === null ? null : "hover:bg-secondary",
+            )}
+          >
+            All
+          </Badge>
+        </button>
+      </div>
+
       <div className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 ml-1">
           <div className="text-sm text-muted-foreground truncate">
@@ -110,6 +185,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
             {filteredSkills.length === 1 ? "result" : "results"}
             {debouncedSearchTerm && <span> for "{debouncedSearchTerm}"</span>}
           </div>
+
           <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none shrink-0">
             <Checkbox
               checked={showHidden}
@@ -162,6 +238,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
                         </HybridTooltipContent>
                       </HybridTooltip>
                     </h3>
+
                     <ul className="flex flex-wrap gap-2">
                       {skillsInCategory.map((skill) => (
                         <li key={skill._id}>
