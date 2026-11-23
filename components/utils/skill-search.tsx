@@ -200,8 +200,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
                 <InfoIcon className="size-4" />
               </HybridTooltipTrigger>
               <HybridTooltipContent>
-                Show skills that I use less nowadays or that are built into more
-                complex skills (e.g. SCSS &rarr; CSS)
+                Basic and less popular skills (still relevant).
               </HybridTooltipContent>
             </HybridTooltip>
           </label>
