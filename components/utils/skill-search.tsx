@@ -143,7 +143,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
             type="button"
             onClick={() => setSelectedCategory(category._id)}
             aria-pressed={selectedCategory === category._id}
-            className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="rounded-full outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
           >
             <Badge
               variant={
@@ -164,7 +164,7 @@ export default function SkillSearch({ items, categories }: SkillSearchProps) {
           type="button"
           onClick={() => setSelectedCategory(null)}
           aria-pressed={selectedCategory === null}
-          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="rounded-full outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
         >
           <Badge
             variant={selectedCategory === null ? "default" : "outline"}
